@@ -367,7 +367,26 @@ class _CholaInitialState extends State<CholaInitial>
                     : const Icon(
                     Icons.keyboard_arrow_down_outlined,
                     size: 28),
-                onTap: () {},
+                onTap: () async{
+                  if(menuList.indexOf(e) == 7){
+                    return showDialog(context: context, builder: (context)=>
+                   Container(
+                     height: MediaQuery.of(context).size.height *0.70,
+                     width: MediaQuery.of(context).size.width,
+                     child: const AlertDialog(
+                       content: Center(
+                         child: Column(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: [
+                             Text("Can code here")
+                           ],
+                         ),
+                       ),
+                     ),
+                   ) );
+                  }
+
+                },
               ),
             ],
           ),
