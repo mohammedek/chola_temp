@@ -19,12 +19,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Chola Collections',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          inputDecorationTheme: const InputDecorationTheme(
-              contentPadding:
-                  EdgeInsetsDirectional.symmetric(vertical: 8, horizontal: 16),
-              isDense: true)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.transparent,
+            // background: Colors.white,
+            primary: Colors.pink.shade800,
+            secondary: Colors.blue.shade800),
+        inputDecorationTheme: InputDecorationTheme(
+          isDense: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+        useMaterial3: true,
+      ),
       home: const CholaInitial(),
     );
   }
@@ -74,9 +81,11 @@ class _CholaInitialState extends State<CholaInitial>
     ["Total", "0", "0"],
   ];
 
-  DateTimeRange? pickedDate;
+  DateTime? pickedDate;
 
   final TextEditingController _dateController = TextEditingController();
+
+  bool isEOD = false;
 
   @override
   void initState() {
@@ -104,16 +113,14 @@ class _CholaInitialState extends State<CholaInitial>
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: BankFormScreen()),
+        child: dashboard(context)
 
         //  dashboard(context),
       ),
     );
   }
 
+  
   SingleChildScrollView dashboard(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -200,6 +207,10 @@ class _CholaInitialState extends State<CholaInitial>
             height: 4,
             color: Colors.grey,
           ),
+
+
+          isEOD == false ?
+
           SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 1.1,
@@ -222,7 +233,7 @@ class _CholaInitialState extends State<CholaInitial>
                                 fontWeight: FontWeight.bold, fontSize: 12),
                           ),
                         ),
-                            ),
+                      
                             const SizedBox(
                               height: 10,
                             ),
@@ -234,12 +245,12 @@ class _CholaInitialState extends State<CholaInitial>
                                   index: Container(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 0, horizontal: 20),
-                                    child: Text(tabBarView[index].toUpperCase(),
-
+                                    child: Text(
+                                      tabBarView[index].toUpperCase(),
                                       style: const TextStyle(
-                                      fontSize: 10,
+                                        fontSize: 10,
                                         overflow: TextOverflow.ellipsis,
-                                    ),
+                                      ),
                                       maxLines: 6,
                                     ),
                                   ),
@@ -263,15 +274,6 @@ class _CholaInitialState extends State<CholaInitial>
                                       .toList()),
                             ),
                           ],
-                        ),
-                        Expanded(
-                          child: IndexedStack(
-                              index: _currentIndex,
-                              children: tabBarView
-                                  .map((e) => buildBankingModel(e))
-                                  .toList()),
-                        ),
-                      ],
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -381,13 +383,15 @@ class _CholaInitialState extends State<CholaInitial>
                 ],
               ),
             ),
-          ),
+          ) :
+          SizedBox (
+              height: MediaQuery.of(context).size.height * 1.8,
+              width: double.infinity,
+              child: BankFormScreen()),
         ],
       ),
     );
   }
-
-
 
   Widget buildHomeListView() {
     return ListView(
@@ -424,9 +428,9 @@ class _CholaInitialState extends State<CholaInitial>
                                       size: 28),
                               onTap: () async {
                                 if (menuList.indexOf(e) == 7) {
-                                  return showDialog(
+                                  return showCupertinoDialog(
                                       context: context,
-                                      builder: (context) => SizedBox(
+                                      builder: (context) => Container(
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -435,6 +439,7 @@ class _CholaInitialState extends State<CholaInitial>
                                                 .size
                                                 .width,
                                             child: AlertDialog(
+                                              backgroundColor: Colors.white,
                                               content: challanPopup(),
                                               scrollable: true,
                                               actions: [
@@ -465,7 +470,16 @@ class _CholaInitialState extends State<CholaInitial>
                                               ],
                                             ),
                                           ));
-                                } else if (menuList.indexOf(e) == 6) {}
+                                } else if (menuList.indexOf(e) == 6) {
+                                  setState(() {
+                                    isEOD = true;
+                                  });
+                                }else{
+                                  setState(() {
+
+                                    isEOD = false;
+                                  });
+                                }
                               },
                             ),
                     ],
@@ -478,7 +492,6 @@ class _CholaInitialState extends State<CholaInitial>
 
   Widget challanPopup() {
     int selectedValue = 1;
-
     return SizedBox(
       width: MediaQuery.of(context).size.width / 1.2,
       child: Padding(
@@ -489,29 +502,42 @@ class _CholaInitialState extends State<CholaInitial>
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Select an option'),
+              const Text('Select an option',style: TextStyle(
+                fontWeight: FontWeight.bold
+              ),),
               const SizedBox(
                 height: 10,
               ),
-              RadioListTile(
-                title: const Text('Part_Payment_Tenure Reduction'),
-                value: 1,
-                groupValue: selectedValue,
-                onChanged: (int? value) {
-                  setState(() {
-                    selectedValue = value!;
-                  });
-                },
+              SizedBox(
+                height: 40,
+                child: RadioListTile(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  contentPadding: EdgeInsets.all(0),
+                  dense: false,
+                  title: const Text('Part_Payment_Tenure Reduction'),
+                  value: 1,
+                  groupValue: selectedValue,
+                  onChanged: (int? value) {
+                    setState(() {
+                      selectedValue = value!;
+                    });
+                  },
+                ),
               ),
-              RadioListTile(
-                title: const Text('Part_Payment_EMI Reduction'),
-                value: 2,
-                groupValue: selectedValue,
-                onChanged: (int? value) {
-                  setState(() {
-                    selectedValue = value!;
-                  });
-                },
+              SizedBox(
+                height: 40,
+                child: RadioListTile(
+                  contentPadding: const EdgeInsets.all(0),
+                  dense: false,
+                  title: const Text('Part_Payment_EMI Reduction'),
+                  value: 2,
+                  groupValue: selectedValue,
+                  onChanged: (int? value) {
+                    setState(() {
+                      selectedValue = value!;
+                    });
+                  },
+                ),
               ),
               const SizedBox(height: 16),
               const Text("* Part Payment Amount"),
@@ -630,35 +656,41 @@ class _CholaInitialState extends State<CholaInitial>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 16),
-                    Text("* Account No"),
+                    Text(
+                      "* Account No",
+                      style: TextStyle(fontSize: 14),
+                    ),
                     TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        hintText: 'Account No',
-                        border: OutlineInputBorder(),
-                      ),
+                          hintText: 'Account No',
+                          border: OutlineInputBorder(),
+                          hintStyle: TextStyle(fontSize: 14)),
                     ),
                     SizedBox(height: 16),
-                    Text("* MICR No"),
+                    Text("* MICR No", style: TextStyle(fontSize: 14)),
                     TextField(
                       decoration: InputDecoration(
                         hintText: 'MICR No',
+                        hintStyle: TextStyle(fontSize: 14),
                         border: OutlineInputBorder(),
                       ),
                     ),
                     SizedBox(height: 16),
-                    Text("* Bank Name"),
+                    Text("* Bank Name", style: TextStyle(fontSize: 14)),
                     TextField(
                       decoration: InputDecoration(
                         hintText: 'Bank Name',
+                        hintStyle: TextStyle(fontSize: 14),
                         border: OutlineInputBorder(),
                       ),
                     ),
                     SizedBox(height: 16),
-                    Text("* Id"),
+                    Text("* Id", style: TextStyle(fontSize: 14)),
                     TextField(
                       decoration: InputDecoration(
                         hintText: 'ID',
+                        hintStyle: TextStyle(fontSize: 14),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -672,35 +704,51 @@ class _CholaInitialState extends State<CholaInitial>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 102), // Adjust the height as needed
-                    const Text("* IFSC Code"),
+                    const Text(
+                      "* IFSC Code",
+                      style: TextStyle(fontSize: 14),
+                    ),
                     const SizedBox(height: 6),
                     const TextField(
                       decoration: InputDecoration(
                         hintText: ' IFSC Code',
                         border: OutlineInputBorder(),
+                        hintStyle: TextStyle(fontSize: 14),
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text("*Branch Name"),
+                    const Text(
+                      "*Branch Name",
+                      style: TextStyle(fontSize: 14),
+                    ),
                     const SizedBox(height: 6),
                     const TextField(
                       decoration: InputDecoration(
                         hintText: 'Branch Name',
+                        hintStyle: TextStyle(fontSize: 14),
                         border: OutlineInputBorder(),
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text("* Instrument Date "),
+                    const Text(
+                      "* Instrument Date ",
+                      style: TextStyle(fontSize: 14),
+                    ),
                     GestureDetector(
                       onTap: () async {
-                        DateTimeRange? picked = await showDateRangePicker(
+                        DateTime? picked = await showDatePicker(
+                          initialDate: pickedDate ?? DateTime.now(),
                           context: context,
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2101),
                         );
-                        setState(() {
-                          picked = pickedDate;
-                        });
+                        if (picked != null && picked != pickedDate) {
+                          setState(() {
+                            pickedDate = picked;
+                            _dateController.text =
+                                "${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}";
+                          });
+                        }
                       },
                       child: AbsorbPointer(
                         child: TextField(
@@ -711,7 +759,8 @@ class _CholaInitialState extends State<CholaInitial>
                             });
                           },
                           decoration: const InputDecoration(
-                            hintText: "Date time",
+                            hintText: "Date",
+                            hintStyle: TextStyle(fontSize: 14),
                             border: OutlineInputBorder(),
                             suffixIcon: Icon(Icons.date_range),
                           ),
@@ -730,7 +779,7 @@ class _CholaInitialState extends State<CholaInitial>
                           )),
                       child: const Text(
                         "Fetch Details",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 14),
                       ),
                     ),
                   ],
