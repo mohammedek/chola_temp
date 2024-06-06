@@ -1,3 +1,4 @@
+import 'package:chola_first/eod/bank_form_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -186,6 +187,10 @@ class _CholaInitialState extends State<CholaInitial>
                 height: 4,
                 color: Colors.grey,
               ),
+              // SizedBox(
+              //     height: MediaQuery.of(context).size.height * 1.1,
+              //     width: double.infinity,
+              //     child: BankFormScreen()),
               SingleChildScrollView(
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 1.1,
@@ -444,7 +449,7 @@ class _CholaInitialState extends State<CholaInitial>
                                               ],
                                             ),
                                           ));
-                                }
+                                } else if (menuList.indexOf(e) == 6) {}
                               },
                             ),
                     ],
