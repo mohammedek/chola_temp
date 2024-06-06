@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,12 @@ class MyApp extends StatelessWidget {
       title: 'Chola Collections',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        inputDecorationTheme: InputDecorationTheme(
+          isDense: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
         useMaterial3: true,
       ),
       home: const CholaInitial(),
@@ -71,7 +78,7 @@ class _CholaInitialState extends State<CholaInitial>
 
   DateTimeRange? pickedDate;
 
-  final  TextEditingController _dateController = TextEditingController() ;
+  final TextEditingController _dateController = TextEditingController();
 
   @override
   void initState() {
@@ -126,21 +133,25 @@ class _CholaInitialState extends State<CholaInitial>
                       height: 35,
                       margin: const EdgeInsets.only(left: 20),
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(8),
-                          bottomRight: Radius.circular(8),
-                          bottomLeft: Radius.circular(8),
-                          topLeft: Radius.circular(8),
-                        ),
-                        border: Border.all(color: Colors.black45)
-                      ),
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                            bottomLeft: Radius.circular(8),
+                            topLeft: Radius.circular(8),
+                          ),
+                          border: Border.all(color: Colors.black45)),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                              onPressed: () {}, icon: const Icon(Icons.star,size: 20,color: Colors.grey,)),
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.star,
+                                size: 20,
+                                color: Colors.grey,
+                              )),
                           const VerticalDivider(color: Colors.black45),
                           DropdownButton(
                             items: const [],
@@ -150,11 +161,24 @@ class _CholaInitialState extends State<CholaInitial>
                         ],
                       ),
                     ),
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add_box,size: 30,)),
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.cloud_circle_outlined,size: 30,)),
                     IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.question_mark_rounded,size: 30,)),
+                        icon: const Icon(
+                          Icons.add_box,
+                          size: 30,
+                        )),
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.cloud_circle_outlined,
+                          size: 30,
+                        )),
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.question_mark_rounded,
+                          size: 30,
+                        )),
                     IconButton(
                         onPressed: () {}, icon: const Icon(Icons.more_vert)),
                   ],
@@ -177,15 +201,17 @@ class _CholaInitialState extends State<CholaInitial>
                     children: [
                       Expanded(
                         flex: 3,
+
                         /// This is the left widget
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Padding(
-                              padding: EdgeInsets.only(left: 20.0,top: 0),
+                              padding: EdgeInsets.only(left: 20.0, top: 0),
                               child: Text(
                                 "Payment method",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 12),
                               ),
                             ),
                             const SizedBox(
@@ -194,8 +220,8 @@ class _CholaInitialState extends State<CholaInitial>
                             CupertinoSegmentedControl<int>(
                               children: {
                                 for (int index = 0;
-                                index < tabBarView.length;
-                                index++)
+                                    index < tabBarView.length;
+                                    index++)
                                   index: Container(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 0, horizontal: 20),
@@ -230,7 +256,6 @@ class _CholaInitialState extends State<CholaInitial>
                           ],
                         ),
                       ),
-
                       const SizedBox(width: 16),
                       Expanded(
                         flex: 2,
@@ -240,83 +265,98 @@ class _CholaInitialState extends State<CholaInitial>
                               decoration: BoxDecoration(
                                   border: Border.all(color: Colors.black)),
                               child: Table(
-                                border: TableBorder.all(color: Colors.transparent),
+                                border:
+                                    TableBorder.all(color: Colors.transparent),
                                 children: List<TableRow>.generate(
                                   tableData.length,
-                                      (rowIndex) => TableRow(
+                                  (rowIndex) => TableRow(
                                     decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.transparent)),
+                                        border: Border.all(
+                                            color: Colors.transparent)),
                                     children: List<Widget>.generate(
                                       tableData[rowIndex].length,
-                                          (colIndex) {
+                                      (colIndex) {
                                         return Container(
                                           height: 45,
                                           decoration: BoxDecoration(
                                               border: Border(
                                                   bottom: const BorderSide(
                                                       color: Colors.black),
-                                                  right: tableData[rowIndex][0] ==
-                                                      'Add Other Changes'
+                                                  right: tableData[rowIndex]
+                                                              [0] ==
+                                                          'Add Other Changes'
                                                       ? const BorderSide(
-                                                      color: Colors.transparent)
+                                                          color: Colors
+                                                              .transparent)
                                                       : const BorderSide(
-                                                      color: Colors.black))),
+                                                          color:
+                                                              Colors.black))),
                                           child: tableData[rowIndex][colIndex]
-                                              .isNotEmpty
+                                                  .isNotEmpty
                                               ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: SizedBox(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    tableData[rowIndex][colIndex],
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                        fontWeight:
-                                                        tableData[rowIndex]
-                                                        [0] ==
-                                                            'Total'
-                                                            ? FontWeight.bold
-                                                            : FontWeight
-                                                            .normal),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: SizedBox(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          tableData[rowIndex]
+                                                              [colIndex],
+                                                          style: TextStyle(
+                                                              fontWeight: tableData[
+                                                                              rowIndex]
+                                                                          [0] ==
+                                                                      'Total'
+                                                                  ? FontWeight
+                                                                      .bold
+                                                                  : FontWeight
+                                                                      .normal),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
+                                                )
                                               : SizedBox(
-                                            height: 30,
-                                            child: tableData[rowIndex][0] ==
-                                                'Add Other Changes'
-                                                ? null
-                                                : Padding(
-                                              padding:
-                                              const EdgeInsets.all(8.0),
-                                              child: TextFormField(
-                                                initialValue: 0.toString(),
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    tableData[rowIndex]
-                                                    [colIndex] = value;
-                                                  });
-                                                },
-                                                decoration:
-                                                const InputDecoration(
-                                                  border:
-                                                  OutlineInputBorder(),
-                                                  contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 10,
-                                                      horizontal: 10
-                                                  ),
+                                                  height: 30,
+                                                  child: tableData[rowIndex]
+                                                              [0] ==
+                                                          'Add Other Changes'
+                                                      ? null
+                                                      : Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: TextFormField(
+                                                            initialValue:
+                                                                0.toString(),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                tableData[rowIndex]
+                                                                        [
+                                                                        colIndex] =
+                                                                    value;
+                                                              });
+                                                            },
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              contentPadding:
+                                                                  EdgeInsets.symmetric(
+                                                                      vertical:
+                                                                          10,
+                                                                      horizontal:
+                                                                          10),
+                                                            ),
+                                                          ),
+                                                        ),
                                                 ),
-                                              ),
-                                            ),
-                                          ),
                                         );
                                       },
                                     ),
@@ -345,62 +385,224 @@ class _CholaInitialState extends State<CholaInitial>
       scrollDirection: Axis.horizontal,
       children: menuList
           .map((e) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: SizedBox(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              menuList.indexOf(e) == 0
-                  ? const Padding(
-                padding:
-                EdgeInsets.symmetric(horizontal: 2.0),
-                child: Icon(Icons.menu_rounded),
-              )
-                  : const SizedBox.shrink(),
-              Text(
-                e.toString(),
-                style: TextStyle(
-                  fontSize: menuList.indexOf(e) == 0 ? 20 : 14,
-                  color: Colors.black54,
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      menuList.indexOf(e) == 0
+                          ? const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 2.0),
+                              child: Icon(Icons.menu_rounded),
+                            )
+                          : const SizedBox.shrink(),
+                      Text(
+                        e.toString(),
+                        style: TextStyle(
+                          fontSize: menuList.indexOf(e) == 0 ? 20 : 14,
+                          color: Colors.black54,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      menuList.indexOf(e) == 0
+                          ? const SizedBox()
+                          : InkWell(
+                              child: menuList.indexOf(e) == 9
+                                  ? const Icon(Icons.arrow_drop_down, size: 28)
+                                  : const Icon(
+                                      Icons.keyboard_arrow_down_outlined,
+                                      size: 28),
+                              onTap: () async {
+                                if (menuList.indexOf(e) == 7) {
+                                  return showDialog(
+                                      context: context,
+                                      builder: (context) => SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.70,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: AlertDialog(
+                                              content: challanPopup(),
+                                              scrollable: true,
+                                              actions: [
+                                                Container(
+                                                  height: 2,
+                                                  color: Colors.black45,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor: Colors
+                                                            .pink.shade800,
+                                                      ),
+                                                      onPressed: () {},
+                                                      child: const Text(
+                                                        'Submit',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      )),
+                                                )
+                                              ],
+                                            ),
+                                          ));
+                                }
+                              },
+                            ),
+                    ],
+                  ),
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              menuList.indexOf(e) == 0
-                  ? const SizedBox()
-                  : InkWell(
-                child: menuList.indexOf(e) == 9
-                    ? const Icon(Icons.arrow_drop_down,
-                    size: 28)
-                    : const Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    size: 28),
-                onTap: () async{
-                  if(menuList.indexOf(e) == 7){
-                    return showDialog(context: context, builder: (context)=>
-                   SizedBox(
-                     height:MediaQuery.of(context).size.height * 0.70,
-                     width: MediaQuery.of(context).size.width,
-                     child: const AlertDialog(
-                       content: Center(
-                         child: Column(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                           children: [
-                             Text("Can code here")
-                           ],
-                         ),
-                       ),
-                     ),
-                   ) );
-                  }
+              ))
+          .toList(),
+    );
+  }
 
+  Widget challanPopup() {
+    int selectedValue = 1;
+
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 1.2,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width / 4),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Select an option'),
+              const SizedBox(
+                height: 10,
+              ),
+              RadioListTile(
+                title: const Text('Part_Payment_Tenure Reduction'),
+                value: 1,
+                groupValue: selectedValue,
+                onChanged: (int? value) {
+                  setState(() {
+                    selectedValue = value!;
+                  });
                 },
               ),
+              RadioListTile(
+                title: const Text('Part_Payment_EMI Reduction'),
+                value: 2,
+                groupValue: selectedValue,
+                onChanged: (int? value) {
+                  setState(() {
+                    selectedValue = value!;
+                  });
+                },
+              ),
+              const SizedBox(height: 16),
+              const Text("* Part Payment Amount"),
+              const TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: '100000',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text("* Part Payment Charges in Percentage(Applicable)"),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                initialValue: '5',
+                readOnly: true,
+                decoration: const InputDecoration(
+                  hintText: '5',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text("Part Payment Charges in Percentage(Actual)"),
+              const TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: '4',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text("Justification"),
+              const TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: 'OK',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text("Upload Consent Letter Image"),
+              DottedBorder(
+                borderType: BorderType.Rect,
+                child: Container(
+                  margin: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.upload,
+                          color: Colors.pink.shade800,
+                        ),
+                        label: Text(
+                          'Upload Files',
+                          style: TextStyle(
+                            color: Colors.pink.shade800,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      const Text('Or'),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'drop Files',
+                            style: TextStyle(
+                              color: Colors.pink.shade800,
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              const Text('Screenshot (6).png'),
+              const SizedBox(
+                height: 8,
+              ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.pink.shade800,
+                  ),
+                  onPressed: () {},
+                  child: const Text(
+                    'Customer Consent Letter',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  )),
             ],
           ),
         ),
-      ))
-          .toList(),
+      ),
     );
   }
 
@@ -491,10 +693,10 @@ class _CholaInitialState extends State<CholaInitial>
                           picked = pickedDate;
                         });
                       },
-                      child:  AbsorbPointer(
+                      child: AbsorbPointer(
                         child: TextField(
                           controller: _dateController,
-                          onChanged: (value){
+                          onChanged: (value) {
                             setState(() {
                               value = pickedDate.toString();
                             });
@@ -502,7 +704,7 @@ class _CholaInitialState extends State<CholaInitial>
                           decoration: const InputDecoration(
                             hintText: "Date time",
                             border: OutlineInputBorder(),
-                            suffixIcon:Icon(Icons.date_range),
+                            suffixIcon: Icon(Icons.date_range),
                           ),
                         ),
                       ),
@@ -525,7 +727,6 @@ class _CholaInitialState extends State<CholaInitial>
                   ],
                 ),
               ),
-
             ],
           ),
         ),
@@ -535,11 +736,11 @@ class _CholaInitialState extends State<CholaInitial>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width/1.7,
+                width: MediaQuery.of(context).size.width / 1.7,
                 child: TextFormField(
                   decoration: InputDecoration(
-                      border:
-                      OutlineInputBorder(borderRadius: BorderRadius.circular(4))),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4))),
                 ),
               ),
               const SizedBox(height: 10),
@@ -576,7 +777,6 @@ class _CholaInitialState extends State<CholaInitial>
             ],
           ),
         )
-
       ],
     );
   }
