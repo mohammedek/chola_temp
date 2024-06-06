@@ -19,6 +19,12 @@ class MyApp extends StatelessWidget {
       title: 'Chola Collections',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        inputDecorationTheme: InputDecorationTheme(
+          isDense: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
         useMaterial3: true,
       ),
       home: const CholaInitial(),
