@@ -222,33 +222,47 @@ class _CholaInitialState extends State<CholaInitial>
                                 fontWeight: FontWeight.bold, fontSize: 12),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CupertinoSegmentedControl<int>(
-                          children: {
-                            for (int index = 0;
-                                index < tabBarView.length;
-                                index++)
-                              index: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 6, horizontal: 10),
-                                child: Text(
-                                  tabBarView[index].toUpperCase(),
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ),
-                          },
-                          groupValue: _currentIndex,
-                          onValueChanged: (int newIndex) {
-                            setState(() {
-                              _currentIndex = newIndex;
-                            });
-                          },
-                          borderColor: Colors.pink.shade800,
-                          selectedColor: Colors.pink.shade800,
-                          unselectedColor: Colors.white,
-                          pressedColor: Colors.pink.withOpacity(0.2),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CupertinoSegmentedControl<int>(
+                              children: {
+                                for (int index = 0;
+                                    index < tabBarView.length;
+                                    index++)
+                                  index: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 20),
+                                    child: Text(tabBarView[index].toUpperCase(),
+
+                                      style: const TextStyle(
+                                      fontSize: 10,
+                                        overflow: TextOverflow.ellipsis,
+                                    ),
+                                      maxLines: 6,
+                                    ),
+                                  ),
+                              },
+                              groupValue: _currentIndex,
+                              onValueChanged: (int newIndex) {
+                                setState(() {
+                                  _currentIndex = newIndex;
+                                });
+                              },
+                              borderColor: Colors.pink.shade800,
+                              selectedColor: Colors.pink.shade800,
+                              unselectedColor: Colors.white,
+                              pressedColor: Colors.pink.withOpacity(0.2),
+                            ),
+                            Expanded(
+                              child: IndexedStack(
+                                  index: _currentIndex,
+                                  children: tabBarView
+                                      .map((e) => buildBankingModel(e))
+                                      .toList()),
+                            ),
+                          ],
                         ),
                         Expanded(
                           child: IndexedStack(
@@ -372,6 +386,8 @@ class _CholaInitialState extends State<CholaInitial>
       ),
     );
   }
+
+
 
   Widget buildHomeListView() {
     return ListView(
