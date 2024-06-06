@@ -1,3 +1,4 @@
+import 'package:chola_first/eod/bank_form_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -84,6 +85,8 @@ class _CholaInitialState extends State<CholaInitial>
 
   final TextEditingController _dateController = TextEditingController();
 
+  bool isEOD = false;
+
   @override
   void initState() {
     super.initState();
@@ -110,114 +113,127 @@ class _CholaInitialState extends State<CholaInitial>
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  children: [
-                    const Icon(Icons.cloud, color: Colors.blue, size: 36),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.04),
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Search..",
-                          prefixIcon: const Icon(Icons.search),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(width: 3),
+        child: dashboard(context)
+
+        //  dashboard(context),
+      ),
+    );
+  }
+
+  
+  SingleChildScrollView dashboard(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: [
+                const Icon(Icons.cloud, color: Colors.blue, size: 36),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search..",
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 3),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.08),
+                Container(
+                  height: 35,
+                  margin: const EdgeInsets.only(left: 20),
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(8),
+                        bottomRight: Radius.circular(8),
+                        bottomLeft: Radius.circular(8),
+                        topLeft: Radius.circular(8),
+                      ),
+                      border: Border.all(color: Colors.black45)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.star,
+                            size: 20,
+                            color: Colors.grey,
+                          )),
+                      const VerticalDivider(color: Colors.black45),
+                      DropdownButton(
+                        items: const [],
+                        onChanged: (value) {},
+                        underline: const SizedBox(),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.add_box,
+                      size: 30,
+                    )),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.cloud_circle_outlined,
+                      size: 30,
+                    )),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.question_mark_rounded,
+                      size: 30,
+                    )),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 40,
+            child: buildHomeListView(),
+          ),
+          Container(
+            height: 4,
+            color: Colors.grey,
+          ),
+
+
+          isEOD == false ?
+
+          SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 1.1,
+              width: double.infinity,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 3,
+
+                    /// This is the left widget
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 20.0, top: 0),
+                          child: Text(
+                            "Payment method",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 12),
                           ),
                         ),
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.08),
-                    Container(
-                      height: 35,
-                      margin: const EdgeInsets.only(left: 20),
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
-                            bottomLeft: Radius.circular(8),
-                            topLeft: Radius.circular(8),
-                          ),
-                          border: Border.all(color: Colors.black45)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.star,
-                                size: 20,
-                                color: Colors.grey,
-                              )),
-                          const VerticalDivider(color: Colors.black45),
-                          DropdownButton(
-                            items: const [],
-                            onChanged: (value) {},
-                            underline: const SizedBox(),
-                          ),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.add_box,
-                          size: 30,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.cloud_circle_outlined,
-                          size: 30,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.question_mark_rounded,
-                          size: 30,
-                        )),
-                    IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.more_vert)),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 40,
-                child: buildHomeListView(),
-              ),
-              Container(
-                height: 4,
-                color: Colors.grey,
-              ),
-              SingleChildScrollView(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 1.1,
-                  width: double.infinity,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 3,
-
-                        /// This is the left widget
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 20.0, top: 0),
-                              child: Text(
-                                "Payment method",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12),
-                              ),
-                            ),
+                      
                             const SizedBox(
                               height: 10,
                             ),
@@ -258,119 +274,122 @@ class _CholaInitialState extends State<CholaInitial>
                                       .toList()),
                             ),
                           ],
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        flex: 2,
-                        child: buildTable(),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Column buildTable() {
-    return Column(
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(
-              maxWidth: MediaQuery.sizeOf(context).width,
-              minWidth: MediaQuery.sizeOf(context).width / 2,
-              maxHeight: 400,
-              minHeight: 200),
-          child: Card(
-            elevation: 4,
-            surfaceTintColor: Colors.purple,
-            shape: const RoundedRectangleBorder(
-                side: BorderSide(color: Colors.black26, strokeAlign: 2)),
-            child: Table(
-              border: TableBorder.all(color: Colors.transparent),
-              children: List<TableRow>.generate(
-                tableData.length,
-                (rowIndex) => TableRow(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.transparent)),
-                  children: List<Widget>.generate(
-                    tableData[rowIndex].length,
-                    (colIndex) {
-                      return Container(
-                        height: 45,
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: const BorderSide(color: Colors.black),
-                                right: tableData[rowIndex][0] ==
-                                        'Add Other Changes'
-                                    ? const BorderSide(
-                                        color: Colors.transparent)
-                                    : const BorderSide(color: Colors.black26))),
-                        child: tableData[rowIndex][colIndex].isNotEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        tableData[rowIndex][colIndex],
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: tableData[rowIndex]
-                                                        [0] ==
-                                                    'Total'
-                                                ? FontWeight.bold
-                                                : FontWeight.normal),
-                                      ),
-                                    ],
-                                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)),
+                          child: Table(
+                            border: TableBorder.all(color: Colors.transparent),
+                            children: List<TableRow>.generate(
+                              tableData.length,
+                              (rowIndex) => TableRow(
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Colors.transparent)),
+                                children: List<Widget>.generate(
+                                  tableData[rowIndex].length,
+                                  (colIndex) {
+                                    return Container(
+                                      height: 45,
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                              bottom: const BorderSide(
+                                                  color: Colors.black),
+                                              right: tableData[rowIndex][0] ==
+                                                      'Add Other Changes'
+                                                  ? const BorderSide(
+                                                      color: Colors.transparent)
+                                                  : const BorderSide(
+                                                      color: Colors.black))),
+                                      child: tableData[rowIndex][colIndex]
+                                              .isNotEmpty
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: SizedBox(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      tableData[rowIndex]
+                                                          [colIndex],
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              tableData[rowIndex]
+                                                                          [0] ==
+                                                                      'Total'
+                                                                  ? FontWeight
+                                                                      .bold
+                                                                  : FontWeight
+                                                                      .normal),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          : SizedBox(
+                                              height: 30,
+                                              child: tableData[rowIndex][0] ==
+                                                      'Add Other Changes'
+                                                  ? null
+                                                  : Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: TextFormField(
+                                                        initialValue:
+                                                            0.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            tableData[rowIndex]
+                                                                    [colIndex] =
+                                                                value;
+                                                          });
+                                                        },
+                                                        decoration:
+                                                            const InputDecoration(
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                          contentPadding:
+                                                              EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          10,
+                                                                      horizontal:
+                                                                          10),
+                                                        ),
+                                                      ),
+                                                    ),
+                                            ),
+                                    );
+                                  },
                                 ),
-                              )
-                            : SizedBox(
-                                height: 30,
-                                child: tableData[rowIndex][0] ==
-                                        'Add Other Changes'
-                                    ? null
-                                    : Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextFormField(
-                                          style: const TextStyle(
-                                              height: -1, fontSize: 12),
-                                          cursorHeight: 50,
-                                          initialValue: 0.toString(),
-                                          onChanged: (value) {
-                                            setState(() {
-                                              tableData[rowIndex][colIndex] =
-                                                  value;
-                                            });
-                                          },
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    vertical: 10,
-                                                    horizontal: 10),
-                                          ),
-                                        ),
-                                      ),
                               ),
-                      );
-                    },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
-          ),
-        ),
-      ],
+          ) :
+          SizedBox (
+              height: MediaQuery.of(context).size.height * 1.8,
+              width: double.infinity,
+              child: BankFormScreen()),
+        ],
+      ),
     );
   }
 
@@ -451,6 +470,15 @@ class _CholaInitialState extends State<CholaInitial>
                                               ],
                                             ),
                                           ));
+                                } else if (menuList.indexOf(e) == 6) {
+                                  setState(() {
+                                    isEOD = true;
+                                  });
+                                }else{
+                                  setState(() {
+
+                                    isEOD = false;
+                                  });
                                 }
                               },
                             ),
@@ -464,7 +492,6 @@ class _CholaInitialState extends State<CholaInitial>
 
   Widget challanPopup() {
     int selectedValue = 1;
-
     return SizedBox(
       width: MediaQuery.of(context).size.width / 1.2,
       child: Padding(
