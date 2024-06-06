@@ -26,6 +26,8 @@ class MyApp extends StatelessWidget {
             secondary: Colors.blue.shade800),
         inputDecorationTheme: InputDecorationTheme(
           isDense: true,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
@@ -48,6 +50,7 @@ class _CholaInitialState extends State<CholaInitial>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _currentIndex = 0;
+  int _selectedVertMenu = 1;
 
   List<String> menuList = [
     'Collections Home',
@@ -112,282 +115,301 @@ class _CholaInitialState extends State<CholaInitial>
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: dashboard(context)
-
-        //  dashboard(context),
-      ),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.cloud, color: Colors.blue, size: 36),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.04),
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: "Search..",
+                              prefixIcon: const Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(width: 3),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.08),
+                        Container(
+                          height: 35,
+                          margin: const EdgeInsets.only(left: 20),
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(8),
+                                bottomRight: Radius.circular(8),
+                                bottomLeft: Radius.circular(8),
+                                topLeft: Radius.circular(8),
+                              ),
+                              border: Border.all(color: Colors.black45)),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.grey,
+                                  )),
+                              const VerticalDivider(color: Colors.black45),
+                              DropdownButton(
+                                items: const [],
+                                onChanged: (value) {},
+                                underline: const SizedBox(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.add_box,
+                              size: 30,
+                            )),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.cloud_circle_outlined,
+                              size: 30,
+                            )),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.question_mark_rounded,
+                              size: 30,
+                            )),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.more_vert)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                    child: buildHomeListView(),
+                  ),
+                  Container(
+                    height: 4,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+              Expanded(
+                child: _selectedVertMenu == 1
+                    ? dashboard(context)
+                    : const BankFormScreen(),
+              )
+            ],
+          )),
     );
   }
 
-  
   SingleChildScrollView dashboard(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: [
-                const Icon(Icons.cloud, color: Colors.blue, size: 36),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.04),
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Search..",
-                      prefixIcon: const Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(width: 3),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.08),
-                Container(
-                  height: 35,
-                  margin: const EdgeInsets.only(left: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(8),
-                        bottomRight: Radius.circular(8),
-                        bottomLeft: Radius.circular(8),
-                        topLeft: Radius.circular(8),
-                      ),
-                      border: Border.all(color: Colors.black45)),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.star,
-                            size: 20,
-                            color: Colors.grey,
-                          )),
-                      const VerticalDivider(color: Colors.black45),
-                      DropdownButton(
-                        items: const [],
-                        onChanged: (value) {},
-                        underline: const SizedBox(),
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.add_box,
-                      size: 30,
-                    )),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.cloud_circle_outlined,
-                      size: 30,
-                    )),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.question_mark_rounded,
-                      size: 30,
-                    )),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            child: buildHomeListView(),
-          ),
-          Container(
-            height: 4,
-            color: Colors.grey,
-          ),
-
-
-          isEOD == false ?
-
-          SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 1.1,
-              width: double.infinity,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 3,
-
-                    /// This is the left widget
-                    child: Column(
+          isEOD == false
+              ? SingleChildScrollView(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 1.1,
+                    width: double.infinity,
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20.0, top: 0),
-                          child: Text(
-                            "Payment method",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 12),
-                          ),
-                        ),
-                      
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            CupertinoSegmentedControl<int>(
-                              children: {
-                                for (int index = 0;
-                                    index < tabBarView.length;
-                                    index++)
-                                  index: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 0, horizontal: 20),
-                                    child: Text(
-                                      tabBarView[index].toUpperCase(),
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      maxLines: 6,
-                                    ),
-                                  ),
-                              },
-                              groupValue: _currentIndex,
-                              onValueChanged: (int newIndex) {
-                                setState(() {
-                                  _currentIndex = newIndex;
-                                });
-                              },
-                              borderColor: Colors.pink.shade800,
-                              selectedColor: Colors.pink.shade800,
-                              unselectedColor: Colors.white,
-                              pressedColor: Colors.pink.withOpacity(0.2),
-                            ),
-                            Expanded(
-                              child: IndexedStack(
-                                  index: _currentIndex,
-                                  children: tabBarView
-                                      .map((e) => buildBankingModel(e))
-                                      .toList()),
-                            ),
-                          ],
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black)),
-                          child: Table(
-                            border: TableBorder.all(color: Colors.transparent),
-                            children: List<TableRow>.generate(
-                              tableData.length,
-                              (rowIndex) => TableRow(
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: Colors.transparent)),
-                                children: List<Widget>.generate(
-                                  tableData[rowIndex].length,
-                                  (colIndex) {
-                                    return Container(
-                                      height: 45,
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: const BorderSide(
-                                                  color: Colors.black),
-                                              right: tableData[rowIndex][0] ==
-                                                      'Add Other Changes'
-                                                  ? const BorderSide(
-                                                      color: Colors.transparent)
-                                                  : const BorderSide(
-                                                      color: Colors.black))),
-                                      child: tableData[rowIndex][colIndex]
-                                              .isNotEmpty
-                                          ? Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: SizedBox(
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      tableData[rowIndex]
-                                                          [colIndex],
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              tableData[rowIndex]
-                                                                          [0] ==
-                                                                      'Total'
-                                                                  ? FontWeight
-                                                                      .bold
-                                                                  : FontWeight
-                                                                      .normal),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )
-                                          : SizedBox(
-                                              height: 30,
-                                              child: tableData[rowIndex][0] ==
-                                                      'Add Other Changes'
-                                                  ? null
-                                                  : Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: TextFormField(
-                                                        initialValue:
-                                                            0.toString(),
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            tableData[rowIndex]
-                                                                    [colIndex] =
-                                                                value;
-                                                          });
-                                                        },
-                                                        decoration:
-                                                            const InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                          contentPadding:
-                                                              EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          10,
-                                                                      horizontal:
-                                                                          10),
-                                                        ),
-                                                      ),
-                                                    ),
-                                            ),
-                                    );
-                                  },
+                        Expanded(
+                          flex: 3,
+
+                          /// This is the left widget
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(left: 20.0, top: 0),
+                                child: Text(
+                                  "Payment method",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                               ),
-                            ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CupertinoSegmentedControl<int>(
+                                children: {
+                                  for (int index = 0;
+                                      index < tabBarView.length;
+                                      index++)
+                                    index: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 20),
+                                      child: Text(
+                                        tabBarView[index].toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 10,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        maxLines: 6,
+                                      ),
+                                    ),
+                                },
+                                groupValue: _currentIndex,
+                                onValueChanged: (int newIndex) {
+                                  setState(() {
+                                    _currentIndex = newIndex;
+                                  });
+                                },
+                                borderColor: Colors.pink.shade800,
+                                selectedColor: Colors.pink.shade800,
+                                unselectedColor: Colors.white,
+                                pressedColor: Colors.pink.withOpacity(0.2),
+                              ),
+                              Expanded(
+                                child: IndexedStack(
+                                    index: _currentIndex,
+                                    children: tabBarView
+                                        .map((e) => buildBankingModel(e))
+                                        .toList()),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black)),
+                                child: Table(
+                                  border: TableBorder.all(
+                                      color: Colors.transparent),
+                                  children: List<TableRow>.generate(
+                                    tableData.length,
+                                    (rowIndex) => TableRow(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.transparent)),
+                                      children: List<Widget>.generate(
+                                        tableData[rowIndex].length,
+                                        (colIndex) {
+                                          return Container(
+                                            height: 45,
+                                            decoration: BoxDecoration(
+                                                border: Border(
+                                                    bottom: const BorderSide(
+                                                        color: Colors.black),
+                                                    right: tableData[rowIndex]
+                                                                [0] ==
+                                                            'Add Other Changes'
+                                                        ? const BorderSide(
+                                                            color: Colors
+                                                                .transparent)
+                                                        : const BorderSide(
+                                                            color:
+                                                                Colors.black))),
+                                            child: tableData[rowIndex][colIndex]
+                                                    .isNotEmpty
+                                                ? Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: SizedBox(
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            tableData[rowIndex]
+                                                                [colIndex],
+                                                            style: TextStyle(
+                                                                fontWeight: tableData[rowIndex]
+                                                                            [
+                                                                            0] ==
+                                                                        'Total'
+                                                                    ? FontWeight
+                                                                        .bold
+                                                                    : FontWeight
+                                                                        .normal),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  )
+                                                : SizedBox(
+                                                    height: 30,
+                                                    child: tableData[rowIndex]
+                                                                [0] ==
+                                                            'Add Other Changes'
+                                                        ? null
+                                                        : Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  0.toString(),
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  tableData[rowIndex]
+                                                                          [
+                                                                          colIndex] =
+                                                                      value;
+                                                                });
+                                                              },
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                border:
+                                                                    OutlineInputBorder(),
+                                                                contentPadding:
+                                                                    EdgeInsets.symmetric(
+                                                                        vertical:
+                                                                            10,
+                                                                        horizontal:
+                                                                            10),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                  ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ) :
-          SizedBox (
-              height: MediaQuery.of(context).size.height * 1.8,
-              width: double.infinity,
-              child: BankFormScreen()),
+                )
+              : SizedBox(
+                  height: MediaQuery.of(context).size.height * 1.8,
+                  width: double.infinity,
+                  child: const BankFormScreen()),
         ],
       ),
     );
@@ -399,7 +421,14 @@ class _CholaInitialState extends State<CholaInitial>
       children: menuList
           .map((e) => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: SizedBox(
+                child: InkWell(
+                  onTap: () => setState(() {
+                    if (menuList.indexOf(e) != 0) {
+                      setState(() {
+                        _selectedVertMenu = menuList.indexOf(e);
+                      });
+                    }
+                  }),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -430,7 +459,7 @@ class _CholaInitialState extends State<CholaInitial>
                                 if (menuList.indexOf(e) == 7) {
                                   return showCupertinoDialog(
                                       context: context,
-                                      builder: (context) => Container(
+                                      builder: (context) => SizedBox(
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -474,9 +503,8 @@ class _CholaInitialState extends State<CholaInitial>
                                   setState(() {
                                     isEOD = true;
                                   });
-                                }else{
+                                } else {
                                   setState(() {
-
                                     isEOD = false;
                                   });
                                 }
@@ -502,9 +530,10 @@ class _CholaInitialState extends State<CholaInitial>
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Select an option',style: TextStyle(
-                fontWeight: FontWeight.bold
-              ),),
+              const Text(
+                'Select an option',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -512,7 +541,7 @@ class _CholaInitialState extends State<CholaInitial>
                 height: 40,
                 child: RadioListTile(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  contentPadding: EdgeInsets.all(0),
+                  contentPadding: const EdgeInsets.all(0),
                   dense: false,
                   title: const Text('Part_Payment_Tenure Reduction'),
                   value: 1,
