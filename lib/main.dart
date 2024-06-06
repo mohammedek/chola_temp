@@ -198,11 +198,15 @@ class _CholaInitialState extends State<CholaInitial>
                                 index++)
                                   index: Container(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 10),
+                                        vertical: 0, horizontal: 20),
                                     child: Text(tabBarView[index].toUpperCase(),
+
                                       style: const TextStyle(
-                                      fontSize: 14
-                                    ),),
+                                      fontSize: 10,
+                                        overflow: TextOverflow.ellipsis,
+                                    ),
+                                      maxLines: 6,
+                                    ),
                                   ),
                               },
                               groupValue: _currentIndex,
@@ -271,6 +275,7 @@ class _CholaInitialState extends State<CholaInitial>
                                                   Text(
                                                     tableData[rowIndex][colIndex],
                                                     style: TextStyle(
+                                                      fontSize: 14,
                                                         fontWeight:
                                                         tableData[rowIndex]
                                                         [0] ==
@@ -306,7 +311,8 @@ class _CholaInitialState extends State<CholaInitial>
                                                   contentPadding:
                                                   EdgeInsets.symmetric(
                                                       vertical: 10,
-                                                      horizontal: 10),
+                                                      horizontal: 10
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -331,6 +337,8 @@ class _CholaInitialState extends State<CholaInitial>
       ),
     );
   }
+
+
 
   Widget buildHomeListView() {
     return ListView(
@@ -370,8 +378,8 @@ class _CholaInitialState extends State<CholaInitial>
                 onTap: () async{
                   if(menuList.indexOf(e) == 7){
                     return showDialog(context: context, builder: (context)=>
-                   Container(
-                     height: MediaQuery.of(context).size.height *0.70,
+                   SizedBox(
+                     height:MediaQuery.of(context).size.height * 0.70,
                      width: MediaQuery.of(context).size.width,
                      child: const AlertDialog(
                        content: Center(
