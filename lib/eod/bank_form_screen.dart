@@ -1,6 +1,8 @@
+import 'package:chola_first/constants/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class BankFormScreen extends StatefulWidget {
@@ -11,19 +13,26 @@ class BankFormScreen extends StatefulWidget {
 }
 
 class _BankFormScreenState extends State<BankFormScreen> {
-  final List denominations = [
-    500,
-    200,
-    100,
-    50,
-    20,
-    10,
-    5,
-    2,
-    1,
-    'Total Amount',
-    'Excess'
-  ];
+  final fiveHundController = TextEditingController();
+  final twoHundController = TextEditingController();
+  final oneHundController = TextEditingController();
+  final fiftyController = TextEditingController();
+  final twentyController = TextEditingController();
+  final tenController = TextEditingController();
+  final fiveController = TextEditingController();
+  final twoController = TextEditingController();
+  final oneController = TextEditingController();
+  final fiveHundAmtController = TextEditingController();
+  final twoHundAmtController = TextEditingController();
+  final oneHundAmtController = TextEditingController();
+  final fiftyAmtController = TextEditingController();
+  final twentyAmtController = TextEditingController();
+  final tenAmtController = TextEditingController();
+  final fiveAmtController = TextEditingController();
+  final twoAmtController = TextEditingController();
+  final oneAmtController = TextEditingController();
+  final totalAmtController = TextEditingController();
+  List denominations = [];
 
   List<String> menuList = [
     'Collections Home',
@@ -37,259 +46,483 @@ class _BankFormScreenState extends State<BankFormScreen> {
     'OAllocations',
     'More'
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    denominations = [
+      {
+        "cur": 500,
+        "notes": fiveHundController,
+        "amount": fiveHundAmtController,
+      },
+      {
+        "cur": 200,
+        "notes": twoHundController,
+        "amount": twoHundAmtController,
+      },
+      {
+        "cur": 100,
+        "notes": oneHundController,
+        "amount": oneHundAmtController,
+      },
+      {
+        "cur": 50,
+        "notes": fiftyController,
+        "amount": fiftyAmtController,
+      },
+      {
+        "cur": 20,
+        "notes": twentyController,
+        "amount": twentyAmtController,
+      },
+      {
+        "cur": 10,
+        "notes": tenController,
+        "amount": tenAmtController,
+      },
+      {
+        "cur": 5,
+        "notes": fiveController,
+        "amount": fiveAmtController,
+      },
+      {
+        "cur": 2,
+        "notes": twoController,
+        "amount": twoAmtController,
+      },
+      {
+        "cur": 1,
+        "notes": oneController,
+        "amount": oneAmtController,
+      },
+      'Total Amount',
+      'Excess'
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Expanded(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: SingleChildScrollView(
+        child: Column(
           children: [
-            Expanded(
-              flex: 3,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 50,
-                      child: topLeftMenus(),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text("Total Cash (As per system): 3000"),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text("* Enter Remarks"),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        TextFormField(),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(
-                                onPressed: null, child: Text("Cancel")),
-                            ElevatedButton(
-                                onPressed: null, child: Text("Save")),
-                            SizedBox()
-                          ],
-                        )
-                      ],
-                    )
-                  ],
+            ListTile(
+              dense: true,
+              tileColor: kblueColor,
+              leading: Card(
+                color: Colors.deepPurple.shade900,
+                child: const IconButton(
+                  constraints: BoxConstraints(),
+                  padding: EdgeInsets.all(3),
+                  onPressed: null,
+                  icon: Icon(
+                    Icons.note_alt_outlined,
+                    color: whiteColor,
+                  ),
                 ),
               ),
+              title: const Text(
+                "EOD DCR",
+                style: TextStyle(fontSize: 16, color: whiteColor),
+              ),
+              subtitle: const Text(
+                "Receipt",
+                style: TextStyle(color: whiteColor),
+              ),
             ),
-            Expanded(
-              flex: 2,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      padding: const EdgeInsets.only(right: 30),
-                      height: 30,
-                      child: Row(
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 50,
+                              child: topLeftMenus(),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const Text(
+                                  "Total Cash (As per system): 3000",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: kblueColor,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                const Text.rich(TextSpan(
+                                    text: "* ",
+                                    style: TextStyle(color: Colors.red),
+                                    children: [
+                                      TextSpan(
+                                        text: "Enter Remarks",
+                                        style: TextStyle(color: Colors.black87),
+                                      )
+                                    ])),
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                TextFormField(
+                                  decoration:
+                                      const InputDecoration(isDense: false),
+                                ),
+                                const SizedBox(
+                                  height: 14,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {},
+                                        child: const Text("Cancel")),
+                                    const ElevatedButton(
+                                        onPressed: null, child: Text("Save")),
+                                    const SizedBox()
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
                         children: [
-                          dateText(),
-                          const Spacer(),
-                          branchText(),
-                          const Spacer(
-                            flex: 2,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              padding: const EdgeInsets.only(right: 30),
+                              height: 30,
+                              child: Row(
+                                children: [
+                                  dateText(),
+                                  const Spacer(),
+                                  branchText(),
+                                  const Spacer(
+                                    flex: 2,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.sizeOf(context).height / 1.65,
+                            child: Card(
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0)),
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.all(8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(height: 10),
+                                          Expanded(
+                                            child: ListView.separated(
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              padding: EdgeInsets.zero,
+                                              separatorBuilder:
+                                                  (context, index) {
+                                                return const SizedBox(
+                                                  height: 8,
+                                                );
+                                              },
+                                              itemCount: denominations.length,
+                                              itemBuilder: (context, index) {
+                                                return Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          if (index == 0)
+                                                            const SizedBox(
+                                                              height: 35,
+                                                              child: Text(
+                                                                'Denominations',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    color:
+                                                                        kblueColor,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ),
+                                                          denominations[index]
+                                                                  is String
+                                                              ? Text(
+                                                                  denominations[
+                                                                      index],
+                                                                  style: const TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          14),
+                                                                )
+                                                              : Text(
+                                                                  '${denominations[index]['cur']}   X',
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          14),
+                                                                ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    if (denominations[index]
+                                                        is Map)
+                                                      const SizedBox(width: 20),
+                                                    Expanded(
+                                                      flex: denominations[index]
+                                                              is Map
+                                                          ? 1
+                                                          : 2,
+                                                      child: Padding(
+                                                        padding: EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                denominations[
+                                                                            index]
+                                                                        is Map
+                                                                    ? 0
+                                                                    : 6),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            if (index == 0)
+                                                              const SizedBox(
+                                                                height: 35,
+                                                                child: Text(
+                                                                  'Notes',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      color:
+                                                                          kblueColor,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ),
+                                                            SizedBox(
+                                                              width: denominations[
+                                                                          index]
+                                                                      is String
+                                                                  ? double
+                                                                      .infinity
+                                                                  : 150,
+                                                              child: denominations[
+                                                                          index]
+                                                                      is String
+                                                                  ? denominations[
+                                                                              index] ==
+                                                                          "Excess"
+                                                                      ? const Center(
+                                                                          child:
+                                                                              Text('1122'))
+                                                                      : TextFormField(
+                                                                          enabled:
+                                                                              false,
+                                                                          style: const TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.bold),
+                                                                          controller:
+                                                                              totalAmtController,
+                                                                        )
+                                                                  : TextFormField(
+                                                                      controller:
+                                                                          denominations[index]
+                                                                              [
+                                                                              'notes'],
+                                                                      onChanged:
+                                                                          (value) =>
+                                                                              setState(() {
+                                                                        if (value
+                                                                            .isEmpty) {
+                                                                          denominations[index]['amount']
+                                                                              .clear();
+                                                                          var denomination = denominations
+                                                                              .whereType<Map>()
+                                                                              .toList();
+                                                                          int total =
+                                                                              0;
+                                                                          for (Map den
+                                                                              in denomination) {
+                                                                            total =
+                                                                                total + int.parse(den['amount'].text.isEmpty ? "0" : den['amount'].text);
+                                                                          }
+
+                                                                          totalAmtController.text =
+                                                                              total.toString();
+                                                                        } else if (denominations[index]
+                                                                            is Map) {
+                                                                          denominations[index]['amount'].text =
+                                                                              (denominations[index]['cur'] * int.parse(denominations[index]['notes'].text)).toString();
+                                                                          var denomination = denominations
+                                                                              .whereType<Map>()
+                                                                              .toList();
+                                                                          int total =
+                                                                              0;
+                                                                          for (Map den
+                                                                              in denomination) {
+                                                                            total =
+                                                                                total + int.parse(den['amount'].text.isEmpty ? "0" : den['amount'].text);
+                                                                          }
+
+                                                                          totalAmtController.text =
+                                                                              total.toString();
+                                                                        }
+                                                                      }),
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              14),
+                                                                      decoration:
+                                                                          const InputDecoration(
+                                                                        border:
+                                                                            OutlineInputBorder(),
+                                                                        hintText:
+                                                                            '0',
+                                                                      ),
+                                                                      keyboardType:
+                                                                          TextInputType
+                                                                              .number,
+                                                                      inputFormatters: <TextInputFormatter>[
+                                                                        FilteringTextInputFormatter
+                                                                            .digitsOnly
+                                                                      ],
+                                                                    ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                        width:
+                                                            denominations[index]
+                                                                    is Map
+                                                                ? 20
+                                                                : 4),
+                                                    if (denominations[index]
+                                                        is Map)
+                                                      Expanded(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            if (index == 0)
+                                                              const SizedBox(
+                                                                height: 35,
+                                                                child: Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topLeft,
+                                                                  child: Text(
+                                                                    'Amount',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            14,
+                                                                        color:
+                                                                            kblueColor,
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            Row(
+                                                              children: [
+                                                                const Text(
+                                                                    '=   '),
+                                                                SizedBox(
+                                                                  width: 150,
+                                                                  child:
+                                                                      TextFormField(
+                                                                    enabled:
+                                                                        false,
+                                                                    controller:
+                                                                        denominations[index]
+                                                                            [
+                                                                            'amount'],
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                      hintText:
+                                                                          '0',
+                                                                    ),
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .number,
+                                                                    inputFormatters: <TextInputFormatter>[
+                                                                      FilteringTextInputFormatter
+                                                                          .digitsOnly
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  Flexible(
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 10),
-                                  Expanded(
-                                    child: ListView.separated(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      padding: EdgeInsets.zero,
-                                      separatorBuilder: (context, index) {
-                                        return const SizedBox(
-                                          height: 5,
-                                        );
-                                      },
-                                      itemCount: denominations.length,
-                                      itemBuilder: (context, index) {
-                                        return Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  if (index == 0)
-                                                    const SizedBox(
-                                                      height: 50,
-                                                      child: Text(
-                                                        'Denominations',
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ),
-                                                  denominations[index] is String
-                                                      ? Text(
-                                                          denominations[index],
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 16),
-                                                        )
-                                                      : Text(
-                                                          denominations[index]
-                                                                  is String
-                                                              ? denominations[
-                                                                  index]
-                                                              : '${denominations[index]} x',
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 16),
-                                                        ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(width: 20),
-                                            Expanded(
-                                              flex: denominations[index] is int
-                                                  ? 1
-                                                  : 2,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  if (index == 0)
-                                                    const SizedBox(
-                                                      height: 50,
-                                                      child: Text(
-                                                        'Notes',
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ),
-                                                  SizedBox(
-                                                    width: denominations[index]
-                                                            is String
-                                                        ? 410
-                                                        : 150,
-                                                    child: denominations[
-                                                                index] ==
-                                                            "Excess"
-                                                        ? const Center(
-                                                            child: Text('1122'))
-                                                        : const TextField(
-                                                            decoration:
-                                                                InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              hintText: '0',
-                                                            ),
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                          ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(width: 20),
-                                            if (denominations[index] is int)
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    if (index == 0)
-                                                      const SizedBox(
-                                                        height: 50,
-                                                        child: Align(
-                                                          alignment:
-                                                              Alignment.topLeft,
-                                                          child: Text(
-                                                            'Amount',
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    const Row(
-                                                      children: [
-                                                        Text('=   '),
-                                                        SizedBox(
-                                                          width: 150,
-                                                          child: TextField(
-                                                            decoration:
-                                                                InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              hintText: '0',
-                                                            ),
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
@@ -304,7 +537,16 @@ class _BankFormScreenState extends State<BankFormScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Opening Balance"),
+            Text(
+              "Opening Balance",
+              style: TextStyle(
+                fontSize: 14,
+                color: kblueColor,
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
             Text("12222"),
           ],
         ),
@@ -312,7 +554,16 @@ class _BankFormScreenState extends State<BankFormScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Inflow"),
+            Text(
+              "Inflow",
+              style: TextStyle(
+                fontSize: 14,
+                color: kblueColor,
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
             Text("1"),
           ],
         ),
@@ -320,12 +571,21 @@ class _BankFormScreenState extends State<BankFormScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Outflow"),
+            Text(
+              "Outflow",
+              style: TextStyle(
+                fontSize: 14,
+                color: kblueColor,
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
             Text("123"),
           ],
         ),
         Spacer(
-          flex: 2,
+          flex: 1,
         ),
       ],
     );
@@ -335,11 +595,11 @@ class _BankFormScreenState extends State<BankFormScreen> {
     return const Text.rich(
       TextSpan(
           text: 'Branch: ',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           children: [
             TextSpan(
               text: 'CHENNAI ONE HE',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
             )
           ]),
     );
@@ -493,16 +753,16 @@ class _BankFormScreenState extends State<BankFormScreen> {
                   },
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               const Text("* Part Payment Amount"),
-              const TextField(
+              TextFormField(
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: '100000',
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               const Text("* Part Payment Charges in Percentage(Applicable)"),
               TextFormField(
                 keyboardType: TextInputType.number,
@@ -513,25 +773,25 @@ class _BankFormScreenState extends State<BankFormScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               const Text("Part Payment Charges in Percentage(Actual)"),
-              const TextField(
+              TextFormField(
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: '4',
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               const Text("Justification"),
-              const TextField(
+              TextFormField(
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'OK',
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               const Text("Upload Consent Letter Image"),
               DottedBorder(
                 borderType: BorderType.Rect,
@@ -599,11 +859,11 @@ class _BankFormScreenState extends State<BankFormScreen> {
     return const Text.rich(
       TextSpan(
           text: 'Date: ',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           children: [
             TextSpan(
               text: '2024-04-22',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
             )
           ]),
     );

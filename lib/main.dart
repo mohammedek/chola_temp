@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
             primary: Colors.pink.shade800,
             secondary: Colors.blue.shade800),
         inputDecorationTheme: InputDecorationTheme(
+          alignLabelWithHint: true,
           isDense: true,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        useMaterial3: true,
+        useMaterial3: false,
       ),
       home: const CholaInitial(),
     );
@@ -118,94 +119,97 @@ class _CholaInitialState extends State<CholaInitial>
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Column(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Row(
-                      children: [
-                        const Icon(Icons.cloud, color: Colors.blue, size: 36),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.04),
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: "Search..",
-                              prefixIcon: const Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(width: 3),
+              Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: [
+                          const Icon(Icons.cloud, color: Colors.blue, size: 36),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04),
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: "Search..",
+                                prefixIcon: const Icon(Icons.search),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(width: 3),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.08),
-                        Container(
-                          height: 35,
-                          margin: const EdgeInsets.only(left: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(8),
-                                bottomRight: Radius.circular(8),
-                                bottomLeft: Radius.circular(8),
-                                topLeft: Radius.circular(8),
-                              ),
-                              border: Border.all(color: Colors.black45)),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.star,
-                                    size: 20,
-                                    color: Colors.grey,
-                                  )),
-                              const VerticalDivider(color: Colors.black45),
-                              DropdownButton(
-                                items: const [],
-                                onChanged: (value) {},
-                                underline: const SizedBox(),
-                              ),
-                            ],
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.08),
+                          Container(
+                            height: 35,
+                            margin: const EdgeInsets.only(left: 20),
+                            decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(8),
+                                  bottomRight: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8),
+                                  topLeft: Radius.circular(8),
+                                ),
+                                border: Border.all(color: Colors.black45)),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.star,
+                                      size: 20,
+                                      color: Colors.grey,
+                                    )),
+                                const VerticalDivider(color: Colors.black45),
+                                DropdownButton(
+                                  items: const [],
+                                  onChanged: (value) {},
+                                  underline: const SizedBox(),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.add_box,
-                              size: 30,
-                            )),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.cloud_circle_outlined,
-                              size: 30,
-                            )),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.question_mark_rounded,
-                              size: 30,
-                            )),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.more_vert)),
-                      ],
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.add_box,
+                                size: 30,
+                              )),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.cloud_circle_outlined,
+                                size: 30,
+                              )),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.question_mark_rounded,
+                                size: 30,
+                              )),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.more_vert)),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                    child: buildHomeListView(),
-                  ),
-                  Container(
-                    height: 4,
-                    color: Colors.grey,
-                  ),
-                ],
+                    SizedBox(
+                      height: 40,
+                      child: buildHomeListView(),
+                    ),
+                    Container(
+                      height: 4,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
               ),
               Expanded(
                 child: _selectedVertMenu == 1
@@ -294,8 +298,12 @@ class _CholaInitialState extends State<CholaInitial>
                           child: Column(
                             children: [
                               Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black)),
+                                decoration: const BoxDecoration(
+                                    border: Border(
+                                  bottom: BorderSide(color: Colors.black),
+                                  left: BorderSide(color: Colors.black),
+                                  right: BorderSide(color: Colors.black),
+                                )),
                                 child: Table(
                                   border: TableBorder.all(
                                       color: Colors.transparent),
@@ -312,11 +320,19 @@ class _CholaInitialState extends State<CholaInitial>
                                             height: 45,
                                             decoration: BoxDecoration(
                                                 border: Border(
-                                                    bottom: const BorderSide(
-                                                        color: Colors.black),
-                                                    right: tableData[rowIndex]
+                                                    bottom: tableData[rowIndex]
                                                                 [0] ==
-                                                            'Add Other Changes'
+                                                            'Total'
+                                                        ? const BorderSide(
+                                                            color: Colors
+                                                                .transparent)
+                                                        : const BorderSide(
+                                                            color:
+                                                                Colors.black),
+                                                    right: tableData[rowIndex]
+                                                                    [0] ==
+                                                                'Add Other Changes' ||
+                                                            colIndex == 2
                                                         ? const BorderSide(
                                                             color: Colors
                                                                 .transparent)
