@@ -44,37 +44,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
     return
     Padding(
       padding: const EdgeInsets.only(top: 30.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            color: Colors.blue.shade800,
-            height: 56,
-            width: double.maxFinite,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(Icons.save_as_sharp),
-              const SizedBox(
-                width: 6,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("EOD DCR",style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                  ),),
-                  Text("Recipt",style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14
-                  ),),
-                ],
-              )
-            ],
-            ),
-          ),
+      child:
           Row(
             children: [
               Expanded(
@@ -242,8 +212,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
               ),
             ],
           ),
-        ],
-      ),
+
     );
   }
 

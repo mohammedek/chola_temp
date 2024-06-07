@@ -457,7 +457,9 @@ class _CholaInitialState extends State<CholaInitial>
                                                         backgroundColor: Colors
                                                             .pink.shade800,
                                                       ),
-                                                      onPressed: () {},
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
                                                       child: const Text(
                                                         'Submit',
                                                         style: TextStyle(
