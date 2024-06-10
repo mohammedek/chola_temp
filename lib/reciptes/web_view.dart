@@ -443,6 +443,67 @@ class _WebViewState extends State<WebView> {
             unselectedColor: Colors.white,
             pressedColor: Colors.pink.withOpacity(0.2),
           ),
+          const SizedBox(height: 08),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "* Mobile No",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  const Gap(6),
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.2,
+                    child: const TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'Mobile No',
+                        border: OutlineInputBorder(),
+                        hintStyle: TextStyle(fontSize: 14),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 10,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Gap(12),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "* Amount Collected",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  const Gap(6),
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.2,
+                    child: const TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'Amount',
+                        border: OutlineInputBorder(),
+                        hintStyle: TextStyle(fontSize: 14),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 10,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const Gap(12),
           isEOD == false
               ? SingleChildScrollView(
                   child: SizedBox(
@@ -451,7 +512,7 @@ class _WebViewState extends State<WebView> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Gap(6),
+                        const Gap(12),
                         Expanded(
                           flex: 3,
 
@@ -469,7 +530,7 @@ class _WebViewState extends State<WebView> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 6,
+                                height: 4,
                               ),
                               CupertinoSegmentedControl<int>(
                                 padding: const EdgeInsets.all(8),
@@ -511,11 +572,76 @@ class _WebViewState extends State<WebView> {
                             ],
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: 8),
                         Expanded(
                           flex: 2,
                           child: Column(
                             children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.11,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Balance to be allocated :",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                    Text(
+                                      "0",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                              color: Colors.red.shade800),
+                                    ),
+                                    const Gap(2),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.03,
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      Colors.blue.shade800,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4))),
+                                              onPressed: () {},
+                                              child: const Text(
+                                                "Reset",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )),
+                                        ),
+                                        Text(
+                                          "Agreement No:",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                        const Text("HE028I2PNFJN20379729"),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const Gap(6),
                               Container(
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.black)),
