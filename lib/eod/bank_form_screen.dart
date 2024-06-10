@@ -32,6 +32,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
   final twoAmtController = TextEditingController();
   final oneAmtController = TextEditingController();
   final totalAmtController = TextEditingController(text: '0');
+  final _remarksController = TextEditingController();
   List denominations = [];
 
   List<String> menuList = [
@@ -46,6 +47,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
     'OAllocations',
     'More'
   ];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -180,6 +182,10 @@ class _BankFormScreenState extends State<BankFormScreen> {
                                   height: 3,
                                 ),
                                 TextFormField(
+                                  controller: _remarksController,
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  },
                                   decoration: const InputDecoration()
                                       .copyWith(isDense: false),
                                 ),
@@ -193,8 +199,12 @@ class _BankFormScreenState extends State<BankFormScreen> {
                                     ElevatedButton(
                                         onPressed: () {},
                                         child: const Text("Cancel")),
-                                    const ElevatedButton(
-                                        onPressed: null, child: Text("Save")),
+                                    ElevatedButton(
+                                        onPressed:
+                                            _remarksController.text.isEmpty
+                                                ? null
+                                                : () {},
+                                        child: const Text("Save")),
                                     const SizedBox()
                                   ],
                                 )

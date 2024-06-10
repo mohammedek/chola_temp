@@ -24,30 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Chola Collections',
-      theme: ThemeData(
-        cardTheme: CardTheme(
-            surfaceTintColor: Colors.transparent,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            shadowColor: Colors.transparent),
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.transparent,
-            // background: Colors.white,
-            primary: Colors.pink.shade800,
-            secondary: Colors.blue.shade800),
-        inputDecorationTheme: InputDecorationTheme(
-          alignLabelWithHint: true,
-          fillColor: Colors.white,
-          filled: true,
-          isDense: true,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-        ),
-        useMaterial3: false,
-      ),
+      theme: AppTheme.themeData,
       home: const CholaInitial(),
     );
   }
