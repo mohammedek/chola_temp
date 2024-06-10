@@ -31,7 +31,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
   final fiveAmtController = TextEditingController();
   final twoAmtController = TextEditingController();
   final oneAmtController = TextEditingController();
-  final totalAmtController = TextEditingController();
+  final totalAmtController = TextEditingController(text: '0');
   List denominations = [];
 
   List<String> menuList = [
@@ -110,7 +110,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
           children: [
             ListTile(
               dense: true,
-              tileColor: kblueColor,
+              tileColor: ksecondaryColor,
               leading: Card(
                 color: Colors.deepPurple.shade900,
                 child: const IconButton(
@@ -131,6 +131,9 @@ class _BankFormScreenState extends State<BankFormScreen> {
                 "Receipt",
                 style: TextStyle(color: whiteColor),
               ),
+            ),
+            const SizedBox(
+              height: 5,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -158,7 +161,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
                                   "Total Cash (As per system): 3000",
                                   style: TextStyle(
                                       fontSize: 14,
-                                      color: kblueColor,
+                                      color: ksecondaryColor,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
@@ -177,8 +180,8 @@ class _BankFormScreenState extends State<BankFormScreen> {
                                   height: 3,
                                 ),
                                 TextFormField(
-                                  decoration:
-                                      const InputDecoration(isDense: false),
+                                  decoration: const InputDecoration()
+                                      .copyWith(isDense: false),
                                 ),
                                 const SizedBox(
                                   height: 14,
@@ -226,8 +229,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
                             height: MediaQuery.sizeOf(context).height / 1.65,
                             child: Card(
                               elevation: 10,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0)),
+                              color: kprimaryColor.withOpacity(0.05),
                               child: Container(
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.all(8),
@@ -274,7 +276,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
                                                                     fontSize:
                                                                         14,
                                                                     color:
-                                                                        kblueColor,
+                                                                        ksecondaryColor,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold),
@@ -331,7 +333,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
                                                                       fontSize:
                                                                           14,
                                                                       color:
-                                                                          kblueColor,
+                                                                          ksecondaryColor,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold),
@@ -411,8 +413,8 @@ class _BankFormScreenState extends State<BankFormScreen> {
                                                                               14),
                                                                       decoration:
                                                                           const InputDecoration(
-                                                                        border:
-                                                                            OutlineInputBorder(),
+                                                                        // border:
+                                                                        //     OutlineInputBorder(),
                                                                         hintText:
                                                                             '0',
                                                                       ),
@@ -456,7 +458,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
                                                                         fontSize:
                                                                             14,
                                                                         color:
-                                                                            kblueColor,
+                                                                            ksecondaryColor,
                                                                         fontWeight:
                                                                             FontWeight.bold),
                                                                   ),
@@ -485,8 +487,8 @@ class _BankFormScreenState extends State<BankFormScreen> {
                                                                     ),
                                                                     decoration:
                                                                         const InputDecoration(
-                                                                      border:
-                                                                          OutlineInputBorder(),
+                                                                      // border:
+                                                                      //     OutlineInputBorder(),
                                                                       hintText:
                                                                           '0',
                                                                     ),
@@ -540,8 +542,9 @@ class _BankFormScreenState extends State<BankFormScreen> {
             Text(
               "Opening Balance",
               style: TextStyle(
-                fontSize: 14,
-                color: kblueColor,
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: ksecondaryColor,
               ),
             ),
             SizedBox(
@@ -557,8 +560,9 @@ class _BankFormScreenState extends State<BankFormScreen> {
             Text(
               "Inflow",
               style: TextStyle(
-                fontSize: 14,
-                color: kblueColor,
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: ksecondaryColor,
               ),
             ),
             SizedBox(
@@ -574,8 +578,9 @@ class _BankFormScreenState extends State<BankFormScreen> {
             Text(
               "Outflow",
               style: TextStyle(
-                fontSize: 14,
-                color: kblueColor,
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: ksecondaryColor,
               ),
             ),
             SizedBox(

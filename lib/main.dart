@@ -19,6 +19,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Chola Collections',
       theme: ThemeData(
+        cardTheme: CardTheme(
+            surfaceTintColor: Colors.transparent,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shadowColor: Colors.transparent),
         colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.transparent,
             // background: Colors.white,
@@ -26,6 +31,8 @@ class MyApp extends StatelessWidget {
             secondary: Colors.blue.shade800),
         inputDecorationTheme: InputDecorationTheme(
           alignLabelWithHint: true,
+          fillColor: Colors.white,
+          filled: true,
           isDense: true,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
