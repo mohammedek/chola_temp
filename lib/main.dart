@@ -24,15 +24,34 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Chola Collections',
-      theme:AppTheme.themeData,
+      theme: ThemeData(
+        cardTheme: CardTheme(
+            surfaceTintColor: Colors.transparent,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shadowColor: Colors.transparent),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.transparent,
+            // background: Colors.white,
+            primary: Colors.pink.shade800,
+            secondary: Colors.blue.shade800),
+        inputDecorationTheme: InputDecorationTheme(
+          alignLabelWithHint: true,
+          fillColor: Colors.white,
+          filled: true,
+          isDense: true,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+        useMaterial3: false,
+      ),
       home: const CholaInitial(),
     );
   }
 }
-
-
-
-
 
 class CholaInitial extends StatefulWidget {
   const CholaInitial({super.key});
@@ -44,9 +63,8 @@ class CholaInitial extends StatefulWidget {
 class _CholaInitialState extends State<CholaInitial>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _currentIndex = 0;
-  int _selectedVertMenu = 1;
-
+  final int _currentIndex = 0;
+  final int _selectedVertMenu = 1;
 
   DateTime? pickedDate;
 
@@ -69,18 +87,10 @@ class _CholaInitialState extends State<CholaInitial>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-      if (ResponsiveSize().isWide(context)) {
-        return
-          const WebView();
-      } else {
-        return const MobileView();
-      }
-
-
+    if (ResponsiveSize().isWide(context)) {
+      return const WebView();
+    } else {
+      return const MobileView();
+    }
   }
-
-
-
 }
-
-
