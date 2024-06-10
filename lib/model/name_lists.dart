@@ -18,13 +18,13 @@ List<String> tabBarView = [
   "POS Machine",
   "Payment Gateway"
 ];
-
-List<String> tabBarMobileView = [
-  "Cash",
-  "Cheque",
-  "Draft",
-  "Payment Gateway"
+List<String> typeList = [
+  "CUSTOMER",
+  "REMITTER",
 ];
+
+List<String> tabBarMobileView = ["Cash", "Cheque", "Draft", "Payment Gateway"];
+List<String> customerRemiter = ["Customer","Remiter"];
 
 List<List<String>> tableData = [
   ["Item", "Overdue", "Actuals"],

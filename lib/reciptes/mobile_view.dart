@@ -2,6 +2,7 @@ import 'package:chola_first/core/responsive.dart';
 import 'package:chola_first/model/name_lists.dart';
 import 'package:chola_first/widgets/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 
 class MobileView extends StatefulWidget {
@@ -13,172 +14,33 @@ class MobileView extends StatefulWidget {
 
 class _MobileViewState extends State<MobileView> {
   int _currentIndex = 0;
+  int _remitIndex = 0;
   final TextEditingController _dateController = TextEditingController();
   DateTime? pickedDate;
+
+  var _intialValue = null;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: false,
-      bottomNavigationBar: Container(
-        color: Colors.white, // Background color for the bottom sheet
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.add_box, size: 29),
-                    Text('Add Box'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.home, size: 29),
-                    Text('Home'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.search, size: 29),
-                    Text('Search'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.notifications, size: 29),
-                    Text('Notifications'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.settings, size: 29),
-                    Text('Settings'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.account_circle, size: 29),
-                    Text('Account'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.favorite, size: 29),
-                    Text('Favorite'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.message, size: 29),
-                    Text('Message'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.camera, size: 29),
-                    Text('Camera'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.shopping_cart, size: 29),
-                    Text('Cart'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.map, size: 29),
-                    Text('Map'),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.help, size: 29),
-                    Text('Help'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar:BottomNavigationBar(
+        elevation: 5,
+        type: BottomNavigationBarType.fixed,
+        enableFeedback: true,
+        fixedColor: Colors.blueAccent,
+          unselectedItemColor: Colors.blue,
+          backgroundColor: Colors.white70,
+          items:const [
+      BottomNavigationBarItem(icon:Icon( Icons.chrome_reader_mode_sharp),label: "OAgrements"),
+      BottomNavigationBarItem(icon:Icon( Icons.chrome_reader_mode_outlined),label: "OReports"),
+      BottomNavigationBarItem(icon:Icon( Icons.receipt_long),label: "ORecipets"),
+      BottomNavigationBarItem(icon:Icon( Icons.check_box),label: "OBatches"),
+      ]),
       appBar: AppBar(
         elevation: 4,
         shadowColor: Colors.grey.shade100,
+        backgroundColor: Colors.white,
         leading: const Padding(
           padding: EdgeInsets.all(8.0),
           child: CircleAvatar(
@@ -211,50 +73,194 @@ class _MobileViewState extends State<MobileView> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                tileColor: Colors.grey[300],
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.grey),
+                ),
+                leading: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                  color: Colors.blueAccent.shade700,
+                  ),
+                    child: const Icon(Icons.save_as,size: 35,color: Colors.white,)),
+                title: const Text("LAP_Overdue Receipt",style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold
+                ),),
+                subtitle: const Text("HE01U4IU35UU994896899",style: TextStyle(
+                    fontSize: 14
+                ),),
+              ),
+            ),
+            const Gap(2),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Container(
-                color: Colors.blue,
-                height: MediaQuery.of(context).size.height * 0.25,
+                // color: Colors.pink,
+                height: MediaQuery.of(context).size.height * 0.22,
                 child: Column(
                   children: [
                     /// header widget
                     Container(
-                      padding: const EdgeInsets.all(8),
-                      height: 60,
-                      color: Colors.grey,
+                      padding: const EdgeInsets.only(left: 18),
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          border: Border(left:  BorderSide(color: Colors.grey.shade400,),top:  BorderSide(color: Colors.grey.shade400,),right:  BorderSide(color: Colors.grey.shade400,),bottom:  const BorderSide(color: Colors.transparent,)),
+                      ),
                       child: const Row(
                         children: [
                           Icon(Icons.chrome_reader_mode_rounded),
                           Gap(20),
                           Text(
                             "Agreement Info",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
                           ),
                         ],
                       ),
                     ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            Text("jbdjbjsbjdf"),
-                            Text("jbdjbjsbjdf"),
-                            Text("jbdjbjsbjdf"),
-                            Text("jbdjbjsbjdf"),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text("jbdjbjsbjdf"),
-                            Text("jbdjbjsbjdf"),
-                            Text("jbdjbjsbjdf"),
-                            Text("jbdjbjsbjdf"),
-                          ],
-                        ),
-                      ],
-                    )
+                     Container(
+                       height: MediaQuery.of(context).size.height * 0.16,
+                       decoration: const BoxDecoration(
+                         border: Border(
+                             bottom: BorderSide(color: Colors.grey),
+                             left: BorderSide(color: Colors.grey),
+                             right: BorderSide(color: Colors.grey),
+                         )
+                       ),
+                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Gap(8),
+                              Text(
+                                "Agreement No",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[500],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Gap(4),
+                              const Text("HE01XBV0000000456",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black)),
+                              const Gap(8),
+                              Text(
+                                "Account Name",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[500],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Gap(4),
+                              const Text("RAJESH SHARMA",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black)),
+                              const Gap(8),
+                              Text(
+                                "Mobile Number",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[500],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Gap(4),
+                              const Text("9988835535",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black)),
+                              const Gap(6),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              const Gap(8),
+                              Text(
+                                "CIF ID",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[500],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Gap(8),
+                              const Text("8464277",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black)),
+                              const Gap(8),
+                              Text(
+                                "EMI Amount",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[500],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Gap(4),
+                              const Text("99486",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black)),
+                            ],
+                          ),
+                          const Gap(20),
+                        ],
+                                           ),
+                     ),
                   ],
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8),
+              child: ToggleButtons(
+                borderRadius: BorderRadius.circular(4),
+                borderColor: Colors.grey,
+                selectedBorderColor: Colors.blue.shade800,
+                fillColor: Colors.blue.shade900,
+                selectedColor: Colors.white,
+                color: Colors.black,
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Colors.white, fontSize: 14),
+                isSelected: List.generate(customerRemiter.length,
+                        (index) => _remitIndex == index),
+                onPressed: (int newIndex) {
+                  setState(() {
+                    _remitIndex = newIndex;
+                  });
+                },
+                children: [
+                  for (int index = 0;
+                  index < customerRemiter.length;
+                  index++)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        customerRemiter[index].toUpperCase(),
+                        // maxLines: 4,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+           _remitIndex == 1 ?
+           Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 8.0),
+               child:
+            buildTextWithTextField(text: "MCR",isReq: true,isRemark: true)) : SizedBox(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  buildTextWithTextField(text: "Mobile No",isReq: true),
+                  buildTextWithTextField(text: "Amount Collected",isReq: true),
+
+                ],
               ),
             ),
             Padding(
@@ -653,27 +659,29 @@ class _MobileViewState extends State<MobileView> {
                                                 'Add Other Changes'
                                             ? null
                                             : Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: TextFormField(
-                                                  initialValue: '0',
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      tableData[rowIndex + 1]
-                                                          [colIndex] = value;
-                                                    });
-                                                  },
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    border:
-                                                        OutlineInputBorder(),
-                                                    contentPadding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 10,
-                                                            horizontal: 10),
-                                                  ),
-                                                ),
-                                              ),
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: TextFormField(
+                                            key: Key('textfield_${rowIndex}_${colIndex}'),
+                                            maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                                            maxLength: 30,
+                                            initialValue: tableData[rowIndex + 1][colIndex] ?? '0',
+                                            onSaved: (value) {
+                                              setState(() {
+                                                tableData[rowIndex + 1][colIndex] = value!;
+                                              });
+                                            },
+                                            onChanged: (value) {
+                                              setState(() {
+                                              });
+                                            },
+                                            decoration: const InputDecoration(
+                                              counterText: "",
+                                              isDense: true,
+                                              border: OutlineInputBorder(),
+                                              contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                               );
                             },

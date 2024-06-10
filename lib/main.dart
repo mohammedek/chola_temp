@@ -24,15 +24,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Chola Collections',
-      theme:AppTheme.themeData,
+      theme: AppTheme.themeData,
       home: const CholaInitial(),
     );
   }
 }
-
-
-
-
 
 class CholaInitial extends StatefulWidget {
   const CholaInitial({super.key});
@@ -44,9 +40,8 @@ class CholaInitial extends StatefulWidget {
 class _CholaInitialState extends State<CholaInitial>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _currentIndex = 0;
-  int _selectedVertMenu = 1;
-
+  final int _currentIndex = 0;
+  final int _selectedVertMenu = 1;
 
   DateTime? pickedDate;
 
@@ -69,18 +64,10 @@ class _CholaInitialState extends State<CholaInitial>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-      if (ResponsiveSize().isWide(context)) {
-        return
-          const WebView();
-      } else {
-        return const MobileView();
-      }
-
-
+    if (ResponsiveSize().isWide(context)) {
+      return const WebView();
+    } else {
+      return const MobileView();
+    }
   }
-
-
-
 }
-
-
