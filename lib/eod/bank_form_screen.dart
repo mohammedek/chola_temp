@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BankFormScreen extends StatefulWidget {
-
-  BankFormScreen({super.key});
+  const BankFormScreen({super.key});
 
   @override
   State<BankFormScreen> createState() => _BankFormScreenState();
@@ -41,178 +40,294 @@ class _BankFormScreenState extends State<BankFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return
-    Padding(
-      padding: const EdgeInsets.only(top: 30.0),
-      child:
-          Row(
-            children: [
-              Expanded(
-                child:Column(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: Expanded(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
-
-                  ],
-                )
-              ),
-              Flexible(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    SizedBox(
+                      height: 50,
+                      child: topLeftMenus(),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 10),
-                              Expanded(
-                                child: ListView.separated(
-                                  separatorBuilder: (context, index) {
-                                    return const SizedBox(
-                                      height: 8,
-                                    );
-                                  },
-                                  itemCount: denominations.length,
-                                  itemBuilder: (context, index) {
-                                    return Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              if (index == 0)
-                                                const SizedBox(
-                                                  height: 50,
-                                                  child: Text(
-                                                    'Denominations',
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-                                              denominations[index] is String
-                                                  ? Text(
-                                                      denominations[index],
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 16),
-                                                    )
-                                                  : Text(
-                                                      denominations[index] is String
-                                                          ? denominations[index]
-                                                          : '${denominations[index]} x',
-                                                      style: const TextStyle(
-                                                          fontSize: 16),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text("Total Cash (As per system): 3000"),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("* Enter Remarks"),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        TextFormField(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                                onPressed: null, child: Text("Cancel")),
+                            ElevatedButton(
+                                onPressed: null, child: Text("Save")),
+                            SizedBox()
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: const EdgeInsets.only(right: 30),
+                      height: 30,
+                      child: Row(
+                        children: [
+                          dateText(),
+                          const Spacer(),
+                          branchText(),
+                          const Spacer(
+                            flex: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 10),
+                                  Expanded(
+                                    child: ListView.separated(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      separatorBuilder: (context, index) {
+                                        return const SizedBox(
+                                          height: 5,
+                                        );
+                                      },
+                                      itemCount: denominations.length,
+                                      itemBuilder: (context, index) {
+                                        return Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  if (index == 0)
+                                                    const SizedBox(
+                                                      height: 50,
+                                                      child: Text(
+                                                        'Denominations',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
                                                     ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(width: 20),
-                                        Expanded(
-                                          flex: denominations[index] is int ? 1 : 2,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              if (index == 0)
-                                                const SizedBox(
-                                                  height: 50,
-                                                  child: Text(
-                                                    'Notes',
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-                                              SizedBox(
-                                                width:
-                                                    denominations[index] is String
+                                                  denominations[index] is String
+                                                      ? Text(
+                                                          denominations[index],
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 16),
+                                                        )
+                                                      : Text(
+                                                          denominations[index]
+                                                                  is String
+                                                              ? denominations[
+                                                                  index]
+                                                              : '${denominations[index]} x',
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 16),
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(width: 20),
+                                            Expanded(
+                                              flex: denominations[index] is int
+                                                  ? 1
+                                                  : 2,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  if (index == 0)
+                                                    const SizedBox(
+                                                      height: 50,
+                                                      child: Text(
+                                                        'Notes',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                  SizedBox(
+                                                    width: denominations[index]
+                                                            is String
                                                         ? 410
                                                         : 150,
-                                                child: denominations[index] ==
-                                                        "Excess"
-                                                    ? const Center(
-                                                        child: Text('1122'))
-                                                    : const TextField(
-                                                        decoration: InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                          hintText: '0',
-                                                        ),
-                                                        keyboardType:
-                                                            TextInputType.number,
-                                                      ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(width: 20),
-                                        if (denominations[index] is int)
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                if (index == 0)
-                                                  const SizedBox(
-                                                    height: 50,
-                                                    child: Align(
-                                                      alignment: Alignment.topLeft,
-                                                      child: Text(
-                                                        'Amount',
-                                                        style: TextStyle(
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight.bold),
-                                                      ),
-                                                    ),
+                                                    child: denominations[
+                                                                index] ==
+                                                            "Excess"
+                                                        ? const Center(
+                                                            child: Text('1122'))
+                                                        : const TextField(
+                                                            decoration:
+                                                                InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              hintText: '0',
+                                                            ),
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                          ),
                                                   ),
-                                                const Row(
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(width: 20),
+                                            if (denominations[index] is int)
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Text('=   '),
-                                                    SizedBox(
-                                                      width: 150,
-                                                      child: TextField(
-                                                        decoration: InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                          hintText: '0',
+                                                    if (index == 0)
+                                                      const SizedBox(
+                                                        height: 50,
+                                                        child: Align(
+                                                          alignment:
+                                                              Alignment.topLeft,
+                                                          child: Text(
+                                                            'Amount',
+                                                            style: TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
                                                         ),
-                                                        keyboardType:
-                                                            TextInputType.number,
                                                       ),
+                                                    const Row(
+                                                      children: [
+                                                        Text('=   '),
+                                                        SizedBox(
+                                                          width: 150,
+                                                          child: TextField(
+                                                            decoration:
+                                                                InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              hintText: '0',
+                                                            ),
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                      ],
-                                    );
-                                  },
-                                ),
+                                              ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                ],
                               ),
-                              const SizedBox(height: 20),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
+  topLeftMenus() {
+    return const Row(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Opening Balance"),
+            Text("12222"),
+          ],
+        ),
+        Spacer(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Inflow"),
+            Text("1"),
+          ],
+        ),
+        Spacer(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Outflow"),
+            Text("123"),
+          ],
+        ),
+        Spacer(
+          flex: 2,
+        ),
+      ],
     );
   }
 
@@ -235,93 +350,95 @@ class _BankFormScreenState extends State<BankFormScreen> {
       scrollDirection: Axis.horizontal,
       children: menuList
           .map((e) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: SizedBox(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              menuList.indexOf(e) == 0
-                  ? const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 2.0),
-                child: Icon(Icons.menu_rounded),
-              )
-                  : const SizedBox.shrink(),
-              Text(
-                e.toString(),
-                style: TextStyle(
-                  fontSize: menuList.indexOf(e) == 0 ? 20 : 14,
-                  color: Colors.black54,
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      menuList.indexOf(e) == 0
+                          ? const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 2.0),
+                              child: Icon(Icons.menu_rounded),
+                            )
+                          : const SizedBox.shrink(),
+                      Text(
+                        e.toString(),
+                        style: TextStyle(
+                          fontSize: menuList.indexOf(e) == 0 ? 20 : 14,
+                          color: Colors.black54,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      menuList.indexOf(e) == 0
+                          ? const SizedBox()
+                          : InkWell(
+                              child: menuList.indexOf(e) == 9
+                                  ? const Icon(Icons.arrow_drop_down, size: 28)
+                                  : const Icon(
+                                      Icons.keyboard_arrow_down_outlined,
+                                      size: 28),
+                              onTap: () async {
+                                if (menuList.indexOf(e) == 7) {
+                                  return showCupertinoDialog(
+                                      context: context,
+                                      builder: (context) => SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.70,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: AlertDialog(
+                                              backgroundColor: Colors.white,
+                                              content: challanPopup(),
+                                              scrollable: true,
+                                              actions: [
+                                                Container(
+                                                  height: 2,
+                                                  color: Colors.black45,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor: Colors
+                                                            .pink.shade800,
+                                                      ),
+                                                      onPressed: () {},
+                                                      child: const Text(
+                                                        'Submit',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      )),
+                                                )
+                                              ],
+                                            ),
+                                          ));
+                                } else if (menuList.indexOf(e) == 6) {
+                                  return showCupertinoDialog(
+                                    context: context,
+                                    builder: (context) => SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: const BankFormScreen()),
+                                  );
+                                }
+                              },
+                            ),
+                    ],
+                  ),
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              menuList.indexOf(e) == 0
-                  ? const SizedBox()
-                  : InkWell(
-                child: menuList.indexOf(e) == 9
-                    ? const Icon(Icons.arrow_drop_down, size: 28)
-                    : const Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    size: 28),
-                onTap: () async {
-                  if (menuList.indexOf(e) == 7) {
-                    return showCupertinoDialog(
-                        context: context,
-                        builder: (context) => Container(
-                          height: MediaQuery.of(context)
-                              .size
-                              .height *
-                              0.70,
-
-                          width: MediaQuery.of(context)
-                              .size
-                              .width,
-                          child: AlertDialog(
-                            backgroundColor: Colors.white,
-                            content: challanPopup(),
-                            scrollable: true,
-                            actions: [
-                              Container(
-                                height: 2,
-                                color: Colors.black45,
-                              ),
-                              Padding(
-                                padding:
-                                const EdgeInsets.only(
-                                    top: 8.0),
-                                child: ElevatedButton(
-                                    style: ElevatedButton
-                                        .styleFrom(
-                                      backgroundColor: Colors
-                                          .pink.shade800,
-                                    ),
-                                    onPressed: () {},
-                                    child: const Text(
-                                      'Submit',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight:
-                                          FontWeight
-                                              .bold),
-                                    )),
-                              )
-                            ],
-                          ),
-                        ));
-                  } else if (menuList.indexOf(e) == 6) {
-                    return showCupertinoDialog(context: context, builder: (context) =>
-                        SizedBox (
-                            height: MediaQuery.of(context).size.height,
-                            width: MediaQuery.of(context).size.width,
-                            child: BankFormScreen()),
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
-      ))
+              ))
           .toList(),
     );
   }
@@ -338,9 +455,10 @@ class _BankFormScreenState extends State<BankFormScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Select an option',style: TextStyle(
-                  fontWeight: FontWeight.bold
-              ),),
+              const Text(
+                'Select an option',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -348,7 +466,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
                 height: 40,
                 child: RadioListTile(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  contentPadding: EdgeInsets.all(0),
+                  contentPadding: const EdgeInsets.all(0),
                   dense: false,
                   title: const Text('Part_Payment_Tenure Reduction'),
                   value: 1,
