@@ -1,9 +1,9 @@
-import 'package:chola_first/eod/bank_form_screen.dart';
-import 'package:chola_first/widgets/chalan_popup.dart';
+import 'package:chola_first/modules/eod/bank_form_screen.dart';
+import 'package:chola_first/widgets/web/chalan_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../model/name_lists.dart';
+import '../../model/name_lists.dart';
 
 class RecipteWidget extends StatefulWidget {
   const RecipteWidget({super.key});

@@ -1,6 +1,6 @@
 import 'package:chola_first/core/responsive.dart';
 import 'package:chola_first/model/name_lists.dart';
-import 'package:chola_first/widgets/app_button.dart';
+import 'package:chola_first/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -204,8 +204,6 @@ class _MobileViewState extends State<MobileView> {
           Gap(2),
         ],
       ),
-
-
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,35 +218,39 @@ class _MobileViewState extends State<MobileView> {
                   children: [
                     /// header widget
                     Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       height: 60,
                       color: Colors.grey,
                       child: const Row(
                         children: [
                           Icon(Icons.chrome_reader_mode_rounded),
-                          const Gap(20),
-                          Text("Agreement Info",style: TextStyle(
-                            fontWeight: FontWeight.bold
-                          ),),
+                          Gap(20),
+                          Text(
+                            "Agreement Info",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Column(children: [
-                          Text("jbdjbjsbjdf"),
-                          Text("jbdjbjsbjdf"),
-                          Text("jbdjbjsbjdf"),
-                          Text("jbdjbjsbjdf"),
-                        ],),
-                        Column(children: [
-                          Text("jbdjbjsbjdf"),
-                          Text("jbdjbjsbjdf"),
-                          Text("jbdjbjsbjdf"),
-                          Text("jbdjbjsbjdf"),
-                        ],),
-
+                        Column(
+                          children: [
+                            Text("jbdjbjsbjdf"),
+                            Text("jbdjbjsbjdf"),
+                            Text("jbdjbjsbjdf"),
+                            Text("jbdjbjsbjdf"),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text("jbdjbjsbjdf"),
+                            Text("jbdjbjsbjdf"),
+                            Text("jbdjbjsbjdf"),
+                            Text("jbdjbjsbjdf"),
+                          ],
+                        ),
                       ],
                     )
                   ],
@@ -281,15 +283,17 @@ class _MobileViewState extends State<MobileView> {
                       .textTheme
                       .bodyMedium
                       ?.copyWith(color: Colors.white, fontSize: 14),
-                  isSelected: List.generate(
-                      tabBarMobileView.length, (index) => _currentIndex == index),
+                  isSelected: List.generate(tabBarMobileView.length,
+                      (index) => _currentIndex == index),
                   onPressed: (int newIndex) {
                     setState(() {
                       _currentIndex = newIndex;
                     });
                   },
                   children: [
-                    for (int index = 0; index < tabBarMobileView.length; index++)
+                    for (int index = 0;
+                        index < tabBarMobileView.length;
+                        index++)
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Text(
