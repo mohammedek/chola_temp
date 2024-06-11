@@ -1,4 +1,5 @@
 import 'package:chola_first/constants/styles.dart';
+import 'package:chola_first/modules/agreements/mobile/agreement_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -108,6 +109,10 @@ class _OAgreementsPageState extends State<OAgreementsPage> {
                       borderRadius: BorderRadius.circular(16)),
                   title: Text(recentOAgreements[index]),
                   onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const OAgreementDetail()));
                     // Handle agreement tap
                   },
                 );
