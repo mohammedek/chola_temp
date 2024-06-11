@@ -7,6 +7,9 @@ class AppTheme {
     primarySwatch: Colors.pink,
     primaryColor: kprimaryColor,
     hintColor: Colors.grey,
+    listTileTheme: const ListTileThemeData(
+      tileColor: Colors.white,
+    ),
     cardTheme: CardTheme(
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

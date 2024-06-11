@@ -1,6 +1,5 @@
 import 'package:chola_first/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class OAgreementsPage extends StatelessWidget {
   final List<String> recentOAgreements = [
@@ -40,7 +39,6 @@ class OAgreementsPage extends StatelessWidget {
                     dense: true,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
-                    // contentPadding: EdgeInsets.zero,
                     title: Text(recentOAgreements[index]),
                     onTap: () {
                       // Handle agreement tap
@@ -64,7 +62,7 @@ class OAgreementsPage extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headlineSmall!
-              .copyWith(fontWeight: FontWeight.bold, color: ksecondaryColor),
+              .copyWith(fontWeight: bold, color: ksecondaryColor),
         ),
         const Divider(
           color: kprimaryColor,
@@ -84,7 +82,7 @@ class OAgreementsPage extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .titleLarge!
-                .copyWith(fontWeight: FontWeight.bold)),
+                .copyWith(fontWeight: bold)),
         ListTile(
           contentPadding: EdgeInsets.zero,
           leading: const Icon(Icons.menu),
@@ -102,15 +100,17 @@ class OAgreementsPage extends StatelessWidget {
           thickness: 8,
           color: Colors.grey.shade200,
         ),
-        ListTile(
-          tileColor: Colors.white,
-          contentPadding: EdgeInsets.zero,
-          title: Text('Recent OAgreements',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(fontWeight: FontWeight.bold)),
-          onTap: () {},
+        Container(
+          color: whiteColor,
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text('Recent OAgreements',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(fontWeight: bold)),
+            onTap: () {},
+          ),
         ),
       ],
     );
