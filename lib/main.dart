@@ -3,6 +3,7 @@ import 'package:chola_first/core/theme.dart';
 import 'package:chola_first/eod/bank_form_screen.dart';
 import 'package:chola_first/reciptes/mobile_view.dart';
 import 'package:chola_first/reciptes/web_view.dart';
+import 'package:chola_first/view/layout.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -67,7 +68,7 @@ class _CholaInitialState extends State<CholaInitial>
     if (ResponsiveSize().isWide(context)) {
       return const WebView();
     } else {
-      return const MobileView();
+      return const NonPersistentBottomNav();
     }
   }
 }

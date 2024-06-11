@@ -10,7 +10,8 @@ dependencies:
     sdk: flutter
   dotted_border: ^2.1.0
   cupertino_icons: ^1.0.6
-  gap: any
+  gap: ^3.0.1
+  cuberto_bottom_bar: ^3.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
