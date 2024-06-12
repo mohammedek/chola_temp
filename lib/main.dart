@@ -1,13 +1,17 @@
 import 'package:chola_first/core/responsive.dart';
 import 'package:chola_first/core/theme.dart';
-import 'package:chola_first/eod/bank_form_screen.dart';
-import 'package:chola_first/reciptes/mobile_view.dart';
-import 'package:chola_first/reciptes/web_view.dart';
+import 'package:chola_first/modules/eod/bank_form_screen.dart';
+import 'package:chola_first/modules/reciptes/mobile_view.dart';
+import 'package:chola_first/modules/reciptes/web_view.dart';
+import 'package:chola_first/modules/vert_menu_list/app_layout.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+// import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
 
 import 'model/name_lists.dart';
 
@@ -24,15 +28,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Chola Collections',
-      theme:AppTheme.themeData,
+      theme: kIsWeb ? WebTheme.themeData : AppTheme.themeData,
       home: const CholaInitial(),
     );
   }
 }
-
-
-
-
 
 class CholaInitial extends StatefulWidget {
   const CholaInitial({super.key});
@@ -44,9 +44,8 @@ class CholaInitial extends StatefulWidget {
 class _CholaInitialState extends State<CholaInitial>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _currentIndex = 0;
-  int _selectedVertMenu = 1;
-
+  final int _currentIndex = 0;
+  final int _selectedVertMenu = 1;
 
   DateTime? pickedDate;
 
@@ -58,6 +57,8 @@ class _CholaInitialState extends State<CholaInitial>
   void initState() {
     super.initState();
     _tabController = TabController(length: tabBarView.length, vsync: this);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   }
 
   @override
@@ -68,19 +69,12 @@ class _CholaInitialState extends State<CholaInitial>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-      if (ResponsiveSize().isWide(context)) {
-        return
-          const WebView();
-      } else {
-        return const MobileView();
-      }
-
-
+    if (kIsWeb) {
+      return ResponsiveSize().isWide(context)
+          ? const WebView()
+          : const MobileView();
+    } else {
+      return const BottomNavBar();
+    }
   }
-
-
-
 }
-
-

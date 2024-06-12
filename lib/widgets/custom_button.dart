@@ -15,8 +15,8 @@ class AppButton extends StatelessWidget {
     this.textStyle,
     this.padding,
     this.shape,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +25,16 @@ class AppButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: color ?? Colors.blue.shade700,
         padding: padding,
-        shape: shape ?? RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4)
-        ),
+        shape: shape ??
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
       child: Text(
         text,
-        style: textStyle ?? Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: Colors.white
-        ),
+        style: textStyle ??
+            Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: Colors.white),
       ),
     );
   }
