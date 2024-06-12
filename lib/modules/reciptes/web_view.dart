@@ -637,7 +637,7 @@ class _WebViewState extends State<WebView> {
                                         SizedBox(
                                           height: MediaQuery.sizeOf(context)
                                                   .height *
-                                              0.03,
+                                              0.025,
                                           child: ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                   backgroundColor:
