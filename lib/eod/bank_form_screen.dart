@@ -114,24 +114,24 @@ class _BankFormScreenState extends State<BankFormScreen> {
               dense: true,
               tileColor: ksecondaryColor,
               leading: Card(
-                color: Colors.deepPurple.shade900,
+                color: Theme.of(context).primaryColor,
                 child: const IconButton(
                   constraints: BoxConstraints(),
                   padding: EdgeInsets.all(3),
                   onPressed: null,
                   icon: Icon(
                     Icons.note_alt_outlined,
-                    color: whiteColor,
+                    color: kWhiteColor,
                   ),
                 ),
               ),
               title: const Text(
                 "EOD DCR",
-                style: TextStyle(fontSize: 16, color: whiteColor),
+                style: TextStyle(fontSize: 16, color: kWhiteColor),
               ),
               subtitle: const Text(
                 "Receipt",
-                style: TextStyle(color: whiteColor),
+                style: TextStyle(color: kWhiteColor),
               ),
             ),
             const SizedBox(
@@ -239,7 +239,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
                             height: MediaQuery.sizeOf(context).height / 1.65,
                             child: Card(
                               elevation: 10,
-                              color: kprimaryColor.withOpacity(0.05),
+                              color: kPrimaryColor.withOpacity(0.05),
                               child: Container(
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.all(8),

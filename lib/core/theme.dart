@@ -6,6 +6,7 @@ class AppTheme {
   static ThemeData get themeData {
     Color primaryColor;
 
+
     if (kIsWeb) {
       primaryColor = Colors.pink;
     } else if (defaultTargetPlatform == TargetPlatform.iOS ||
@@ -45,7 +46,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),
-      useMaterial3: false,
+      useMaterial3: true,
     );
   }
 }

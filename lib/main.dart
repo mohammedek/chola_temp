@@ -5,9 +5,12 @@ import 'package:chola_first/reciptes/mobile_view.dart';
 import 'package:chola_first/reciptes/web_view.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+// import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
 
 import 'model/name_lists.dart';
 
@@ -40,10 +43,10 @@ class CholaInitial extends StatefulWidget {
 class _CholaInitialState extends State<CholaInitial>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final int _currentIndex = 0;
+  final int _currentIndex     = 0;
   final int _selectedVertMenu = 1;
 
-  DateTime? pickedDate;
+        DateTime? pickedDate;
 
   final TextEditingController _dateController = TextEditingController();
 
@@ -53,6 +56,7 @@ class _CholaInitialState extends State<CholaInitial>
   void initState() {
     super.initState();
     _tabController = TabController(length: tabBarView.length, vsync: this);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
   }
 
   @override
@@ -63,11 +67,18 @@ class _CholaInitialState extends State<CholaInitial>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    if (ResponsiveSize().isWide(context)) {
-      return const WebView();
+    if (kDebugMode) {
+      if (ResponsiveSize().isWide(context)) {
+        return const WebView();
+      } else {
+        return const MobileView();
+      }
     } else {
-      return const MobileView();
+      if (ResponsiveSize().isWide(context) || kIsWeb) {
+        return const WebView();
+      } else {
+        return const MobileView();
+      }
     }
   }
 }
