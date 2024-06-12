@@ -1,6 +1,6 @@
 import 'package:chola_first/core/responsive.dart';
 import 'package:chola_first/model/name_lists.dart';
-import 'package:chola_first/widgets/app_button.dart';
+import 'package:chola_first/widgets/custom_button.dart';
 import 'package:chola_first/widgets/custom_text_feild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +19,7 @@ class _MobileViewState extends State<MobileView> {
   final TextEditingController _dateController = TextEditingController();
   DateTime? pickedDate;
   final _formKey = GlobalKey<FormState>();
-  var _intialValue = null;
+  final _intialValue = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +123,6 @@ class _MobileViewState extends State<MobileView> {
                   // height: MediaQuery.of(context).size.height * 0.,
                   child: Column(
                     children: [
-
                       /// header widget
                       Container(
                         padding: const EdgeInsets.only(left: 18),
@@ -160,10 +159,10 @@ class _MobileViewState extends State<MobileView> {
                         // height: MediaQuery.of(context).size.height * 0.18,
                         decoration: const BoxDecoration(
                             border: Border(
-                              bottom: BorderSide(color: Colors.grey),
-                              left: BorderSide(color: Colors.grey),
-                              right: BorderSide(color: Colors.grey),
-                            )),
+                          bottom: BorderSide(color: Colors.grey),
+                          left: BorderSide(color: Colors.grey),
+                          right: BorderSide(color: Colors.grey),
+                        )),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,7 +248,7 @@ class _MobileViewState extends State<MobileView> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
                 child: ToggleButtons(
                   borderRadius: BorderRadius.circular(4),
                   borderColor: Colors.grey,
@@ -257,8 +256,7 @@ class _MobileViewState extends State<MobileView> {
                   fillColor: Colors.blue.shade900,
                   selectedColor: Colors.white,
                   color: Colors.black,
-                  textStyle: Theme
-                      .of(context)
+                  textStyle: Theme.of(context)
                       .textTheme
                       .bodyMedium
                       ?.copyWith(color: Colors.white, fontSize: 14),
@@ -283,29 +281,27 @@ class _MobileViewState extends State<MobileView> {
                 ),
               ),
               _remitIndex == 1
-                  ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: CustomTextField(
-                      text: "MCR", isReq: true, isRemark: true))
-                  : SizedBox(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  ? const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: CustomTextField(
+                          text: "MCR", isReq: true, isRemark: true))
+                  : const SizedBox(),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomTextField(text: "Mobile No", isReq: true),
-                    CustomTextField(
-                        text: "Amount Collected", isReq: true),
+                    CustomTextField(text: "Amount Collected", isReq: true),
                   ],
                 ),
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                 child: Text(
                   "*Payment Method",
-                  style: Theme
-                      .of(context)
+                  style: Theme.of(context)
                       .textTheme
                       .bodyMedium
                       ?.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
@@ -314,9 +310,7 @@ class _MobileViewState extends State<MobileView> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                  height: MediaQuery
-                      .sizeOf(context)
-                      .height * 0.04,
+                  height: MediaQuery.sizeOf(context).height * 0.04,
                   width: ResponsiveSize().width(context),
                   child: ToggleButtons(
                     borderRadius: BorderRadius.circular(4),
@@ -325,13 +319,12 @@ class _MobileViewState extends State<MobileView> {
                     fillColor: Colors.blue.shade900,
                     selectedColor: Colors.white,
                     color: Colors.black,
-                    textStyle: Theme
-                        .of(context)
+                    textStyle: Theme.of(context)
                         .textTheme
                         .bodyMedium
                         ?.copyWith(color: Colors.white, fontSize: 14),
                     isSelected: List.generate(tabBarMobileView.length,
-                            (index) => _currentIndex == index),
+                        (index) => _currentIndex == index),
                     onPressed: (int newIndex) {
                       setState(() {
                         _currentIndex = newIndex;
@@ -339,8 +332,8 @@ class _MobileViewState extends State<MobileView> {
                     },
                     children: [
                       for (int index = 0;
-                      index < tabBarMobileView.length;
-                      index++)
+                          index < tabBarMobileView.length;
+                          index++)
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: Text(
@@ -355,7 +348,7 @@ class _MobileViewState extends State<MobileView> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
@@ -365,15 +358,14 @@ class _MobileViewState extends State<MobileView> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomTextField(
                                     text: "Account No", isReq: true),
-                                CustomTextField(
-                                    text: "MICR No", isReq: true),
+                                CustomTextField(text: "MICR No", isReq: true),
                                 CustomTextField(
                                     text: "Bank Name", isReq: false),
                                 CustomTextField(
@@ -384,7 +376,8 @@ class _MobileViewState extends State<MobileView> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 6.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -392,10 +385,10 @@ class _MobileViewState extends State<MobileView> {
                                 const SizedBox(
                                   height: 68,
                                 ),
-                                CustomTextField(
+                                const CustomTextField(
                                     text: "IFSC Code", isReq: true),
                                 const Gap(6),
-                                CustomTextField(
+                                const CustomTextField(
                                     text: "Branch Name",
                                     isReq: false,
                                     isGrey: true),
@@ -403,43 +396,38 @@ class _MobileViewState extends State<MobileView> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       "*",
-                                      style: Theme
-                                          .of(context)
+                                      style: Theme.of(context)
                                           .textTheme
                                           .displaySmall
                                           ?.copyWith(
-                                          fontSize: 12,
-                                          color: Colors.red.shade400),
+                                              fontSize: 12,
+                                              color: Colors.red.shade400),
                                     ),
                                     Text(
                                       "Instrument Date",
-                                      style: Theme
-                                          .of(context)
+                                      style: Theme.of(context)
                                           .textTheme
                                           .displaySmall
                                           ?.copyWith(
-                                          fontSize: 14,
-                                          color: Colors.black87),
+                                              fontSize: 14,
+                                              color: Colors.black87),
                                     ),
                                   ],
                                 ),
                                 const Gap(4),
                                 SizedBox(
                                   width:
-                                  MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width * 0.44,
+                                      MediaQuery.of(context).size.width * 0.44,
                                   height: 40,
                                   child: GestureDetector(
                                     onTap: () async {
                                       DateTime? picked = await showDatePicker(
                                         initialDate:
-                                        pickedDate ?? DateTime.now(),
+                                            pickedDate ?? DateTime.now(),
                                         context: context,
                                         firstDate: DateTime(2000),
                                         lastDate: DateTime(2101),
@@ -449,8 +437,7 @@ class _MobileViewState extends State<MobileView> {
                                         setState(() {
                                           pickedDate = picked;
                                           _dateController.text =
-                                          "${pickedDate!.day}/${pickedDate!
-                                              .month}/${pickedDate!.year}";
+                                              "${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}";
                                         });
                                       }
                                     },
@@ -480,9 +467,10 @@ class _MobileViewState extends State<MobileView> {
                                       if (_formKey.currentState?.validate() ??
                                           false) {
                                         ScaffoldMessenger.of(context)
-                                            .showMaterialBanner(MaterialBanner(
-                                            content: Text("Not filled"),
-                                            actions: []));
+                                            .showMaterialBanner(
+                                                const MaterialBanner(
+                                                    content: Text("Not filled"),
+                                                    actions: []));
                                       }
                                     })
                               ],
@@ -490,8 +478,8 @@ class _MobileViewState extends State<MobileView> {
                           ),
                         ],
                       ),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
                           child: CustomTextField(
                               text: "Enter Remarks",
                               isReq: false,
@@ -540,9 +528,7 @@ class _MobileViewState extends State<MobileView> {
 
   SizedBox tableView(BuildContext context) {
     return SizedBox(
-      width: MediaQuery
-          .sizeOf(context)
-          .width,
+      width: MediaQuery.sizeOf(context).width,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6.0),
         child: Card(
@@ -556,24 +542,18 @@ class _MobileViewState extends State<MobileView> {
                 const Gap(6),
                 Container(
                   padding: const EdgeInsets.all(8),
-                  height: MediaQuery
-                      .sizeOf(context)
-                      .height * 0.13,
+                  height: MediaQuery.sizeOf(context).height * 0.13,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Balance to be allocated :",
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleMedium,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(
                         "0",
-                        style: Theme
-                            .of(context)
+                        style: Theme.of(context)
                             .textTheme
                             .titleMedium
                             ?.copyWith(color: Colors.red.shade800),
@@ -589,7 +569,7 @@ class _MobileViewState extends State<MobileView> {
                                     backgroundColor: Colors.blue.shade800,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
-                                        BorderRadius.circular(4))),
+                                            BorderRadius.circular(4))),
                                 onPressed: () {},
                                 child: const Text(
                                   "Reset",
@@ -599,16 +579,14 @@ class _MobileViewState extends State<MobileView> {
                           const Gap(4),
                           Text(
                             "Agreement No:",
-                            style: Theme
-                                .of(context)
+                            style: Theme.of(context)
                                 .textTheme
                                 .labelMedium
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           Text(
                             "HE028I2PNFJN203797",
-                            style: Theme
-                                .of(context)
+                            style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!
                                 .copyWith(overflow: TextOverflow.ellipsis),
@@ -621,7 +599,7 @@ class _MobileViewState extends State<MobileView> {
                 const SizedBox(height: 20),
                 Container(
                   decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
+                      BoxDecoration(border: Border.all(color: Colors.black)),
                   child: Table(
                     border: TableBorder.all(color: Colors.transparent),
                     children: [
@@ -651,7 +629,7 @@ class _MobileViewState extends State<MobileView> {
                               border: Border(
                                 right: BorderSide(color: Colors.black),
                                 left:
-                                BorderSide(color: Colors.black, width: 0.2),
+                                    BorderSide(color: Colors.black, width: 0.2),
                               ),
                             ),
                             padding: const EdgeInsets.all(8.0),
@@ -684,99 +662,97 @@ class _MobileViewState extends State<MobileView> {
                       // Table Data Rows
                       ...List<TableRow>.generate(
                         tableData.length - 1,
-                            (rowIndex) =>
-                            TableRow(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.transparent)),
-                              children: List<Widget>.generate(
-                                tableData[rowIndex + 1].length,
-                                    (colIndex) {
-                                  return Container(
-                                    height: 57,
-                                    decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: const BorderSide(
-                                                color: Colors.black12),
-                                            right: tableData[rowIndex + 1][0] ==
+                        (rowIndex) => TableRow(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.transparent)),
+                          children: List<Widget>.generate(
+                            tableData[rowIndex + 1].length,
+                            (colIndex) {
+                              return Container(
+                                height: 57,
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: const BorderSide(
+                                            color: Colors.black12),
+                                        right: tableData[rowIndex + 1][0] ==
                                                 'Add Other Changes'
-                                                ? const BorderSide(
+                                            ? const BorderSide(
                                                 color: Colors.transparent)
-                                                : const BorderSide(
+                                            : const BorderSide(
                                                 color: Colors.black12))),
-                                    child: tableData[rowIndex + 1][colIndex]
+                                child: tableData[rowIndex + 1][colIndex]
                                         .isNotEmpty
-                                        ? Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              tableData[rowIndex + 1]
-                                              [colIndex],
-                                              style: TextStyle(
-                                                fontWeight:
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SizedBox(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
                                                 tableData[rowIndex + 1]
-                                                [0] ==
-                                                    'Total'
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal,
+                                                    [colIndex],
+                                                style: TextStyle(
+                                                  fontWeight:
+                                                      tableData[rowIndex + 1]
+                                                                  [0] ==
+                                                              'Total'
+                                                          ? FontWeight.bold
+                                                          : FontWeight.normal,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                        : SizedBox(
-                                      height: 30,
-                                      child: tableData[rowIndex + 1][0] ==
-                                          'Add Other Changes'
-                                          ? null
-                                          : Padding(
-                                        padding:
-                                        const EdgeInsets.all(8.0),
-                                        child: TextFormField(
-                                          key: Key(
-                                              'textfield_${rowIndex}_${colIndex}'),
-                                          maxLengthEnforcement:
-                                          MaxLengthEnforcement
-                                              .enforced,
-                                          maxLength: 30,
-                                          initialValue:
-                                          tableData[rowIndex + 1]
-                                          [colIndex] ??
-                                              '0',
-                                          onSaved: (value) {
-                                            setState(() {
-                                              tableData[rowIndex + 1]
-                                              [colIndex] = value!;
-                                            });
-                                          },
-                                          onChanged: (value) {
-                                            setState(() {});
-                                          },
-                                          decoration:
-                                          const InputDecoration(
-                                            counterText: "",
-                                            isDense: true,
-                                            border:
-                                            OutlineInputBorder(),
-                                            contentPadding:
-                                            EdgeInsets.symmetric(
-                                                vertical: 10,
-                                                horizontal: 10),
+                                            ],
                                           ),
                                         ),
+                                      )
+                                    : SizedBox(
+                                        height: 30,
+                                        child: tableData[rowIndex + 1][0] ==
+                                                'Add Other Changes'
+                                            ? null
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: TextFormField(
+                                                  key: Key(
+                                                      'textfield_${rowIndex}_$colIndex'),
+                                                  maxLengthEnforcement:
+                                                      MaxLengthEnforcement
+                                                          .enforced,
+                                                  maxLength: 30,
+                                                  initialValue:
+                                                      tableData[rowIndex + 1]
+                                                              [colIndex] ??
+                                                          '0',
+                                                  onSaved: (value) {
+                                                    setState(() {
+                                                      tableData[rowIndex + 1]
+                                                          [colIndex] = value!;
+                                                    });
+                                                  },
+                                                  onChanged: (value) {
+                                                    setState(() {});
+                                                  },
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    counterText: "",
+                                                    isDense: true,
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    contentPadding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 10,
+                                                            horizontal: 10),
+                                                  ),
+                                                ),
+                                              ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
+                              );
+                            },
+                          ),
+                        ),
                       ),
                     ],
                   ),

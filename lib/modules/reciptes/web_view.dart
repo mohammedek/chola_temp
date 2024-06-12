@@ -1,12 +1,12 @@
-import 'package:chola_first/widgets/banking_widget.dart';
-import 'package:chola_first/widgets/chalan_popup.dart';
+import 'package:chola_first/model/name_lists.dart';
+import 'package:chola_first/widgets/web/banking_widget.dart';
+import 'package:chola_first/widgets/web/chalan_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../constants/colors.dart';
+import '../../constants/styles.dart';
 import '../eod/bank_form_screen.dart';
-import '../model/name_lists.dart';
 
 class WebView extends StatefulWidget {
   const WebView({super.key});
@@ -28,7 +28,6 @@ class _WebViewState extends State<WebView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.black,
@@ -60,10 +59,16 @@ class _WebViewState extends State<WebView> {
                           child: TextField(
                             decoration: InputDecoration(
                               hintText: "Search..",
-                              prefixIcon: const Icon(Icons.search),
+                              hintStyle: TextStyle(color: Colors.pink.shade800),
+                              focusColor: Colors.pink.shade800,
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Colors.pink.shade800,
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(width: 3),
+                                borderSide: BorderSide(
+                                    width: 3, color: Colors.pink.shade800),
                               ),
                             ),
                           ),
@@ -80,7 +85,7 @@ class _WebViewState extends State<WebView> {
                                 bottomLeft: Radius.circular(8),
                                 topLeft: Radius.circular(8),
                               ),
-                              border: Border.all(color: Colors.black45)),
+                              border: Border.all(color: Colors.pink.shade800)),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,40 +93,44 @@ class _WebViewState extends State<WebView> {
                             children: [
                               IconButton(
                                   onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.star,
-                                    size: 20,
-                                    color: Colors.grey,
-                                  )),
-                              const VerticalDivider(color: Colors.black45),
+                                  icon: Icon(Icons.star,
+                                      size: 20, color: Colors.pink.shade800)),
+                              VerticalDivider(color: Colors.pink.shade800),
                               DropdownButton(
                                 items: const [],
                                 onChanged: (value) {},
                                 underline: const SizedBox(),
+                                icon: Icon(
+                                    color: Colors.pink.shade800,
+                                    (Icons.arrow_drop_down)),
                               ),
                             ],
                           ),
                         ),
                         IconButton(
                             onPressed: () {},
+                            color: Colors.pink.shade800,
                             icon: const Icon(
                               Icons.add_box,
                               size: 30,
                             )),
                         IconButton(
                             onPressed: () {},
+                            color: Colors.pink.shade800,
                             icon: const Icon(
                               Icons.cloud_circle_outlined,
                               size: 30,
                             )),
                         IconButton(
                             onPressed: () {},
+                            color: Colors.pink.shade800,
                             icon: const Icon(
                               Icons.question_mark_rounded,
                               size: 30,
                             )),
                         IconButton(
                             onPressed: () {},
+                            color: Colors.pink.shade800,
                             icon: const Icon(Icons.more_vert)),
                       ],
                     ),
@@ -148,10 +157,14 @@ class _WebViewState extends State<WebView> {
                                           MainAxisAlignment.start,
                                       children: [
                                         menuList.indexOf(e) == 0
-                                            ? const Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 2.0),
-                                                child:Icon(Icons.menu_sharp)
+                                            ? Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 2.0),
+                                                child: Icon(
+                                                  Icons.menu_rounded,
+                                                  color: Colors.pink.shade800,
+                                                ),
                                               )
                                             : const SizedBox.shrink(),
                                         Text(
@@ -160,7 +173,7 @@ class _WebViewState extends State<WebView> {
                                             fontSize: menuList.indexOf(e) == 0
                                                 ? 20
                                                 : 14,
-                                            color: Colors.black54,
+                                            color: Colors.pink.shade800,
                                           ),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -169,12 +182,16 @@ class _WebViewState extends State<WebView> {
                                             ? const SizedBox()
                                             : InkWell(
                                                 child: menuList.indexOf(e) == 9
-                                                    ? const Icon(
+                                                    ? Icon(
                                                         Icons.arrow_drop_down,
+                                                        color: Colors
+                                                            .pink.shade800,
                                                         size: 28)
-                                                    : const Icon(
+                                                    : Icon(
                                                         Icons
                                                             .keyboard_arrow_down_outlined,
+                                                        color: Colors
+                                                            .pink.shade800,
                                                         size: 28),
                                                 onTap: () async {
                                                   if (menuList.indexOf(e) ==
@@ -248,10 +265,10 @@ class _WebViewState extends State<WebView> {
                                 ))
                             .toList(),
                       )),
-                  Container(
-                    height: 4,
-                    color: Colors.grey,
-                  ),
+                  // Container(
+                  //   height: 4,
+                  //   color: Colors.grey,
+                  // ),
                 ],
               ),
               Expanded(child: dashboard(context))
@@ -262,200 +279,270 @@ class _WebViewState extends State<WebView> {
 
   SingleChildScrollView dashboard(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Gap(6),
-          Container(
-            decoration:
-                BoxDecoration(border: Border.all(color: Colors.grey[400]!)),
-            child: ListTile(
-              dense: true,
-              tileColor: Colors.grey[300],
-              leading: Card(
-                color: Colors.deepPurple.shade900,
-                child: const IconButton(
-                  constraints: BoxConstraints(),
-                  padding: EdgeInsets.all(3),
-                  onPressed: null,
-                  icon: Icon(
-                    Icons.note_alt_outlined,
-                    color: kWhiteColor,
+      child: isEOD == false
+          ? SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Gap(6),
+                  Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.white)),
+                    child: ListTile(
+                      dense: true,
+                      tileColor: Colors.pink.shade800,
+                      leading: Card(
+                        color: Colors.white,
+                        child: IconButton(
+                          constraints: const BoxConstraints(),
+                          padding: const EdgeInsets.all(3),
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.note_alt_outlined,
+                            color: Colors.pink.shade800,
+                          ),
+                        ),
+                      ),
+                      title: const Text(
+                        "LAP Overdue Receipt",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: const Text(
+                        "HE01XBV0000000456",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              title: Text(
-                "LAP Overdue Receipt",
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.deepPurple.shade900,
-                    fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                "HE01XBV0000000456",
-                style: TextStyle(
-                    color: Colors.deepPurple.shade900,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          const Gap(6),
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.7,
-            child: ListTile(
-              dense: true,
-              tileColor: Colors.grey[300],
-              leading: Card(
-                color: Colors.grey[450],
-                child: IconButton(
-                  constraints: const BoxConstraints(),
-                  padding: const EdgeInsets.all(3),
-                  onPressed: null,
-                  icon: Icon(
-                    Icons.edit_document,
-                    color: Colors.grey[450],
+                  const Gap(6),
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.7,
+                    child: ListTile(
+                      dense: true,
+                      tileColor: Colors.pink.shade800, // Colors.grey[300],
+                      leading: Card(
+                        color: Colors.grey[450],
+                        child: IconButton(
+                          constraints: const BoxConstraints(),
+                          padding: const EdgeInsets.all(3),
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.edit_document,
+                            color: Colors.pink.shade800, // Colors.grey[450],
+                          ),
+                        ),
+                      ),
+                      title: const Text(
+                        "Agreement Info",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white, // Colors.grey[450],
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              title: Text(
-                "Agreement Info",
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[450],
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.sizeOf(context).width * 0.7,
-            height: 80,
-            decoration:
-                BoxDecoration(border: Border.all(color: Colors.grey[300]!)),
-            child: Column(
-              children: [
-                const Gap(16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
+                  Container(
+                    width: MediaQuery.sizeOf(context).width * 0.7,
+                    height: 80,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey[300]!)),
+                    child: Column(
                       children: [
-                        Text(
-                          "Agreement No",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[500],
-                              fontWeight: FontWeight.bold),
+                        const Gap(16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  "Agreement No",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.pink.shade800,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Gap(6),
+                                Text("HE01XBV0000000456",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.pink.shade800,
+                                    )),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  "CIF No",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.pink.shade800,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Gap(6),
+                                Text("5369872",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.pink.shade800,
+                                    )),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  "Account Name",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.pink.shade800,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Gap(6),
+                                Text("SANJAY PAL",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.pink.shade800,
+                                    )),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  "EMI Amount",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.pink.shade800,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Gap(6),
+                                Text("896325",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.pink.shade800,
+                                    )),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  "Mobile Number",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.pink.shade800,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Gap(6),
+                                Text("9874563215",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.pink.shade800,
+                                    )),
+                              ],
+                            ),
+                          ],
                         ),
-                        const Gap(4),
-                        Text("HE01XBV0000000456",
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[500])),
+                        const Gap(16),
                       ],
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          "CIF No",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[500],
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const Gap(4),
-                        Text("5369872",
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[500])),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          "Account Name",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[500],
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const Gap(4),
-                        Text("SANJAY PAL",
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[500])),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          "EMI Amount",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[500],
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const Gap(4),
-                        Text("896325",
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[500])),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          "Mobile Number",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[500],
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const Gap(4),
-                        Text("9874563215",
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[500])),
-                      ],
-                    ),
-                  ],
-                ),
-                const Gap(6),
-              ],
-            ),
-          ),
-          const Gap(6),
-          CupertinoSegmentedControl<int>(
-            padding: const EdgeInsets.all(8),
-            children: {
-              for (int index = 0; index < typeList.length; index++)
-                index: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                  child: Text(
-                    typeList[index].toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 10,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    maxLines: 6,
                   ),
-                ),
-            },
-            groupValue: _typeCurrentIndex,
-            onValueChanged: (int newIndex) {
-              setState(() {
-                _typeCurrentIndex = newIndex;
-              });
-            },
-            borderColor: Colors.pink.shade800,
-            selectedColor: Colors.pink.shade800,
-            unselectedColor: Colors.white,
-            pressedColor: Colors.pink.withOpacity(0.2),
-          ),
-          isEOD == false
-              ? SingleChildScrollView(
-                  child: SizedBox(
+                  const Gap(6),
+                  CupertinoSegmentedControl<int>(
+                    padding: const EdgeInsets.all(8),
+                    children: {
+                      for (int index = 0; index < typeList.length; index++)
+                        index: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 20),
+                          child: Text(
+                            typeList[index].toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 10,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            maxLines: 6,
+                          ),
+                        ),
+                    },
+                    groupValue: _typeCurrentIndex,
+                    onValueChanged: (int newIndex) {
+                      setState(() {
+                        _typeCurrentIndex = newIndex;
+                      });
+                    },
+                    borderColor: Colors.pink.shade800,
+                    selectedColor: Colors.pink.shade800,
+                    unselectedColor: Colors.white,
+                    pressedColor: Colors.pink.withOpacity(0.2),
+                  ),
+                  const Gap(6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "* Mobile No",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          const Gap(6),
+                          SizedBox(
+                            width: MediaQuery.sizeOf(context).width * 0.2,
+                            child: const TextField(
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                hintText: 'Mobile No',
+                                border: OutlineInputBorder(),
+                                hintStyle: TextStyle(fontSize: 14),
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 10,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Gap(12),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "* Amount Collected",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          const Gap(6),
+                          SizedBox(
+                            width: MediaQuery.sizeOf(context).width * 0.2,
+                            child: const TextField(
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                hintText: 'Amount',
+                                border: OutlineInputBorder(),
+                                hintStyle: TextStyle(fontSize: 14),
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 10,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Gap(6),
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 1.1,
                     width: double.infinity,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Gap(6),
+                        const Gap(12),
                         Expanded(
                           flex: 3,
 
@@ -473,7 +560,7 @@ class _WebViewState extends State<WebView> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 6,
+                                height: 4,
                               ),
                               CupertinoSegmentedControl<int>(
                                 padding: const EdgeInsets.all(8),
@@ -515,11 +602,76 @@ class _WebViewState extends State<WebView> {
                             ],
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: 8),
                         Expanded(
                           flex: 2,
                           child: Column(
                             children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.11,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Balance to be allocated :",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                    Text(
+                                      "0",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                              color: Colors.red.shade800),
+                                    ),
+                                    const Gap(2),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.03,
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      Colors.pink.shade800,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4))),
+                                              onPressed: () {},
+                                              child: const Text(
+                                                "Reset",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )),
+                                        ),
+                                        Text(
+                                          "Agreement No:",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                        const Text("HE028I2PNFJN20379729"),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const Gap(6),
                               Container(
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.black)),
@@ -632,15 +784,13 @@ class _WebViewState extends State<WebView> {
                       ],
                     ),
                   ),
-                )
-              : SizedBox(
-                  height: MediaQuery.of(context).size.height * 1.8,
-                  width: double.infinity,
-                  child: const BankFormScreen()),
-        ],
-      ),
+                ],
+              ),
+            )
+          : SizedBox(
+              height: MediaQuery.of(context).size.height * 1.8,
+              width: double.infinity,
+              child: const BankFormScreen()),
     );
   }
 }
-
-

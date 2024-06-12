@@ -1,9 +1,8 @@
-import 'package:chola_first/constants/colors.dart';
+import 'package:chola_first/constants/styles.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 class BankFormScreen extends StatefulWidget {
   const BankFormScreen({super.key});
@@ -121,17 +120,17 @@ class _BankFormScreenState extends State<BankFormScreen> {
                   onPressed: null,
                   icon: Icon(
                     Icons.note_alt_outlined,
-                    color: kWhiteColor,
+                    color: whiteColor,
                   ),
                 ),
               ),
               title: const Text(
                 "EOD DCR",
-                style: TextStyle(fontSize: 16, color: kWhiteColor),
+                style: TextStyle(fontSize: 16, color: whiteColor),
               ),
               subtitle: const Text(
                 "Receipt",
-                style: TextStyle(color: kWhiteColor),
+                style: TextStyle(color: whiteColor),
               ),
             ),
             const SizedBox(
@@ -239,7 +238,7 @@ class _BankFormScreenState extends State<BankFormScreen> {
                             height: MediaQuery.sizeOf(context).height / 1.65,
                             child: Card(
                               elevation: 10,
-                              color: kPrimaryColor.withOpacity(0.05),
+                              color: kprimaryColor.withOpacity(0.05),
                               child: Container(
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.all(8),
