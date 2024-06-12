@@ -24,6 +24,7 @@ List<String> typeList = [
 ];
 
 List<String> tabBarMobileView = ["Cash", "Cheque", "Draft", "Payment Gateway"];
+List<String> customerRemiter = ["Customer","Remiter"];
 
 List<List<String>> tableData = [
   ["Item", "Overdue", "Actuals"],

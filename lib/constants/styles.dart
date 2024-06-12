@@ -9,3 +9,8 @@ const ksecondaryColor = Color.fromARGB(255, 2, 37, 98);
 const light = FontWeight.w300;
 const medium = FontWeight.w500;
 const bold = FontWeight.bold;
+
+class AppColors {
+  static const kPrimaryColor = Colors.pink;
+  static const kSecondary = Colors.pink;
+}

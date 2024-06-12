@@ -1,14 +1,12 @@
+import 'package:chola_first/model/name_lists.dart';
 import 'package:chola_first/widgets/web/banking_widget.dart';
 import 'package:chola_first/widgets/web/chalan_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 import '../../constants/styles.dart';
 import '../eod/bank_form_screen.dart';
-import '../../model/name_lists.dart';
-import '../../widgets/web/recipte_widget.dart';
 
 class WebView extends StatefulWidget {
   const WebView({super.key});
@@ -39,6 +37,7 @@ class _WebViewState extends State<WebView> {
           child: Column(
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -147,8 +146,7 @@ class _WebViewState extends State<WebView> {
                                             ? const Padding(
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: 2.0),
-                                                child: Icon(Icons.menu_rounded),
-                                              )
+                                                child: Icon(Icons.menu_sharp))
                                             : const SizedBox.shrink(),
                                         Text(
                                           e.toString(),
