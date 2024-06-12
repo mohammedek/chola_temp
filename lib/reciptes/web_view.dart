@@ -16,11 +16,15 @@ class WebView extends StatefulWidget {
 }
 
 class _WebViewState extends State<WebView> {
-  late TabController _tabController;
+  // late TabController _tabController;
   int _currentIndex = 0;
   int _typeCurrentIndex = 0;
   int _selectedVertMenu = 1;
   bool isEOD = false;
+
+  set selectedVetMenu(int value) => _selectedVertMenu = value;
+  int get  selectedVertMenu => _selectedVertMenu;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
