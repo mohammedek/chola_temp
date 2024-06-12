@@ -69,7 +69,7 @@ class _BottomNavBarState extends State<BottomNavBar>
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
-        return OAgreementsPage();
+        return const OAgreementsPage();
       case 1:
         return const Scaffold(
           backgroundColor: Colors.red,

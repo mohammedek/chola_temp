@@ -79,48 +79,50 @@ class _OAgreementsPageState extends State<OAgreementsPage> {
 
   Expanded recentAgreements(BuildContext context, List recentOAgreements) {
     return Expanded(
-      child: Column(
-        children: [
-          Container(
-            color: whiteColor,
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text('Recent OAgreements',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(fontWeight: bold)),
-              onTap: () {},
+      child: recentOAgreements.isEmpty
+          ? const SizedBox()
+          : Column(
+              children: [
+                Container(
+                  color: whiteColor,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Recent OAgreements',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(fontWeight: bold)),
+                    onTap: () {},
+                  ),
+                ),
+                Expanded(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.only(top: 10),
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 5,
+                    ),
+                    itemCount: recentOAgreements.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        tileColor: kprimaryColor.withOpacity(0.1),
+                        dense: true,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        title: Text(recentOAgreements[index]),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const OAgreementDetail()));
+                          // Handle agreement tap
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-          Expanded(
-            child: ListView.separated(
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(top: 10),
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 5,
-              ),
-              itemCount: recentOAgreements.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  tileColor: kprimaryColor.withOpacity(0.1),
-                  dense: true,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                  title: Text(recentOAgreements[index]),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const OAgreementDetail()));
-                    // Handle agreement tap
-                  },
-                );
-              },
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -145,20 +147,11 @@ class _OAgreementsPageState extends State<OAgreementsPage> {
             child: TextFormField(
               controller: searchController,
               onChanged: (value) => setState(() {
-                if (value.isNotEmpty) {
-                  if (recentOAgreements.any((element) => (element
-                      .toLowerCase()
-                      .startsWith(value.toLowerCase())))) {
-                    _formKey.currentState!.validate();
-
-                    filteredOAgreements = recentOAgreements
-                        .where((element) => element
-                            .toLowerCase()
-                            .startsWith(value.toLowerCase()))
-                        .toList();
-                  } else {
-                    _formKey.currentState!.validate();
-                  }
+                if (_formKey.currentState!.validate()) {
+                  filteredOAgreements = recentOAgreements
+                      .where((element) =>
+                          element.toLowerCase().startsWith(value.toLowerCase()))
+                      .toList();
                 }
               }),
               validator: (value) {

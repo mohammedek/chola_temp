@@ -65,12 +65,12 @@ class _CholaInitialState extends State<CholaInitial>
 
   @override
   Widget build(BuildContext context) {
-    // if (kIsWeb) {
-    //   return ResponsiveSize().isWide(context)
-    //       ? const WebView()
-    //       : const MobileView();
-    // } else {
-    return const BottomNavBar();
-    // }
+    if (kIsWeb) {
+      return ResponsiveSize().isWide(context)
+          ? const WebView()
+          : const MobileView();
+    } else {
+      return const BottomNavBar();
+    }
   }
 }
