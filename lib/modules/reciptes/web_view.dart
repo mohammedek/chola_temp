@@ -328,43 +328,57 @@ class _WebViewState extends State<WebView> {
                 const Gap(6),
                 Container(
                   decoration:
-                      BoxDecoration(border: Border.all(color: Colors.white)),
-                  child: ListTile(
-                    dense: true,
-                    tileColor: Colors.grey.shade200,
-                    leading: Card(
-                      color: Colors.white,
-                      child: IconButton(
-                        constraints: const BoxConstraints(),
-                        padding: const EdgeInsets.all(3),
-                        onPressed: null,
-                        icon: Icon(
-                          Icons.note_alt_outlined,
-                          color: Colors.pink.shade800,
+                  BoxDecoration(
+                      color: Colors.pink.shade800,
+                      border: Border.all(color: Colors.white)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(children: [
+                      Card(
+                        color: Colors.white,
+                        child: IconButton(
+                          constraints: const BoxConstraints(),
+                          padding: const EdgeInsets.all(3),
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.note_alt_outlined,
+                            color: Colors.pink.shade800,
+                          ),
                         ),
                       ),
-                    ),
-                    title: const Text(
-                      "LAP Overdue Receipt",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: const Text(
-                      "HE01XBV0000000456",
-                      style: TextStyle(
-                          color: Colors.black26, fontWeight: FontWeight.bold),
-                    ),
+                      const Gap(12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "LAP Overdue Receipt",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const Gap(6),
+                          Text(
+                            "HE01XBV0000000456",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+
+                        ],
+                      ),
+
+                    ],),
                   ),
+
                 ),
                 const Gap(6),
-                SizedBox(
+                Container(
+                  color: Colors.pink.shade800,
                   width: MediaQuery.sizeOf(context).width * 0.7,
-                  child: ListTile(
-                    dense: true,
-                    tileColor: Colors.grey.shade200, // Colors.grey[300],
-                    leading: Card(
+                  child: Row(children: [
+                    const Gap(12),
+                    Card(
                       color: Colors.grey[450],
                       child: IconButton(
                         constraints: const BoxConstraints(),
@@ -376,13 +390,15 @@ class _WebViewState extends State<WebView> {
                         ),
                       ),
                     ),
-                    title: const Text(
+                    const Gap(12),
+                    Text(
                       "Agreement Info",
                       style: TextStyle(
                           fontSize: 16,
-                          color: Colors.black, // Colors.grey[450],
+                          color: Colors.white, // Colors.grey[450],
                           fontWeight: FontWeight.bold),
                     ),
+                  ],
                   ),
                 ),
                 Container(
