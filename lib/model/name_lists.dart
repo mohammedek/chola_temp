@@ -1,3 +1,5 @@
+import 'package:chola_first/modules/reciptes/controllers.dart';
+
 List<String> menuList = [
   'Collections Home',
   'OAgrements',
@@ -10,9 +12,10 @@ List<String> menuList = [
   'OAllocations',
   'More'
 ];
-
+FormControllers formControllers = FormControllers();
 List<String> tabBarView = [
   "Cheque",
+  "Cash",
   "Draft",
   "RTGS",
   "POS Machine",

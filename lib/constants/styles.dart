@@ -12,5 +12,5 @@ const bold = FontWeight.bold;
 
 class AppColors {
   static const kPrimaryColor = Colors.pink;
-  static const kSecondary = Colors.pink;
+  static const kSecondary = Colors.black;
 }

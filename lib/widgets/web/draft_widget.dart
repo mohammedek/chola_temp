@@ -1,47 +1,54 @@
-import 'package:chola_first/widgets/custom_text_feild.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 
-class ChequeWidget extends StatefulWidget {
-  const ChequeWidget(String e, {super.key});
+import '../custom_text_feild.dart';
+
+class DraftWidget extends StatefulWidget {
+  const DraftWidget({super.key});
 
   @override
-  State<ChequeWidget> createState() => _ChequeWidgetState();
+  State<DraftWidget> createState() => _DraftWidgetState();
 }
 
-class _ChequeWidgetState extends State<ChequeWidget> {
+class _DraftWidgetState extends State<DraftWidget> {
   DateTime? pickedDate;
   final TextEditingController _dateController = TextEditingController();
+  String formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.90,
-      width:MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(2.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 Expanded(
-                  flex:3,
+                Expanded(
+                  flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 16),
-                      const CustomTextField(text: "Account No",isReq: true,),
-                      const SizedBox(height: 16),
-                      const CustomTextField(text: "MICR No.",isReq: true,),
-                      const SizedBox(height: 16),
-                      const CustomTextField(text: "Bank Name",isReq: false,),
-                      const SizedBox(height: 16),
-                     const CustomTextField(text: "Instrument No",isReq: true,),
                       const Gap(16),
-                      const Text("* Email Attachment"),
+                      const CustomTextField(
+                        text: " MICR No",
+                      ),
+                      const Gap(16),
+                      const CustomTextField(text: "Bank Name", isGrey: true),
+                      const Gap(16),
+                      const CustomTextField(
+                        text: "Instrument No.",
+                        isReq: true,
+                      ),
+                      const Gap(10),
+                      const Text("* Instrument Image"),
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height / 16,
                         width: MediaQuery.sizeOf(context).shortestSide * 0.40,
@@ -85,21 +92,27 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                     ],
                   ),
                 ),
-                const SizedBox(width: 16),
+                const Gap(16),
                 Expanded(
                   flex: 3,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height:100 ),
-                     const CustomTextField(text: "IFSC Code",isReq: true,),
-                      const SizedBox(height: 16),
-                   const CustomTextField(text: "Branch Name",isReq: false,isGrey: true,),
-
-                      const SizedBox(height: 16),
+                      const Gap(16),
+                      const CustomTextField(
+                        text: "IFSC Code",
+                        isReq: false,
+                        isGrey: false,
+                      ),
+                      const Gap(16),
+                      const CustomTextField(
+                        text: "Branch Name",
+                        isReq: false,
+                        isGrey: true,
+                      ),
+                      const Gap(16),
                       const Text(
-                        "* Instrument Date ",
+                        "Instrument Date",
                         style: TextStyle(fontSize: 14),
                       ),
                       GestureDetector(
@@ -126,20 +139,20 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                                 value = pickedDate.toString();
                               });
                             },
-                            decoration: const InputDecoration(
-                              hintText: "Date",
-                              hintStyle: TextStyle(fontSize: 14),
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.date_range),
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 8,
+                            decoration: InputDecoration(
+                              hintText:formattedDate,
+                              hintStyle: const TextStyle(fontSize: 14),
+                              border: const OutlineInputBorder(),
+                              suffixIcon: const Icon(Icons.date_range),
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10,
                                 horizontal: 10,
                               ),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const Gap(26),
                       ElevatedButton(
                         onPressed: null,
                         style: ElevatedButton.styleFrom(
@@ -159,63 +172,63 @@ class _ChequeWidgetState extends State<ChequeWidget> {
               ],
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text("Enter Remarks"),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 1.7,
-                child: TextFormField(
-                  maxLines: 2,
-                  decoration: InputDecoration(
-                    hintText: "Enter Reason",
-                    hintStyle: Theme.of(context).textTheme.labelSmall,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 10,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Enter Remarks"
+                ),
+                SizedBox(
+                  // width: MediaQuery.of(context).size.width / 1.7,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 10,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const Gap(10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pink.shade800,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
+                const Gap(10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink.shade800,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Cancel",
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Cancel",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pinkAccent.shade100,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
+                    const Gap(10),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pinkAccent.shade100,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+                      onPressed: null,
+                      child: const Text(
+                        "Preview",
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Preview",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
