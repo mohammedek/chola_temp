@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chola_first/model/name_lists.dart';
 import 'package:chola_first/modules/reciptes/controllers.dart';
 import 'package:chola_first/widgets/custom_text_feild.dart';
@@ -67,120 +69,157 @@ class _WebViewState extends State<WebView> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.black,
-        title: const Text(
-          "Sandbox: preprod02 | Log out",
-          style: TextStyle(color: Colors.white, fontSize: 20),
+        title: InkWell(
+          onTap: () {
+            showCupertinoDialog(
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                      title: const Text("Do you want to logout ?"),
+                      content: const Text(
+                          "By clicking Yes you will be logged out from the application"),
+                      actions: [
+                        TextButton(onPressed: () {
+                           exit(0);
+                        }, child: const Text("Yes")),
+                        TextButton(onPressed: () {
+                          Navigator.pop(context);
+                        }, child: const Text("No")),
+                      ],
+                    ));
+          },
+          child: const Text(
+            "Sandbox: preprod02 | Log out",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
         ),
       ),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(
-                // width: MediaQuery.of(context).size.width,
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  children: [
-                    SizedBox(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width * 0.04
-                        // width: 200,
-                        ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      height: 40,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Search..",
-                          hintStyle: TextStyle(color: Colors.grey.shade800),
-                          focusColor: Colors.grey.shade800,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey.shade800,
+              Scrollbar(
+                thickness: 2,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      /// leading
+                      SizedBox(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.04
+                          // width: 200,
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                                width: 3, color: Colors.grey.shade800),
+
+                      /// title
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: 40,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: "Search..",
+                            hintStyle: TextStyle(color: Colors.grey.shade800),
+                            focusColor: Colors.grey.shade800,
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.grey.shade800,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(04),
+                              borderSide: BorderSide(
+                                  width: 3, color: Colors.grey.shade800),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.04),
-                    ),
-                    const Gap(0),
-                    Container(
-                      height:MediaQuery.of(context).size.width * 0.04,
-                      width:MediaQuery.of(context).size.width * 0.08,
-                      // margin: const EdgeInsets.only(left: 20),
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
-                            bottomLeft: Radius.circular(8),
-                            topLeft: Radius.circular(8),
-                          ),
-                          border: Border.all(color: Colors.grey.shade800)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.star,
-                                  size: 20, color: Colors.grey.shade800)),
-                          VerticalDivider(color: Colors.grey.shade800),
-                          DropdownButton(
-                            items: const [],
-                            onChanged: (value) {},
-                            underline: const SizedBox(),
-                            icon: Icon(
-                                color: Colors.grey.shade800,
-                                (Icons.arrow_drop_down)),
-                          ),
-                        ],
+
+                      /// space btw tite and actions
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.06),
+
+                      /// specific container
+                      Container(
+                        // height:MediaQuery.of(context).size.width * 0.03,
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              bottomRight: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
+                              topLeft: Radius.circular(8),
+                            ),
+                            border: Border.all(color: Colors.grey.shade800)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.star,
+                                    color: Colors.grey.shade800)),
+                            Container(
+                              color: Colors.grey,
+                              width: 2,
+                              height: MediaQuery.of(context).size.shortestSide *
+                                  0.03,
+                              // thickness: 2,
+                            ),
+                            DropdownButton(
+                              items: const [],
+                              onChanged: (value) {},
+                              underline: const SizedBox(),
+                              icon: Icon(
+                                  color: Colors.grey.shade800,
+                                  (Icons.arrow_drop_down)),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        color: Colors.grey.shade800,
-                        icon: const Icon(
-                          Icons.add_box,
-                          size: 30,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        color: Colors.grey.shade800,
-                        icon: const Icon(
-                          Icons.cloud_circle_outlined,
-                          size: 30,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        color: Colors.grey.shade800,
-                        icon: const Icon(
-                          Icons.question_mark_rounded,
-                          size: 30,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        color: Colors.grey.shade800,
-                        icon: const Icon(
-                          Icons.settings_applications,
-                          size: 30,
-                        )), IconButton(
-                        onPressed: () {},
-                        color: Colors.grey.shade800,
-                        icon: const Icon(
-                          Icons.notifications,
-                          size: 30,
-                        )),
-                 const  Icon(CupertinoIcons.person_alt_circle,size:30,)
-                  ],
+
+                      IconButton(
+                          onPressed: () {},
+                          color: Colors.grey.shade800,
+                          icon: const Icon(
+                            Icons.add_box,
+                            // size: 30,
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          color: Colors.grey.shade800,
+                          icon: const Icon(
+                            Icons.cloud_circle_outlined,
+                            // size: 30,
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          color: Colors.grey.shade800,
+                          icon: const Icon(
+                            Icons.question_mark_rounded,
+                            // size: 30,
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          color: Colors.grey.shade800,
+                          icon: const Icon(
+                            Icons.settings_applications,
+                            // size: 30,
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          color: Colors.grey.shade800,
+                          icon: const Icon(
+                            Icons.notifications,
+                            size: 30,
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          color: Colors.grey.shade800,
+                          icon: const Icon(
+                            CupertinoIcons.person_alt_circle,
+                            size: 30,
+                          )),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
@@ -195,20 +234,17 @@ class _WebViewState extends State<WebView> {
                                 onTap: () => setState(() {
                                   if (menuList.indexOf(e) != 0) {
                                     setState(() {
-                                      _selectedVertMenu =
-                                          menuList.indexOf(e);
+                                      _selectedVertMenu = menuList.indexOf(e);
                                     });
                                   }
                                 }),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     menuList.indexOf(e) == 0
                                         ? Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 2.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 2.0),
                                             child: Icon(
                                               Icons.menu_rounded,
                                               color: Colors.pink.shade800,
@@ -218,9 +254,8 @@ class _WebViewState extends State<WebView> {
                                     Text(
                                       e.toString(),
                                       style: TextStyle(
-                                        fontSize: menuList.indexOf(e) == 0
-                                            ? 20
-                                            : 14,
+                                        fontSize:
+                                            menuList.indexOf(e) == 0 ? 20 : 14,
                                         color: Colors.black87,
                                       ),
                                       maxLines: 1,
@@ -230,34 +265,30 @@ class _WebViewState extends State<WebView> {
                                         ? const SizedBox()
                                         : InkWell(
                                             child: menuList.indexOf(e) == 9
-                                                ? Icon(
-                                                    Icons.arrow_drop_down,
-                                                    color: Colors
-                                                        .pink.shade800,
+                                                ? Icon(Icons.arrow_drop_down,
+                                                    color: Colors.pink.shade800,
                                                     size: 28)
                                                 : Icon(
                                                     Icons
                                                         .keyboard_arrow_down_outlined,
-                                                    color: Colors
-                                                        .pink.shade800,
+                                                    color: Colors.pink.shade800,
                                                     size: 28),
                                             onTap: () async {
-                                              if (menuList.indexOf(e) ==
-                                                  7) {
+                                              if (menuList.indexOf(e) == 7) {
                                                 return showCupertinoDialog(
                                                     context: context,
                                                     builder:
-                                                        (context) =>
-                                                            SizedBox(
+                                                        (context) => SizedBox(
                                                               height: MediaQuery.of(
                                                                           context)
                                                                       .size
                                                                       .height *
                                                                   0.70,
-                                                              width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width,
+                                                              width:
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
                                                               child:
                                                                   AlertDialog(
                                                                 backgroundColor:
@@ -269,8 +300,7 @@ class _WebViewState extends State<WebView> {
                                                                     true,
                                                                 actions: [
                                                                   Container(
-                                                                    height:
-                                                                        2,
+                                                                    height: 2,
                                                                     color: Colors
                                                                         .black45,
                                                                   ),
@@ -281,21 +311,25 @@ class _WebViewState extends State<WebView> {
                                                                             8.0),
                                                                     child: ElevatedButton(
                                                                         style: ElevatedButton.styleFrom(
-                                                                          backgroundColor: Colors.pink.shade800,
+                                                                          backgroundColor: Colors
+                                                                              .pink
+                                                                              .shade800,
                                                                         ),
                                                                         onPressed: () {
-                                                                          Navigator.pop(context);
+                                                                          Navigator.pop(
+                                                                              context);
                                                                         },
                                                                         child: const Text(
                                                                           'Submit',
-                                                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                                                          style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold),
                                                                         )),
                                                                   )
                                                                 ],
                                                               ),
                                                             ));
-                                              } else if (menuList
-                                                      .indexOf(e) ==
+                                              } else if (menuList.indexOf(e) ==
                                                   6) {
                                                 setState(() {
                                                   isEOD = true;
@@ -327,85 +361,97 @@ class _WebViewState extends State<WebView> {
               children: [
                 const Gap(6),
                 Container(
-                  decoration:
-                  BoxDecoration(
-                      color: Colors.pink.shade800,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(04),
+                      color: Colors.grey.shade500,
                       border: Border.all(color: Colors.white)),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Row(children: [
+                    child: Row(
+                      children: [
+                        Card(
+                          color: Colors.white,
+                          child: IconButton(
+                            constraints: const BoxConstraints(),
+                            padding: const EdgeInsets.all(3),
+                            onPressed: null,
+                            icon: Icon(
+                              Icons.note_alt_outlined,
+                              color: Colors.pink.shade800,
+                            ),
+                          ),
+                        ),
+                        const Gap(12),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "LAP Overdue Receipt",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Gap(6),
+                            Text(
+                              "HE01XBV0000000456",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const Gap(6),
+                Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(04),
+                        topLeft: Radius.circular(04),
+                      )),
+
+                  // width: MediaQuery.sizeOf(context).width * 0.7,
+                  child: Row(
+                    children: [
+                      const Gap(12),
                       Card(
-                        color: Colors.white,
+                        color: Colors.grey[450],
                         child: IconButton(
                           constraints: const BoxConstraints(),
                           padding: const EdgeInsets.all(3),
                           onPressed: null,
                           icon: Icon(
-                            Icons.note_alt_outlined,
-                            color: Colors.pink.shade800,
+                            Icons.edit_document,
+                            color: Colors.pink.shade800, // Colors.grey[450],
                           ),
                         ),
                       ),
                       const Gap(12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "LAP Overdue Receipt",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const Gap(6),
-                          Text(
-                            "HE01XBV0000000456",
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
-
-                        ],
+                      const Text(
+                        "Agreement Info",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white, // Colors.grey[450],
+                            fontWeight: FontWeight.bold),
                       ),
-
-                    ],),
-                  ),
-
-                ),
-                const Gap(6),
-                Container(
-                  color: Colors.pink.shade800,
-                  width: MediaQuery.sizeOf(context).width * 0.7,
-                  child: Row(children: [
-                    const Gap(12),
-                    Card(
-                      color: Colors.grey[450],
-                      child: IconButton(
-                        constraints: const BoxConstraints(),
-                        padding: const EdgeInsets.all(3),
-                        onPressed: null,
-                        icon: Icon(
-                          Icons.edit_document,
-                          color: Colors.pink.shade800, // Colors.grey[450],
-                        ),
-                      ),
-                    ),
-                    const Gap(12),
-                    Text(
-                      "Agreement Info",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white, // Colors.grey[450],
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                    ],
                   ),
                 ),
                 Container(
-                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  // width: MediaQuery.sizeOf(context).width * 0.7,
                   height: 80,
                   decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(04),
+                        bottomLeft: Radius.circular(04),
+                      ),
                       border: Border.all(color: Colors.grey[300]!)),
+
                   child: const Column(
                     children: [
                       Gap(16),
@@ -534,11 +580,11 @@ class _WebViewState extends State<WebView> {
                 ),
                 const Gap(6),
                 _typeCurrentIndex == 1
-                    ?  CustomTextField(
+                    ? CustomTextField(
                         text: "MCR",
                         isReq: true,
                         isRemark: false,
-                  width: MediaQuery.sizeOf(context).width *0.6,
+                        width: MediaQuery.sizeOf(context).width * 0.6,
                       )
                     : const SizedBox.shrink(),
                 Row(
@@ -546,22 +592,24 @@ class _WebViewState extends State<WebView> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     CustomTextField(
+                    CustomTextField(
                       text: "Mobile No",
-                      width: MediaQuery.sizeOf(context).width *0.3,
+                      width: MediaQuery.sizeOf(context).width * 0.3,
                       isReq: true,
-                      suffixIcon: Icon(Icons.arrow_drop_down_sharp,size: 20,),
+                      suffixIcon: const Icon(
+                        Icons.arrow_drop_down_sharp,
+                        size: 20,
+                      ),
                     ),
                     CustomTextField(
                         text: "Amount Collected",
                         controller: formController.amountController,
-                        width: MediaQuery.sizeOf(context).width *0.3,
+                        width: MediaQuery.sizeOf(context).width * 0.3,
                         // onChanged: _onAmountCollectedChanged,
                         isReq: true),
                     const Gap(6),
                   ],
                 ),
-
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 1.1,
                   width: double.infinity,
@@ -571,6 +619,7 @@ class _WebViewState extends State<WebView> {
                       // const Gap(12),
                       Expanded(
                         flex: 3,
+
                         /// This is the left widget
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -643,8 +692,7 @@ class _WebViewState extends State<WebView> {
                           children: [
                             Container(
                               padding: const EdgeInsets.all(8),
-                              height:
-                                  MediaQuery.sizeOf(context).height * 0.11,
+                              height: MediaQuery.sizeOf(context).height * 0.11,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -662,20 +710,18 @@ class _WebViewState extends State<WebView> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
-                                        ?.copyWith(
-                                            color: Colors.red.shade800),
+                                        ?.copyWith(color: Colors.red.shade800),
                                   ),
                                   const Gap(2),
                                   Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height: MediaQuery.sizeOf(context)
-                                                .height *
-                                            0.03,
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.03,
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor:
@@ -697,16 +743,16 @@ class _WebViewState extends State<WebView> {
                                             .textTheme
                                             .titleSmall
                                             ?.copyWith(
-                                          fontSize: 12,
+                                                fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                       ),
                                       Text("HE028I2PNFJN20379729",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall
-                                            ?.copyWith(
-                                          fontSize: 12,)
-                                      ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall
+                                              ?.copyWith(
+                                                fontSize: 12,
+                                              )),
                                     ],
                                   )
                                 ],
@@ -717,8 +763,8 @@ class _WebViewState extends State<WebView> {
                               decoration: BoxDecoration(
                                   border: Border.all(color: Colors.black)),
                               child: Table(
-                                border: TableBorder.all(
-                                    color: Colors.transparent),
+                                border:
+                                    TableBorder.all(color: Colors.transparent),
                                 children: List<TableRow>.generate(
                                   tableData.length,
                                   (rowIndex) => TableRow(
@@ -747,8 +793,7 @@ class _WebViewState extends State<WebView> {
                                                   .isNotEmpty
                                               ? Padding(
                                                   padding:
-                                                      const EdgeInsets.all(
-                                                          8.0),
+                                                      const EdgeInsets.all(8.0),
                                                   child: SizedBox(
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -762,9 +807,9 @@ class _WebViewState extends State<WebView> {
                                                           tableData[rowIndex]
                                                               [colIndex],
                                                           style: TextStyle(
-                                                              fontWeight: tableData[rowIndex]
-                                                                          [
-                                                                          0] ==
+                                                              fontWeight: tableData[
+                                                                              rowIndex]
+                                                                          [0] ==
                                                                       'Total'
                                                                   ? FontWeight
                                                                       .bold
@@ -785,8 +830,7 @@ class _WebViewState extends State<WebView> {
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(8.0),
-                                                          child:
-                                                              TextFormField(
+                                                          child: TextFormField(
                                                             controller: colIndex ==
                                                                         2 &&
                                                                     tableData[rowIndex]
@@ -796,8 +840,7 @@ class _WebViewState extends State<WebView> {
                                                                 ? formControllers
                                                                     .amountController
                                                                 : TextEditingController(),
-                                                            onChanged:
-                                                                (value) {
+                                                            onChanged: (value) {
                                                               setState(() {
                                                                 tableData[rowIndex]
                                                                         [

@@ -5,6 +5,7 @@ import 'package:chola_first/modules/reciptes/mobile_view.dart';
 import 'package:chola_first/modules/reciptes/web_view.dart';
 import 'package:chola_first/modules/vert_menu_list/app_layout.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -69,12 +70,14 @@ class _CholaInitialState extends State<CholaInitial>
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) {
-      return ResponsiveSize().isWide(context)
-          ? const WebView()
-          : const MobileView();
-    } else {
-      return const BottomNavBar();
+      if(UniversalPlatform.isWeb) {
+        return
+          const WebView() ;
+    } else if(UniversalPlatform.isMobile) {
+      return const MobileView();
     }
+      return
+      UniversalPlatform.isAndroid ?
+       const  MobileView() : const  WebView();
   }
 }
