@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:chola_first/model/name_lists.dart';
 import 'package:chola_first/widgets/web/banking_widget.dart';
 import 'package:chola_first/widgets/web/chalan_popup.dart';
@@ -9,22 +11,19 @@ import 'package:gap/gap.dart';
 import '../../constants/styles.dart';
 import '../eod/bank_form_screen.dart';
 
-class BatchTypeScreen extends StatefulWidget {
-  const BatchTypeScreen({super.key});
+class ChallanScreen extends StatefulWidget {
+  const ChallanScreen({super.key});
 
   @override
-  State<BatchTypeScreen> createState() => _BatchTypeScreenState();
+  State<ChallanScreen> createState() => _ChallanScreenState();
 }
 
-class _BatchTypeScreenState extends State<BatchTypeScreen> {
+class _ChallanScreenState extends State<ChallanScreen> {
   late TabController _tabController;
   final int _currentIndex = 0;
   final int _typeCurrentIndex = 0;
   int _selectedVertMenu = 1;
   bool isEOD = false;
-  bool checkedValue = false;
-  bool isSelectAll = false;
-  bool isSelect = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -271,13 +270,13 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                   // ),
                 ],
               ),
-              Expanded(child: batchModule(context))
+              Expanded(child: challanModule(context))
             ],
           )),
     );
   }
 
-  Widget batchModule(BuildContext context) {
+  Widget challanModule(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -307,171 +306,61 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                   ),
                 ),
                 title: const Text(
-                  "New Receipt Batch",
+                  "New Challan",
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
                 subtitle: const Text(
-                  "Cash Receipts Batching",
+                  "Batch Challaning",
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            const Gap(10),
-            Row(
+            const Gap(16),
+            const Row(
               children: [
-                const Text(
+                Text(
                   "Total Amount :",
                   style: TextStyle(
                       fontSize: 14,
                       color: Colors.black54,
                       fontWeight: FontWeight.bold),
                 ),
-                const Gap(4),
-                const Text(
-                  "200",
+                Gap(4),
+                Text(
+                  "77,901",
                   style: TextStyle(
                       fontSize: 14,
                       color: Colors.black54,
                       fontWeight: FontWeight.bold),
                 ),
-                const Spacer(),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pink.shade800,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    )),
-                const Gap(16)
               ],
             ),
-            const Gap(5),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width * 0.9,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 45,
-                        height: 45,
-                        child: Checkbox(
-                            value: isSelectAll,
-                            onChanged: (val) {
-                              print(val);
-                              isSelectAll = val!;
-
-                              setState(() {});
-                            }),
-                      ),
-                      const Text(
-                        "Select All",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  const Row(
-                    children: [
-                      Text(
-                        "Total Selected Receipts Amount : ",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Gap(4),
-                      Text(
-                        "200",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  const Row(
-                    children: [
-                      Text(
-                        "Total Unselected Receipts Amount : ",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Gap(4),
-                      Text(
-                        "0",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            const Gap(6),
-            SizedBox(
-              // width: MediaQuery.of(context).size.width * 0.9,
-              height: 210,
-              child: GridView.count(
-                scrollDirection: Axis.horizontal,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 10,
-                childAspectRatio: 0.5,
-                padding: const EdgeInsets.all(8),
-                crossAxisCount: 1,
-                children: <Widget>[
-                  batchCard(typeTitle: 'Cash'),
-                  batchCard(typeTitle: 'Cash'),
-                ],
-              ),
+            const Gap(16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                challanCard(typeTitle: 'Cheque', amount: '77,801'),
+                const Gap(16),
+                challanCard(typeTitle: 'Cash', amount: '101'),
+              ],
             ),
             const Gap(26),
             Align(
               alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pink.shade800,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4))),
-                      onPressed: () {},
-                      child: const Text(
-                        "Cancel",
-                        style: TextStyle(color: Colors.white),
-                      )),
-                  const Gap(16),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pink.shade800,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4))),
-                      onPressed: () {},
-                      child: const Text(
-                        "Batch 2 Receipts",
-                        style: TextStyle(color: Colors.white),
-                      )),
-                ],
-              ),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.pink.shade800,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4))),
+                  onPressed: () {},
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(color: Colors.white),
+                  )),
             ),
             const Gap(26),
           ],
@@ -480,12 +369,10 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
     );
   }
 
-  Widget batchCard({
-    required String typeTitle,
-  }) {
+  Widget challanCard({required String typeTitle, required String amount}) {
     return Container(
-      //width: 400, //MediaQuery.sizeOf(context).width * 0.9,
-      height: 120, //MediaQuery.sizeOf(context).height * 0.2,
+      width: MediaQuery.sizeOf(context).width * 0.28,
+      // height: MediaQuery.sizeOf(context).height * 0.2,
       padding: const EdgeInsets.all(08),
       decoration: BoxDecoration(
           color: whiteColor,
@@ -513,47 +400,29 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: 45,
-                    height: 45,
-                    child: Checkbox(
-                        value: isSelect,
-                        onChanged: (val) {
-                          //print(val);
-                          isSelect = val!;
-
-                          setState(() {});
-                        }),
-                  ),
-                  const Text(
-                    "LB393300801",
+              Text(
+                typeTitle,
+                style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold),
+              ),
+              OutlinedButton(
+                  style: ButtonStyle(
+                      side: MaterialStateProperty.all(BorderSide(
+                          color: Colors.grey.shade600,
+                          width: 1.0,
+                          style: BorderStyle.solid))),
+                  onPressed: () {},
+                  child: Text(
+                    'Bank Deposit',
                     style: TextStyle(
                         fontSize: 14,
-                        color: Colors.black54,
+                        color: Colors.blue.shade900,
                         fontWeight: FontWeight.bold),
-                  ),
-                  const Gap(16),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 08, vertical: 4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.green.shade800,
-                    ),
-                    child: const Text(
-                      "Ready for Batching",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: whiteColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
+                  )),
             ],
           ),
           const Gap(2),
@@ -562,26 +431,26 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
           ),
           const Gap(4),
           const Text(
-            'A MURALIMOHAN - Agreement | X087675634567887',
+            'TYPE - Agreement',
             style: TextStyle(
               fontSize: 12,
               color: Colors.black45,
             ),
           ),
           const Gap(6),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Icon(
-                Icons.receipt,
-                color: Colors.black87,
+                Icons.edit_document,
+                color: Colors.blue.shade900,
               ),
-              Gap(4),
-              Text(
-                'Receipt Date - 13-06-2024',
+              const Gap(4),
+              const Text(
+                '1 Batch(es)',
                 style: TextStyle(
                     fontSize: 12,
-                    color: Colors.black87,
+                    color: Colors.black54,
                     fontWeight: FontWeight.bold),
               ),
             ],
@@ -598,7 +467,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
               ),
               const Gap(4),
               Text(
-                "100",
+                amount,
                 style: TextStyle(
                     fontSize: 14,
                     color: Colors.blue.shade900,
@@ -610,7 +479,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                 width: 45,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.green.shade800,
+                  color: Colors.blue.shade900,
                 ),
                 child: const Icon(
                   Icons.arrow_forward,

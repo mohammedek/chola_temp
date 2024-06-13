@@ -1,7 +1,10 @@
+import 'package:chola_first/OAgreementsScreen.dart';
 import 'package:chola_first/core/responsive.dart';
 import 'package:chola_first/core/theme.dart';
 import 'package:chola_first/modules/batch/batch_screen.dart';
 import 'package:chola_first/modules/batch/batch_type_screen.dart';
+import 'package:chola_first/modules/challan/challan_screen.dart';
+import 'package:chola_first/modules/challan/challan_type_screen.dart';
 import 'package:chola_first/modules/eod/bank_form_screen.dart';
 import 'package:chola_first/modules/reciptes/mobile_view.dart';
 import 'package:chola_first/modules/reciptes/web_view.dart';
@@ -71,7 +74,7 @@ class _CholaInitialState extends State<CholaInitial>
 
   @override
   Widget build(BuildContext context) {
-    return const BatchTypeScreen();
+    return const ChallanTypeScreen();
     // if (kIsWeb) {
     //   return
     //   ResponsiveSize().isWide(context)

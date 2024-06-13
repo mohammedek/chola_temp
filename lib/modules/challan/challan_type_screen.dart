@@ -9,14 +9,14 @@ import 'package:gap/gap.dart';
 import '../../constants/styles.dart';
 import '../eod/bank_form_screen.dart';
 
-class BatchTypeScreen extends StatefulWidget {
-  const BatchTypeScreen({super.key});
+class ChallanTypeScreen extends StatefulWidget {
+  const ChallanTypeScreen({super.key});
 
   @override
-  State<BatchTypeScreen> createState() => _BatchTypeScreenState();
+  State<ChallanTypeScreen> createState() => _ChallanTypeScreenState();
 }
 
-class _BatchTypeScreenState extends State<BatchTypeScreen> {
+class _ChallanTypeScreenState extends State<ChallanTypeScreen> {
   late TabController _tabController;
   final int _currentIndex = 0;
   final int _typeCurrentIndex = 0;
@@ -271,13 +271,13 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                   // ),
                 ],
               ),
-              Expanded(child: batchModule(context))
+              Expanded(child: challanTypeModule(context))
             ],
           )),
     );
   }
 
-  Widget batchModule(BuildContext context) {
+  Widget challanTypeModule(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -307,14 +307,14 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                   ),
                 ),
                 title: const Text(
-                  "New Receipt Batch",
+                  "New Challan",
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
                 subtitle: const Text(
-                  "Cash Receipts Batching",
+                  "Cash Challaning",
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
@@ -332,7 +332,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                 ),
                 const Gap(4),
                 const Text(
-                  "200",
+                  "100",
                   style: TextStyle(
                       fontSize: 14,
                       color: Colors.black54,
@@ -347,7 +347,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                       Navigator.pop(context);
                     },
                     child: const Text(
-                      'Submit',
+                      'Back',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     )),
@@ -395,7 +395,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                       ),
                       Gap(4),
                       Text(
-                        "200",
+                        "100",
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black54,
@@ -438,8 +438,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                 padding: const EdgeInsets.all(8),
                 crossAxisCount: 1,
                 children: <Widget>[
-                  batchCard(typeTitle: 'Cash'),
-                  batchCard(typeTitle: 'Cash'),
+                  challanTypeCard(typeTitle: 'Cash'),
                 ],
               ),
             ),
@@ -467,7 +466,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                               borderRadius: BorderRadius.circular(4))),
                       onPressed: () {},
                       child: const Text(
-                        "Batch 2 Receipts",
+                        "Bank Deposit",
                         style: TextStyle(color: Colors.white),
                       )),
                 ],
@@ -480,7 +479,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
     );
   }
 
-  Widget batchCard({
+  Widget challanTypeCard({
     required String typeTitle,
   }) {
     return Container(
@@ -530,7 +529,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                         }),
                   ),
                   const Text(
-                    "LB393300801",
+                    "B-0232542",
                     style: TextStyle(
                         fontSize: 14,
                         color: Colors.black54,
@@ -542,10 +541,10 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                         const EdgeInsets.symmetric(horizontal: 08, vertical: 4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Colors.green.shade800,
+                      color: Colors.yellow.shade800,
                     ),
                     child: const Text(
-                      "Ready for Batching",
+                      "Agreement",
                       style: TextStyle(
                           fontSize: 14,
                           color: whiteColor,
@@ -560,14 +559,14 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
           const Divider(
             color: Colors.black54,
           ),
-          const Gap(4),
-          const Text(
-            'A MURALIMOHAN - Agreement | X087675634567887',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.black45,
-            ),
-          ),
+          // const Gap(4),
+          // const Text(
+          //   'Cash | No of Receipts : 1',
+          //   style: TextStyle(
+          //     fontSize: 12,
+          //     color: Colors.black45,
+          //   ),
+          // ),
           const Gap(6),
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -578,7 +577,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
               ),
               Gap(4),
               Text(
-                'Receipt Date - 13-06-2024',
+                'Cash | No of Receipts : 1',
                 style: TextStyle(
                     fontSize: 12,
                     color: Colors.black87,
