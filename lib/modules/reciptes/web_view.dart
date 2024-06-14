@@ -22,7 +22,8 @@ import '../../widgets/web/r_t_g_s_widget.dart';
 import '../eod/bank_form_screen.dart';
 
 class WebView extends StatefulWidget {
-  const WebView({super.key});
+  final int index;
+  const WebView({super.key, this.index = 1});
 
   @override
   State<WebView> createState() => _WebViewState();
@@ -65,6 +66,12 @@ class _WebViewState extends State<WebView> {
     const PosMachineWidget(),
     const PaymentGatewayWidget(),
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _selectedVertMenu = widget.index;
+  }
 
   @override
   Widget build(BuildContext context) {

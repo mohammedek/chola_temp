@@ -381,6 +381,7 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
               DropdownButtonHideUnderline(
                   child: DropdownButton(
                 dropdownColor: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(20),
                 hint: Text(
                   "Recently Viewed ",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -409,7 +410,7 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
                     value: type,
                     child: Text(
                       type,
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontWeight: medium,
                           ),
                     ),

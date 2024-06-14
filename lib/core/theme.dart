@@ -45,7 +45,15 @@ class WebTheme {
     primarySwatch: AppColors.kPrimaryColor,
     primaryColor: kprimaryColor,
     secondaryHeaderColor: AppColors.kSecondary,
-
+    dropdownMenuTheme: DropdownMenuThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+      fillColor: Colors.blue.shade50,
+      filled: true,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+        borderSide: BorderSide.none,
+      ),
+    )),
     hintColor: Colors.grey,
     focusColor: whiteColor,
     listTileTheme: const ListTileThemeData(

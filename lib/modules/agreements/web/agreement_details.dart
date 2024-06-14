@@ -1,5 +1,7 @@
 import 'package:chola_first/constants/styles.dart';
 import 'package:chola_first/core/responsive.dart';
+import 'package:chola_first/model/name_lists.dart';
+import 'package:chola_first/modules/agreements/web/select_receipt_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,6 +21,8 @@ class _OAgreementDetailsState extends State<OAgreementDetails> {
     'ORepayment Schedule',
     'More',
   ];
+  int _typeCurrentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     Widget headerRow(String title, String value) {
@@ -175,6 +179,36 @@ class _OAgreementDetailsState extends State<OAgreementDetails> {
                 .textTheme
                 .bodyMedium!
                 .copyWith(fontWeight: bold, color: ksecondaryColor),
+          ),
+          trailing: CupertinoSegmentedControl<int>(
+            padding: const EdgeInsets.all(8),
+            children: {
+              for (int index = 0; index < agreementList.length; index++)
+                index: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                  child: Text(
+                    agreementList[index],
+                  ),
+                ),
+            },
+            groupValue: _typeCurrentIndex,
+            onValueChanged: (int newIndex) {
+              setState(() {
+                _typeCurrentIndex = newIndex;
+              });
+
+              if (newIndex == 1) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const SelectReceiptType()));
+              }
+            },
+            borderColor: Colors.pink.shade800,
+            selectedColor: Colors.pink.shade800,
+            unselectedColor: Colors.white,
+            pressedColor: Colors.pink.withOpacity(0.2),
           ),
           subtitle: Padding(
             padding: const EdgeInsets.only(top: 5),

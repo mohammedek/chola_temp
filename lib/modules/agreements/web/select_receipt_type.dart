@@ -1,4 +1,5 @@
 import 'package:chola_first/constants/styles.dart';
+import 'package:chola_first/modules/reciptes/web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -52,6 +53,8 @@ class _SelectReceiptTypeState extends State<SelectReceiptType> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
+                            dropdownColor: Colors.blue.shade50,
+                            borderRadius: BorderRadius.circular(20),
                             isExpanded: true,
                             hint: Text(
                               "Select Receipt Type",
@@ -62,7 +65,15 @@ class _SelectReceiptTypeState extends State<SelectReceiptType> {
                             items: receiptTypes.map((String receipt) {
                               return DropdownMenuItem<String>(
                                 value: receipt,
-                                child: Text(receipt),
+                                child: Text(
+                                  receipt,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        fontWeight: medium,
+                                      ),
+                                ),
                               );
                             }).toList(),
                             onChanged: (value) {
@@ -116,7 +127,15 @@ class _SelectReceiptTypeState extends State<SelectReceiptType> {
                     width: 10,
                   ),
                   ElevatedButton(
-                      onPressed: () {}, child: const Text("Continue"))
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const WebView(
+                                      index: 2,
+                                    )));
+                      },
+                      child: const Text("Continue"))
                 ],
               ),
             ],
