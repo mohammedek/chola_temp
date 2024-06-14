@@ -1,17 +1,19 @@
 import 'package:chola_first/widgets/custom_text_feild.dart';
 import 'package:chola_first/widgets/file_upload_widget.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-class ChequeWidget extends StatefulWidget {
-  const ChequeWidget(String e, {super.key});
+class RTGSWidget extends StatefulWidget {
+  const RTGSWidget({super.key});
 
   @override
-  State<ChequeWidget> createState() => _ChequeWidgetState();
+  _RTGSWidgetState createState() => _RTGSWidgetState();
 }
 
-class _ChequeWidgetState extends State<ChequeWidget> {
+class _RTGSWidgetState extends State<RTGSWidget> {
   DateTime? pickedDate;
   final TextEditingController _dateController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -222,6 +224,20 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                         ],
                       ),
                       const Gap(16),
+                      const Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'EMI',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(': 288'),
+                          ),
+                        ],
+                      ),
+                      const Gap(16),
                     ],
                   ),
                 ),
@@ -254,14 +270,13 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 16),
-                          const CustomTextField(text: "Account No", isReq: true),
+                          const CustomTextField(text: "RTGS/NEFT Bank", isReq: true, isGrey: true),
                           const SizedBox(height: 16),
-                          const CustomTextField(text: "MICR No.", isReq: true),
+                          const CustomTextField(text: "UTR No", isReq: true),
                           const SizedBox(height: 16),
-                          const CustomTextField(text: "Bank Name", isReq: false),
+                          const CustomTextField(text: "MICR No", isReq: true),
                           const SizedBox(height: 16),
-                          const CustomTextField(
-                              text: "Instrument No", isReq: true),
+                          const CustomTextField(text: "Bank Name", isReq: false, isGrey: true),
                           const Gap(16),
                           FileUploadWidget(
                             label: "* Email Attachment",
@@ -274,20 +289,13 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                     Expanded(
                       flex: 3,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 100),
-                          const CustomTextField(text: "IFSC Code", isReq: true),
                           const SizedBox(height: 16),
-                          const CustomTextField(
-                            text: "Branch Name",
-                            isReq: false,
-                            isGrey: true,
-                          ),
+                          const CustomTextField(text: "Account No", isReq: false, isGrey: true),
                           const SizedBox(height: 16),
                           const Text(
-                            "* Instrument Date ",
+                            "* Value Date",
                             style: TextStyle(fontSize: 14),
                           ),
                           GestureDetector(
@@ -302,7 +310,7 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                                 setState(() {
                                   pickedDate = picked;
                                   _dateController.text =
-                                      "${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}";
+                                  "${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}";
                                 });
                               }
                             },
@@ -329,12 +337,15 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                                     vertical: 8,
                                     horizontal: 10,
                                   ),
-        
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 16),
+                          const CustomTextField(text: "IFSC Code", isReq: true),
+                          const SizedBox(height: 16),
+                          const CustomTextField(text: "Branch Name", isReq: true),
+                          const SizedBox(height: 26),
                           ElevatedButton(
                             onPressed: _isFetchingDetails ? null : _fetchDetails,
                             style: ElevatedButton.styleFrom(
@@ -347,21 +358,21 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                             ),
                             child: _isFetchingDetails
                                 ? const SizedBox(
-                                    width: 16,
-                                    height: 16,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                      strokeWidth: 2.0,
-                                    ),
-                                  )
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2.0,
+                              ),
+                            )
                                 : Text(
-                                    "Fetch Details",
-                                    style: TextStyle(
-                                        color:
-                                        _isFetchingDetails || (_selectedFiles == null || _selectedFiles!.isEmpty)?
-        
-                                        Colors.grey.shade400 : Colors.white ,fontSize: 14),
-                                  ),
+                              "Fetch Details",
+                              style: TextStyle(
+                                  color: _isFetchingDetails || (_selectedFiles == null || _selectedFiles!.isEmpty)
+                                      ? Colors.grey.shade400
+                                      : Colors.white,
+                                  fontSize: 14),
+                            ),
                           ),
                         ],
                       ),
@@ -419,8 +430,9 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState?.validate() ?? false) {
-                            _showPreviewDialog();
-                          }},
+                           _showPreviewDialog();
+                          }
+                        },
                         child: const Text(
                           "Preview",
                           style: TextStyle(color: Colors.white),

@@ -1,32 +1,35 @@
-import 'package:chola_first/widgets/custom_text_feild.dart';
-import 'package:chola_first/widgets/file_upload_widget.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
-class ChequeWidget extends StatefulWidget {
-  const ChequeWidget(String e, {super.key});
+import '../custom_text_feild.dart';
+
+class PosMachineWidget extends StatefulWidget {
+  const PosMachineWidget({super.key});
 
   @override
-  State<ChequeWidget> createState() => _ChequeWidgetState();
+  _PosMachineState createState() => _PosMachineState();
 }
 
-class _ChequeWidgetState extends State<ChequeWidget> {
+class _PosMachineState extends State<PosMachineWidget> {
   DateTime? pickedDate;
   final TextEditingController _dateController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isFetchingDetails = false;
   List<PlatformFile>? _selectedFiles;
 
+  String formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+
   void _handleFilesSelected(List<PlatformFile> files) {
-    // Handle the selected files
     setState(() {
       _selectedFiles = files;
     });
     print('Selected files: ${files.map((file) => file.name).join(', ')}');
   }
 
-  void _fetchDetails() async {
+  void _fetchDetails() {
     if (_selectedFiles == null || _selectedFiles!.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please upload at least one file')),
@@ -34,19 +37,11 @@ class _ChequeWidgetState extends State<ChequeWidget> {
       return;
     }
 
-    setState(() {
-      _isFetchingDetails = true;
-    });
-
-    await Future.delayed(const Duration(seconds: 2)); // Simulate fetching details
-
-    setState(() {
-      _isFetchingDetails = false;
-    });
-
     // Proceed with other operations after fetching details
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Details fetched successfully')),
+    );
   }
-
   void _showPreviewDialog() {
     showDialog(
       context: context,
@@ -239,11 +234,12 @@ class _ChequeWidgetState extends State<ChequeWidget> {
       key: _formKey,
       child: SingleChildScrollView(
         child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.90,
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(2.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,41 +249,106 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 16),
-                          const CustomTextField(text: "Account No", isReq: true),
-                          const SizedBox(height: 16),
-                          const CustomTextField(text: "MICR No.", isReq: true),
-                          const SizedBox(height: 16),
-                          const CustomTextField(text: "Bank Name", isReq: false),
-                          const SizedBox(height: 16),
-                          const CustomTextField(
-                              text: "Instrument No", isReq: true),
                           const Gap(16),
-                          FileUploadWidget(
-                            label: "* Email Attachment",
-                            onFilesSelected: _handleFilesSelected,
+                          const Text(
+                            "* Chola Bank",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                           TextFormField(
+                            keyboardType: TextInputType.text,
+                            enabled: false,
+                            decoration: const InputDecoration(
+                              hintText: 'Select Bank',
+                              border: OutlineInputBorder(),
+                              hintStyle: TextStyle(fontSize: 14),
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 2,
+                                horizontal: 10,
+                              ),
+                              suffixIcon: Icon(Icons.arrow_drop_down_outlined),
+                              suffixIconColor: Colors.grey,
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Select a bank';
+                              }
+                              return null;
+                            },
+                          ),
+                          const Gap(16),
+                          const CustomTextField(
+                            text: "TXN ID/RRN",
+                            isReq: true,
+                          ),
+                          const Gap(10),
+                          const Text("Txn/Ref Slip Upload"),
+                          SizedBox(
+                            height: MediaQuery.sizeOf(context).height / 16,
+                            width: MediaQuery.sizeOf(context).shortestSide * 0.40,
+                            child: DottedBorder(
+                              color: Colors.black26,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () async {
+                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                        allowMultiple: false,
+                                      );
+                                      if (result != null) {
+                                        _handleFilesSelected(result.files);
+                                      }
+                                    },
+                                    child: Container(
+                                      height: MediaQuery.sizeOf(context).height / 18,
+                                      width: MediaQuery.sizeOf(context).shortestSide * 0.20,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.black87),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          const Icon(
+                                            Icons.file_upload_outlined,
+                                            color: Colors.pink,
+                                            size: 18,
+                                          ),
+                                          Text(
+                                            "Upload Files",
+                                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                              color: Colors.pink,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const Text("Or drop files"),
+                                  const Gap(0),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    const Gap(16),
                     Expanded(
                       flex: 3,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 100),
-                          const CustomTextField(text: "IFSC Code", isReq: true),
-                          const SizedBox(height: 16),
+                          const Gap(16),
                           const CustomTextField(
-                            text: "Branch Name",
+                            text: "Account No",
                             isReq: false,
                             isGrey: true,
                           ),
-                          const SizedBox(height: 16),
+                          const Gap(16),
                           const Text(
-                            "* Instrument Date ",
+                            "* Value Date",
                             style: TextStyle(fontSize: 14),
                           ),
                           GestureDetector(
@@ -302,66 +363,49 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                                 setState(() {
                                   pickedDate = picked;
                                   _dateController.text =
-                                      "${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}";
+                                  "${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}";
                                 });
                               }
                             },
                             child: AbsorbPointer(
                               child: TextFormField(
                                 controller: _dateController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    value = pickedDate.toString();
-                                  });
-                                },
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Date is required';
                                   }
                                   return null;
                                 },
-                                decoration: const InputDecoration(
-                                  hintText: "Date",
-                                  hintStyle: TextStyle(fontSize: 14),
-                                  border: OutlineInputBorder(),
-                                  suffixIcon: Icon(Icons.date_range),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 8,
+                                decoration: InputDecoration(
+                                  hintText: formattedDate,
+                                  hintStyle: const TextStyle(fontSize: 14),
+                                  border: const OutlineInputBorder(),
+                                  suffixIcon: const Icon(Icons.date_range),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 10,
                                     horizontal: 10,
                                   ),
-        
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const Gap(26),
                           ElevatedButton(
-                            onPressed: _isFetchingDetails ? null : _fetchDetails,
+                            onPressed: () {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                _fetchDetails();
+                              }
+                            },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: _isFetchingDetails || (_selectedFiles == null || _selectedFiles!.isEmpty)
-                                  ? Colors.grey.shade100
-                                  : Colors.pink.shade800,
+                              backgroundColor: Colors.pink.shade800,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(6),
                               ),
                             ),
-                            child: _isFetchingDetails
-                                ? const SizedBox(
-                                    width: 16,
-                                    height: 16,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                      strokeWidth: 2.0,
-                                    ),
-                                  )
-                                : Text(
-                                    "Fetch Details",
-                                    style: TextStyle(
-                                        color:
-                                        _isFetchingDetails || (_selectedFiles == null || _selectedFiles!.isEmpty)?
-        
-                                        Colors.grey.shade400 : Colors.white ,fontSize: 14),
-                                  ),
+                            child: const Text(
+                              "Fetch Details",
+                              style: TextStyle(color: Colors.white, fontSize: 14),
+                            ),
                           ),
                         ],
                       ),
@@ -369,66 +413,71 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                   ],
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text("Enter Remarks"),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.7,
-                    child: TextFormField(
-                      maxLines: 2,
-                      decoration: InputDecoration(
-                        hintText: "Enter Reason",
-                        hintStyle: Theme.of(context).textTheme.labelSmall,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 10,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Enter Remarks"),
+                    SizedBox(
+                      child: TextFormField(
+                        expands: false,
+                        maxLines: 2,
+                        dragStartBehavior: DragStartBehavior.down,
+                        textAlignVertical: TextAlignVertical.top,
+                        keyboardType: TextInputType.streetAddress,
+                        decoration: InputDecoration(
+                          hintText: "Enter Reason",
+                          hintStyle: Theme.of(context).textTheme.labelSmall,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20,
+                            horizontal: 10,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const Gap(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pink.shade800,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
+                    const Gap(10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.pink.shade800,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        onPressed: () {},
-                        child: const Text(
-                          "Cancel",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pinkAccent.shade100,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
+                        const Gap(10),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.pinkAccent.shade100,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              _showPreviewDialog();
+                            }
+                          },
+                          child: const Text(
+                            "Preview",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        onPressed: () {
-                          if (_formKey.currentState?.validate() ?? false) {
-                            _showPreviewDialog();
-                          }},
-                        child: const Text(
-                          "Preview",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

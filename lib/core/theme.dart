@@ -6,6 +6,7 @@ class AppTheme {
   static ThemeData themeData = ThemeData(
     primarySwatch: Colors.pink,
     primaryColor: kprimaryColor,
+    secondaryHeaderColor: ksecondaryColor,
     hintColor: Colors.grey,
     listTileTheme: const ListTileThemeData(
       tileColor: Colors.white,
@@ -41,8 +42,10 @@ class AppTheme {
 
 class WebTheme {
   static ThemeData themeData = ThemeData(
-    primarySwatch: Colors.pink,
+    primarySwatch: AppColors.kPrimaryColor,
     primaryColor: kprimaryColor,
+    secondaryHeaderColor: AppColors.kSecondary,
+
     hintColor: Colors.grey,
     focusColor: whiteColor,
     listTileTheme: const ListTileThemeData(
@@ -55,6 +58,8 @@ class WebTheme {
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.black54),
+      bodyMedium: TextStyle(color: Colors.black54),
+      bodySmall: TextStyle(color: Colors.black54),
       displayLarge: TextStyle(fontSize: 20, color: Colors.black),
     ),
     brightness: Brightness.light,
