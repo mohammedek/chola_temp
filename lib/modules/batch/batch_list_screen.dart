@@ -1,28 +1,86 @@
+import 'package:chola_first/constants/styles.dart';
 import 'package:chola_first/model/name_lists.dart';
-import 'package:chola_first/modules/batch/batch_type_screen.dart';
-import 'package:chola_first/widgets/web/banking_widget.dart';
+import 'package:chola_first/modules/batch/batch_screen.dart';
 import 'package:chola_first/widgets/web/chalan_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
-import '../../constants/styles.dart';
-import '../eod/bank_form_screen.dart';
-
-class BatchScreen extends StatefulWidget {
-  const BatchScreen({super.key});
+class BatchListScreen extends StatefulWidget {
+  const BatchListScreen({super.key});
 
   @override
-  State<BatchScreen> createState() => _BatchScreenState();
+  _BatchListScreenState createState() => _BatchListScreenState();
 }
 
-class _BatchScreenState extends State<BatchScreen> {
+class _BatchListScreenState extends State<BatchListScreen> {
+  int _sortColumnIndex = 0;
+  bool _sortAscending = true;
   late TabController _tabController;
   final int _currentIndex = 0;
   final int _typeCurrentIndex = 0;
   int _selectedVertMenu = 1;
   bool isEOD = false;
+
+  final List<Map<String, dynamic>> _data = [
+    for (int i = 0; i < 10; i++)
+      {
+        'Agreement Number': 'HE01DEI00000045245',
+        'CIF ID': '9609101',
+        'Customer': '7 CABALLO ENTERPRISES LLP',
+        'DPD': 36,
+        'EMI': '1,40,590.00',
+        'Total EMI OD Amount': '2,81,190.00',
+        'NPA': 'Regular',
+        'Vertical': 'LAP',
+        'Branch': 'DELHI FIVE A HE',
+        'Created Date': '08/11/2023, 7:27 PM',
+      },
+    {
+      'Agreement Number': 'HE01DEI00000025224',
+      'CIF ID': '9609101',
+      'Customer': '7 CABALLO ENTERPRISES LLP',
+      'DPD': 36,
+      'EMI': '3,70,399.00',
+      'Total EMI OD Amount': '7,40,796.00',
+      'NPA': 'Regular',
+      'Vertical': 'LAP',
+      'Branch': 'DELHI FIVE A HE',
+      'Created Date': '08/11/2023, 7:28 PM',
+    },
+  ];
+
+  final List<String> batchList = [
+    "B-0023658",
+    "B-0023653",
+    "B-0023654",
+    "B-0023655",
+    "B-0023656",
+    "B-0023657",
+    "B-0023659",
+    "B-0023652",
+    "B-0023653",
+  ];
+
+  void _sort<T>(Comparable<T> Function(Map<String, dynamic> d) getField,
+      int columnIndex, bool ascending) {
+    _data.sort((a, b) {
+      if (!ascending) {
+        final Map<String, dynamic> c = a;
+        a = b;
+        b = c;
+      }
+      final Comparable<T> aValue = getField(a);
+      final Comparable<T> bValue = getField(b);
+      return Comparable.compare(aValue, bValue);
+    });
+    setState(() {
+      _sortColumnIndex = columnIndex;
+      _sortAscending = ascending;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -269,240 +327,124 @@ class _BatchScreenState extends State<BatchScreen> {
                   // ),
                 ],
               ),
-              Expanded(child: batchModule(context))
+              Expanded(child: batchListUI(context, batchList))
             ],
           )),
     );
   }
 
-  Widget batchModule(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        color: whiteColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Gap(6),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.blue.shade900,
-                  border: Border.all(color: Colors.blue.shade900)),
-              child: ListTile(
-                dense: true,
-                tileColor: Colors.blue.shade900,
-                leading: Card(
-                  color: Colors.white,
-                  child: IconButton(
-                    constraints: const BoxConstraints(),
-                    padding: const EdgeInsets.all(3),
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.batch_prediction,
-                      color: Colors.blue.shade900,
+  Expanded batchListUI(BuildContext context, List recentOAgreements) {
+    return Expanded(
+      child: recentOAgreements.isEmpty
+          ? const SizedBox()
+          : Column(
+              children: [
+                const Divider(
+                  height: 0,
+                ),
+                Container(
+                  color: ksecondaryColor.withOpacity(0.2),
+                  child: ListTile(
+                    dense: true,
+                    leading: const SizedBox.shrink(),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                    title: SizedBox(
+                      height: 30,
+                      child: IntrinsicHeight(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          //  mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                padding: EdgeInsets.zero,
+                                isExpanded: true,
+                                hint: Text('OBatches',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(fontWeight: bold)),
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: blackColor,
+                                ),
+                                items: const [
+                                  // DropdownMenuItem(child: Text("data"))
+                                ],
+                                onChanged: (value) {},
+                              )),
+                            ),
+                            const VerticalDivider(
+                              thickness: 2,
+                            ),
+                            const Gap(25)
+                          ],
+                        ),
+                      ),
                     ),
+                    onTap: () {},
                   ),
                 ),
-                title: const Text(
-                  "New Receipt Batch",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+                const Divider(
+                  height: 0,
                 ),
-                subtitle: const Text(
-                  "Receipts Batching",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            const Gap(10),
-            const Row(
-              children: [
-                Text(
-                  "Total Amount :",
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold),
-                ),
-                Gap(4),
-                Text(
-                  "300",
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold),
+                Expanded(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    separatorBuilder: (context, index) => const Divider(
+                      height: 0,
+                    ),
+                    itemCount: recentOAgreements.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        dense: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        title: Text(
+                          recentOAgreements[index],
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(color: Colors.blue.shade900),
+                        ),
+                        leading: Text("${index + 1}"),
+                        trailing: SizedBox(
+                          width: 25,
+                          height: 25,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                side: const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5)),
+                            elevation: 2,
+                            margin: EdgeInsets.zero,
+                            shadowColor: Colors.grey,
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              icon: const Icon(
+                                Icons.arrow_drop_down,
+                                color: blackColor,
+                              ),
+                              onPressed: () {},
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const BatchScreen()));
+                        },
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-            const Gap(6),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                batchCard(typeTitle: 'Cash'),
-                batchCard(typeTitle: 'Cheque'),
-                batchCard(typeTitle: 'Draft'),
-              ],
-            ),
-            const Gap(26),
-            Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pink.shade800,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4))),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    "Cancel",
-                    style: TextStyle(color: Colors.white),
-                  )),
-            ),
-            const Gap(26),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget batchCard({
-    required String typeTitle,
-  }) {
-    return Container(
-      width: MediaQuery.sizeOf(context).width * 0.28,
-      // height: MediaQuery.sizeOf(context).height * 0.2,
-      padding: const EdgeInsets.all(08),
-      decoration: BoxDecoration(
-          color: whiteColor,
-          border: Border.all(color: Colors.grey),
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade500,
-              offset: const Offset(
-                3.0,
-                3.0,
-              ),
-              blurRadius: 5.0,
-              spreadRadius: 1.0,
-            ), //BoxShadow
-            const BoxShadow(
-              color: Colors.white,
-              offset: Offset(0.0, 0.0),
-              blurRadius: 0.0,
-              spreadRadius: 0.0,
-            ),
-          ]),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                typeTitle,
-                style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.bold),
-              ),
-              OutlinedButton(
-                  style: ButtonStyle(
-                      side: MaterialStateProperty.all(BorderSide(
-                          color: Colors.grey.shade600,
-                          width: 1.0,
-                          style: BorderStyle.solid))),
-                  onPressed: () {},
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.blue.shade900,
-                        fontWeight: FontWeight.bold),
-                  )),
-            ],
-          ),
-          const Gap(2),
-          const Divider(
-            color: Colors.black54,
-          ),
-          const Gap(4),
-          const Text(
-            'TYPE - Agreement | BROWSER',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.black45,
-            ),
-          ),
-          const Gap(6),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.edit_document,
-                color: Colors.blue.shade900,
-              ),
-              const Gap(4),
-              const Text(
-                '1 Receipts(s)',
-                style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const Gap(6),
-          Row(
-            children: [
-              Text(
-                "Amount :",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.blue.shade900,
-                    fontWeight: FontWeight.bold),
-              ),
-              const Gap(4),
-              Text(
-                "100",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.blue.shade900,
-                    fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BatchTypeScreen()),
-                  );
-                },
-                child: Container(
-                  height: 45,
-                  width: 45,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.blue.shade900,
-                  ),
-                  child: const Icon(
-                    Icons.arrow_forward,
-                    color: whiteColor,
-                  ),
-                ),
-              )
-            ],
-          ),
-          const Gap(6)
-        ],
-      ),
     );
   }
 }

@@ -357,7 +357,9 @@ class _ChallanScreenState extends State<ChallanScreen> {
                       backgroundColor: Colors.pink.shade800,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4))),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   child: const Text(
                     "Cancel",
                     style: TextStyle(color: Colors.white),
