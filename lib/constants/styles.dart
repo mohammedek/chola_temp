@@ -6,6 +6,7 @@ const lightGreyColor = Color.fromRGBO(238, 238, 238, 0.621);
 const greyColor = Colors.grey;
 const kprimaryColor = Color.fromRGBO(173, 20, 87, 1);
 const ksecondaryColor = Color.fromARGB(255, 2, 37, 98);
+const blueColor = Colors.blue;
 
 //**********Styles*/
 const light = FontWeight.w300;

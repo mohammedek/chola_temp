@@ -77,7 +77,6 @@ class _SelectReceiptTypeState extends State<SelectReceiptType> {
                   ],
                 ),
               ),
-              const Gap(10),
               ListTile(
                 title: Row(
                   mainAxisSize: MainAxisSize.min,

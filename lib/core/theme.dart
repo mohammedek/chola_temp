@@ -44,6 +44,7 @@ class WebTheme {
     primarySwatch: Colors.pink,
     primaryColor: kprimaryColor,
     hintColor: Colors.grey,
+    focusColor: whiteColor,
     listTileTheme: const ListTileThemeData(
       tileColor: Colors.white,
     ),

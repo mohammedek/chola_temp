@@ -1,8 +1,11 @@
 import 'package:chola_first/constants/styles.dart';
 import 'package:chola_first/core/responsive.dart';
+import 'package:chola_first/modules/agreements/web/agreement_details.dart';
+import 'package:chola_first/modules/agreements/web/agreement_table.dart';
 import 'package:chola_first/modules/agreements/web/select_receipt_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 class OAgreementsPageWeb extends StatefulWidget {
@@ -27,6 +30,14 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
     "HE01AAA00000019579",
   ];
   List<String> filteredOAgreements = [];
+  List<String> agreementViewTypes = [
+    'All',
+    'Challan Details Pending',
+    'LAP Challan',
+    'Pending for Authorisation',
+    'Recently Viewed (Pinned list)'
+  ];
+  String? selectedAgreementViewType;
 
   bool searchValidation(element) =>
       element.toLowerCase().startsWith(searchController.text.toLowerCase()) ||
@@ -122,12 +133,7 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
                               height:
                                   ResponsiveSize().isWide(context) ? 45 : 100,
                               child: Flex(
-                                direction:
-
-                                    //  ResponsiveSize().isWide(context)
-                                    //     ?
-                                    Axis.horizontal,
-                                // : Axis.vertical,
+                                direction: Axis.horizontal,
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Card(
@@ -221,8 +227,10 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
                   ],
                 ),
               ),
-              recentAgreements(
-                  context, recentOAgreements.where(searchValidation).toList())
+              selectedAgreementViewType == "All"
+                  ? const Expanded(child: AgreementsTable())
+                  : recentAgreements(context,
+                      recentOAgreements.where(searchValidation).toList())
             ],
           ),
         ),
@@ -236,7 +244,6 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
           ? const SizedBox()
           : Column(
               children: [
-                const Gap(10),
                 const Divider(
                   height: 0,
                 ),
@@ -307,7 +314,7 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
-                              .copyWith(color: ksecondaryColor),
+                              .copyWith(color: blueColor),
                         ),
                         leading: Text("${index + 1}"),
                         trailing: SizedBox(
@@ -334,7 +341,7 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => const SelectReceiptType()));
+                                  builder: (_) => const OAgreementDetails()));
                         },
                       );
                     },
@@ -373,6 +380,7 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
             children: [
               DropdownButtonHideUnderline(
                   child: DropdownButton(
+                dropdownColor: Colors.blue.shade50,
                 hint: Text(
                   "Recently Viewed ",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -389,20 +397,29 @@ class _OAgreementsPageWebState extends State<OAgreementsPageWeb> {
                     elevation: 2,
                     margin: EdgeInsets.zero,
                     shadowColor: Colors.grey,
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(
-                        Icons.arrow_drop_down,
-                        color: blackColor,
-                      ),
-                      onPressed: () {},
+                    child: const Icon(
+                      Icons.arrow_drop_down,
+                      color: blackColor,
                     ),
                   ),
                 ),
-                items: const [
-                  // DropdownMenuItem(child: Text("data"))
-                ],
-                onChanged: (value) {},
+                value: selectedAgreementViewType,
+                items: agreementViewTypes.map((String type) {
+                  return DropdownMenuItem<String>(
+                    value: type,
+                    child: Text(
+                      type,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            fontWeight: medium,
+                          ),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedAgreementViewType = value;
+                  });
+                },
               )),
               const Gap(16),
               SizedBox(
