@@ -21,8 +21,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -70,9 +68,7 @@ class _CholaInitialState extends State<CholaInitial>
   @override
   Widget build(BuildContext context) {
     if (kIsWeb) {
-      return ResponsiveSize().isWide(context)
-          ? const WebView()
-          : const MobileView();
+      return const WebView();
     } else {
       return const BottomNavBar();
     }

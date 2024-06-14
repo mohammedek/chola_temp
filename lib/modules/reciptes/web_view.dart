@@ -1,11 +1,10 @@
 import 'package:chola_first/model/name_lists.dart';
+import 'package:chola_first/modules/agreements/web/agreement_list.dart';
 import 'package:chola_first/widgets/web/banking_widget.dart';
 import 'package:chola_first/widgets/web/chalan_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
-import '../../constants/styles.dart';
 import '../eod/bank_form_screen.dart';
 
 class WebView extends StatefulWidget {
@@ -16,7 +15,6 @@ class WebView extends StatefulWidget {
 }
 
 class _WebViewState extends State<WebView> {
-  late TabController _tabController;
   int _currentIndex = 0;
   int _typeCurrentIndex = 0;
   int _selectedVertMenu = 1;
@@ -267,7 +265,26 @@ class _WebViewState extends State<WebView> {
                   // ),
                 ],
               ),
-              Expanded(child: dashboard(context))
+              Expanded(
+                  child: _selectedVertMenu == 0
+                      ? dashboard(context)
+                      : _selectedVertMenu == 1
+                          ? const OAgreementsPageWeb()
+                          : _selectedVertMenu == 2
+                              ? dashboard(context)
+                              : _selectedVertMenu == 3
+                                  ? dashboard(context)
+                                  : _selectedVertMenu == 4
+                                      ? dashboard(context)
+                                      : _selectedVertMenu == 5
+                                          ? dashboard(context)
+                                          : _selectedVertMenu == 6
+                                              ? const BankFormScreen()
+                                              : _selectedVertMenu == 7
+                                                  ? dashboard(context)
+                                                  : _selectedVertMenu == 8
+                                                      ? dashboard(context)
+                                                      : const SizedBox())
             ],
           )),
     );

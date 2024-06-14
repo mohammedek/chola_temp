@@ -73,6 +73,6 @@ class WebTheme {
         borderRadius: BorderRadius.circular(12.0),
       ),
     ),
-    useMaterial3: true,
+    useMaterial3: false,
   );
 }

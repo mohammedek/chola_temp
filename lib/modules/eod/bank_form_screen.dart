@@ -1,8 +1,10 @@
 import 'package:chola_first/constants/styles.dart';
+import 'package:chola_first/core/responsive.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 class BankFormScreen extends StatefulWidget {
   const BankFormScreen({super.key});
@@ -49,7 +51,6 @@ class _BankFormScreenState extends State<BankFormScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     denominations = [
       {
@@ -104,46 +105,49 @@ class _BankFormScreenState extends State<BankFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ListTile(
-              dense: true,
-              tileColor: ksecondaryColor,
-              leading: Card(
-                color: Theme.of(context).primaryColor,
-                child: const IconButton(
-                  constraints: BoxConstraints(),
-                  padding: EdgeInsets.all(3),
-                  onPressed: null,
-                  icon: Icon(
-                    Icons.note_alt_outlined,
-                    color: whiteColor,
+    return Container(
+      color: ksecondaryColor.withOpacity(0.1),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: ListView(
+            children: [
+              ListTile(
+                dense: true,
+                tileColor: ksecondaryColor,
+                leading: Card(
+                  color: Theme.of(context).primaryColor,
+                  child: const IconButton(
+                    constraints: BoxConstraints(),
+                    padding: EdgeInsets.all(3),
+                    onPressed: null,
+                    icon: Icon(
+                      Icons.note_alt_outlined,
+                      color: whiteColor,
+                    ),
                   ),
                 ),
+                title: const Text(
+                  "EOD DCR",
+                  style: TextStyle(fontSize: 16, color: whiteColor),
+                ),
+                subtitle: const Text(
+                  "Receipt",
+                  style: TextStyle(color: whiteColor),
+                ),
               ),
-              title: const Text(
-                "EOD DCR",
-                style: TextStyle(fontSize: 16, color: whiteColor),
+              const SizedBox(
+                height: 5,
               ),
-              subtitle: const Text(
-                "Receipt",
-                style: TextStyle(color: whiteColor),
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Expanded(
-                child: Row(
+              Flexible(
+                child: Flex(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  direction: ResponsiveSize().isWide(context)
+                      ? Axis.horizontal
+                      : Axis.vertical,
                   children: [
                     Expanded(
-                      flex: 3,
+                      flex: ResponsiveSize().isWide(context) ? 3 : 0,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -214,8 +218,9 @@ class _BankFormScreenState extends State<BankFormScreen> {
                       ),
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: ResponsiveSize().isWide(context) ? 2 : 0,
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -234,298 +239,288 @@ class _BankFormScreenState extends State<BankFormScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: MediaQuery.sizeOf(context).height / 1.65,
-                            child: Card(
-                              elevation: 10,
-                              color: kprimaryColor.withOpacity(0.05),
-                              child: Container(
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.all(8),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Column(
+                          Card(
+                            elevation: 10,
+                            color: kprimaryColor.withOpacity(0.05),
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 10),
+                                  ListView.separated(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.zero,
+                                    separatorBuilder: (context, index) {
+                                      return const SizedBox(
+                                        height: 8,
+                                      );
+                                    },
+                                    itemCount: denominations.length,
+                                    itemBuilder: (context, index) {
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
-                                          const SizedBox(height: 10),
                                           Expanded(
-                                            child: ListView.separated(
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              padding: EdgeInsets.zero,
-                                              separatorBuilder:
-                                                  (context, index) {
-                                                return const SizedBox(
-                                                  height: 8,
-                                                );
-                                              },
-                                              itemCount: denominations.length,
-                                              itemBuilder: (context, index) {
-                                                return Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          if (index == 0)
-                                                            const SizedBox(
-                                                              height: 35,
-                                                              child: Text(
-                                                                'Denominations',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        14,
-                                                                    color:
-                                                                        ksecondaryColor,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                if (index == 0)
+                                                  const SizedBox(
+                                                    height: 35,
+                                                    child: Text(
+                                                      'Denominations',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color:
+                                                              ksecondaryColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                denominations[index] is String
+                                                    ? Text(
+                                                        denominations[index],
+                                                        style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 14),
+                                                      )
+                                                    : Text(
+                                                        '${denominations[index]['cur']}   X',
+                                                        style: const TextStyle(
+                                                            fontSize: 14),
+                                                      ),
+                                              ],
+                                            ),
+                                          ),
+                                          if (denominations[index] is Map)
+                                            const SizedBox(width: 20),
+                                          Expanded(
+                                            flex: denominations[index] is Map
+                                                ? 1
+                                                : 2,
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      denominations[index]
+                                                              is Map
+                                                          ? 0
+                                                          : 6),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  if (index == 0)
+                                                    const SizedBox(
+                                                      height: 35,
+                                                      child: Text(
+                                                        'Notes',
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            color:
+                                                                ksecondaryColor,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                  SizedBox(
+                                                    child: denominations[index]
+                                                            is String
+                                                        ? denominations[
+                                                                    index] ==
+                                                                "Excess"
+                                                            ? const Center(
+                                                                child: Text(
+                                                                    '1122'))
+                                                            : TextFormField(
+                                                                enabled: false,
+                                                                style: const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold),
-                                                              ),
-                                                            ),
-                                                          denominations[index]
-                                                                  is String
-                                                              ? Text(
-                                                                  denominations[
-                                                                      index],
-                                                                  style: const TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          14),
-                                                                )
-                                                              : Text(
-                                                                  '${denominations[index]['cur']}   X',
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          14),
-                                                                ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    if (denominations[index]
-                                                        is Map)
-                                                      const SizedBox(width: 20),
-                                                    Expanded(
-                                                      flex: denominations[index]
-                                                              is Map
-                                                          ? 1
-                                                          : 2,
-                                                      child: Padding(
-                                                        padding: EdgeInsets.symmetric(
-                                                            horizontal:
+                                                                controller:
+                                                                    totalAmtController,
+                                                              )
+                                                        : TextFormField(
+                                                            controller:
+                                                                denominations[
+                                                                        index]
+                                                                    ['notes'],
+                                                            onChanged:
+                                                                (value) =>
+                                                                    setState(
+                                                                        () {
+                                                              if (value
+                                                                  .isEmpty) {
                                                                 denominations[
                                                                             index]
-                                                                        is Map
-                                                                    ? 0
-                                                                    : 6),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            if (index == 0)
-                                                              const SizedBox(
-                                                                height: 35,
-                                                                child: Text(
-                                                                  'Notes',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          14,
-                                                                      color:
-                                                                          ksecondaryColor,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                ),
-                                                              ),
-                                                            SizedBox(
-                                                              width: denominations[
-                                                                          index]
-                                                                      is String
-                                                                  ? double
-                                                                      .infinity
-                                                                  : 150,
-                                                              child: denominations[
-                                                                          index]
-                                                                      is String
-                                                                  ? denominations[
-                                                                              index] ==
-                                                                          "Excess"
-                                                                      ? const Center(
-                                                                          child:
-                                                                              Text('1122'))
-                                                                      : TextFormField(
-                                                                          enabled:
-                                                                              false,
-                                                                          style: const TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontWeight: FontWeight.bold),
-                                                                          controller:
-                                                                              totalAmtController,
-                                                                        )
-                                                                  : TextFormField(
-                                                                      controller:
-                                                                          denominations[index]
-                                                                              [
-                                                                              'notes'],
-                                                                      onChanged:
-                                                                          (value) =>
-                                                                              setState(() {
-                                                                        if (value
-                                                                            .isEmpty) {
-                                                                          denominations[index]['amount']
-                                                                              .clear();
-                                                                          var denomination = denominations
-                                                                              .whereType<Map>()
-                                                                              .toList();
-                                                                          int total =
-                                                                              0;
-                                                                          for (Map den
-                                                                              in denomination) {
-                                                                            total =
-                                                                                total + int.parse(den['amount'].text.isEmpty ? "0" : den['amount'].text);
-                                                                          }
+                                                                        [
+                                                                        'amount']
+                                                                    .clear();
+                                                                var denomination =
+                                                                    denominations
+                                                                        .whereType<
+                                                                            Map>()
+                                                                        .toList();
+                                                                int total = 0;
+                                                                for (Map den
+                                                                    in denomination) {
+                                                                  total = total +
+                                                                      int.parse(den['amount']
+                                                                              .text
+                                                                              .isEmpty
+                                                                          ? "0"
+                                                                          : den['amount']
+                                                                              .text);
+                                                                }
 
-                                                                          totalAmtController.text =
-                                                                              total.toString();
-                                                                        } else if (denominations[index]
-                                                                            is Map) {
-                                                                          denominations[index]['amount'].text =
-                                                                              (denominations[index]['cur'] * int.parse(denominations[index]['notes'].text)).toString();
-                                                                          var denomination = denominations
-                                                                              .whereType<Map>()
-                                                                              .toList();
-                                                                          int total =
-                                                                              0;
-                                                                          for (Map den
-                                                                              in denomination) {
-                                                                            total =
-                                                                                total + int.parse(den['amount'].text.isEmpty ? "0" : den['amount'].text);
-                                                                          }
+                                                                totalAmtController
+                                                                        .text =
+                                                                    total
+                                                                        .toString();
+                                                              } else if (denominations[
+                                                                      index]
+                                                                  is Map) {
+                                                                denominations[
+                                                                            index]
+                                                                        [
+                                                                        'amount']
+                                                                    .text = (denominations[index]
+                                                                            [
+                                                                            'cur'] *
+                                                                        int.parse(
+                                                                            denominations[index]['notes'].text))
+                                                                    .toString();
+                                                                var denomination =
+                                                                    denominations
+                                                                        .whereType<
+                                                                            Map>()
+                                                                        .toList();
+                                                                int total = 0;
+                                                                for (Map den
+                                                                    in denomination) {
+                                                                  total = total +
+                                                                      int.parse(den['amount']
+                                                                              .text
+                                                                              .isEmpty
+                                                                          ? "0"
+                                                                          : den['amount']
+                                                                              .text);
+                                                                }
 
-                                                                          totalAmtController.text =
-                                                                              total.toString();
-                                                                        }
-                                                                      }),
-                                                                      style: const TextStyle(
-                                                                          fontSize:
-                                                                              14),
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        // border:
-                                                                        //     OutlineInputBorder(),
-                                                                        hintText:
-                                                                            '0',
-                                                                      ),
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .number,
-                                                                      inputFormatters: <TextInputFormatter>[
-                                                                        FilteringTextInputFormatter
-                                                                            .digitsOnly
-                                                                      ],
-                                                                    ),
+                                                                totalAmtController
+                                                                        .text =
+                                                                    total
+                                                                        .toString();
+                                                              }
+                                                            }),
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        14),
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              // border:
+                                                              //     OutlineInputBorder(),
+                                                              hintText: '0',
                                                             ),
-                                                          ],
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            inputFormatters: <TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .digitsOnly
+                                                            ],
+                                                          ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                              width: denominations[index] is Map
+                                                  ? 20
+                                                  : 4),
+                                          if (denominations[index] is Map)
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  if (index == 0)
+                                                    const SizedBox(
+                                                      height: 35,
+                                                      child: Align(
+                                                        alignment:
+                                                            Alignment.topLeft,
+                                                        child: Text(
+                                                          'Amount',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  ksecondaryColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         ),
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                        width:
-                                                            denominations[index]
-                                                                    is Map
-                                                                ? 20
-                                                                : 4),
-                                                    if (denominations[index]
-                                                        is Map)
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      const Text('=   '),
                                                       Expanded(
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            if (index == 0)
-                                                              const SizedBox(
-                                                                height: 35,
-                                                                child: Align(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .topLeft,
-                                                                  child: Text(
-                                                                    'Amount',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            14,
-                                                                        color:
-                                                                            ksecondaryColor,
-                                                                        fontWeight:
-                                                                            FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            Row(
-                                                              children: [
-                                                                const Text(
-                                                                    '=   '),
-                                                                SizedBox(
-                                                                  width: 150,
-                                                                  child:
-                                                                      TextFormField(
-                                                                    enabled:
-                                                                        false,
-                                                                    controller:
-                                                                        denominations[index]
-                                                                            [
-                                                                            'amount'],
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      fontSize:
-                                                                          14,
-                                                                      color: Colors
-                                                                          .black,
-                                                                    ),
-                                                                    decoration:
-                                                                        const InputDecoration(
-                                                                      // border:
-                                                                      //     OutlineInputBorder(),
-                                                                      hintText:
-                                                                          '0',
-                                                                    ),
-                                                                    keyboardType:
-                                                                        TextInputType
-                                                                            .number,
-                                                                    inputFormatters: <TextInputFormatter>[
-                                                                      FilteringTextInputFormatter
-                                                                          .digitsOnly
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                        child: TextFormField(
+                                                          enabled: false,
+                                                          controller:
+                                                              denominations[
+                                                                      index]
+                                                                  ['amount'],
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.black,
+                                                          ),
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            // border:
+                                                            //     OutlineInputBorder(),
+                                                            hintText: '0',
+                                                          ),
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          inputFormatters: <TextInputFormatter>[
+                                                            FilteringTextInputFormatter
+                                                                .digitsOnly
                                                           ],
                                                         ),
                                                       ),
-                                                  ],
-                                                );
-                                              },
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(height: 10),
                                         ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                      );
+                                    },
+                                  ),
+                                  const SizedBox(height: 10),
+                                ],
                               ),
                             ),
                           ),
@@ -535,8 +530,8 @@ class _BankFormScreenState extends State<BankFormScreen> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
