@@ -1,5 +1,6 @@
 import 'package:chola_first/constants/styles.dart';
 import 'package:chola_first/model/name_lists.dart';
+import 'package:chola_first/modules/batch/batch_list_screen.dart';
 import 'package:chola_first/modules/batch/batch_screen.dart';
 import 'package:chola_first/modules/challan/challan_screen.dart';
 import 'package:chola_first/widgets/web/chalan_popup.dart';
@@ -255,6 +256,25 @@ class _ChallanListScreenState extends State<ChallanListScreen> {
                                                             .pink.shade800,
                                                         size: 28),
                                                 onTap: () async {
+                                                  if (menuList.indexOf(e) ==
+                                                      4) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const BatchListScreen()),
+                                                    );
+                                                  }
+
+                                                  if (menuList.indexOf(e) ==
+                                                      5) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const ChallanListScreen()),
+                                                    );
+                                                  }
                                                   if (menuList.indexOf(e) ==
                                                       7) {
                                                     return showCupertinoDialog(
