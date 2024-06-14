@@ -464,8 +464,7 @@ class _MobileViewState extends State<MobileView> {
                                 AppButton(
                                     text: "Fetch Details",
                                     onPress: () {
-                                      if (_formKey.currentState?.validate() ??
-                                          false) {
+                                      if (_formKey.currentState?.validate() ?? false) {
                                         ScaffoldMessenger.of(context)
                                             .showMaterialBanner(
                                                 const MaterialBanner(
