@@ -370,7 +370,7 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                             onChanged: (val) {
                               print(val);
                               isSelectAll = val!;
-
+                              isSelect = val;
                               setState(() {});
                             }),
                       ),
@@ -454,7 +454,9 @@ class _BatchTypeScreenState extends State<BatchTypeScreen> {
                           backgroundColor: Colors.pink.shade800,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: const Text(
                         "Cancel",
                         style: TextStyle(color: Colors.white),

@@ -370,6 +370,7 @@ class _ChallanTypeScreenState extends State<ChallanTypeScreen> {
                             onChanged: (val) {
                               print(val);
                               isSelectAll = val!;
+                              isSelect = val;
 
                               setState(() {});
                             }),

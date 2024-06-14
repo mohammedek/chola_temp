@@ -77,8 +77,8 @@ class _CholaInitialState extends State<CholaInitial>
   Widget build(BuildContext context) {
     //return const BatchScreen();
     //return const BatchTypeScreen();
-    //return const ChallanScreen();
-    return const ChallanTypeScreen();
+    return const ChallanScreen();
+    //return const ChallanTypeScreen();
     //return const NewChallanScreen();
     // if (kIsWeb) {
     //   return

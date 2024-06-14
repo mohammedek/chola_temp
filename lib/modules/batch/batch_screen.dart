@@ -1,4 +1,5 @@
 import 'package:chola_first/model/name_lists.dart';
+import 'package:chola_first/modules/batch/batch_type_screen.dart';
 import 'package:chola_first/widgets/web/banking_widget.dart';
 import 'package:chola_first/widgets/web/chalan_popup.dart';
 import 'package:flutter/cupertino.dart';
@@ -474,16 +475,25 @@ class _BatchScreenState extends State<BatchScreen> {
                     fontWeight: FontWeight.bold),
               ),
               const Spacer(),
-              Container(
-                height: 45,
-                width: 45,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.blue.shade900,
-                ),
-                child: const Icon(
-                  Icons.arrow_forward,
-                  color: whiteColor,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BatchTypeScreen()),
+                  );
+                },
+                child: Container(
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.blue.shade900,
+                  ),
+                  child: const Icon(
+                    Icons.arrow_forward,
+                    color: whiteColor,
+                  ),
                 ),
               )
             ],
