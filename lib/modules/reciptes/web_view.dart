@@ -1,5 +1,7 @@
 import 'package:chola_first/model/name_lists.dart';
 import 'package:chola_first/modules/agreements/web/agreement_list.dart';
+import 'package:chola_first/modules/batch/batch_list_screen.dart';
+import 'package:chola_first/modules/challan/challan_list_screen.dart';
 import 'package:chola_first/widgets/web/banking_widget.dart';
 import 'package:chola_first/widgets/web/chalan_popup.dart';
 import 'package:flutter/cupertino.dart';
@@ -275,9 +277,9 @@ class _WebViewState extends State<WebView> {
                               : _selectedVertMenu == 3
                                   ? dashboard(context)
                                   : _selectedVertMenu == 4
-                                      ? dashboard(context)
+                                      ? const BatchListScreen()
                                       : _selectedVertMenu == 5
-                                          ? dashboard(context)
+                                          ? const ChallanListScreen()
                                           : _selectedVertMenu == 6
                                               ? const BankFormScreen()
                                               : _selectedVertMenu == 7

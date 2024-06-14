@@ -45,99 +45,104 @@ class _OAgreementDetailsState extends State<OAgreementDetails> {
         backgroundColor: ksecondaryColor.withOpacity(0.1),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Card(
-                child: Column(
-                  children: [
-                    Card(
-                      margin: EdgeInsets.zero,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20))),
-                      color: ksecondaryColor.withOpacity(0.2),
-                      child: headerLayout(context),
-                    ),
-                    const Divider(
-                      height: 0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
-                      child: Flex(
-                        direction: ResponsiveSize().isWide(context)
-                            ? Axis.horizontal
-                            : Axis.vertical,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          headerRow('CIF ID', '4220969'),
-                          headerRow('Customer Name', 'AAKRITI ARORA'),
-                          headerRow('DPD', '373'),
-                          headerRow('EMI Amount', '26,859'),
-                          headerRow('Total EMI OD Amount', '349,164'),
-                          headerRow('Total Charges OD', '24,475'),
-                          headerRow('OD + POS', '529,413.00'),
-                          headerRow('GA Value', ''),
-                          headerRow('NPA Stage', 'Regular'),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Card(
-                child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ListView(
-                      shrinkWrap: true,
-                      // mainAxisSize: MainAxisSize.min,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
                       children: [
-                        SizedBox(
-                          height: 40,
-                          child: TabBar(
-                            isScrollable: true,
-                            labelStyle: const TextStyle(fontWeight: bold),
-                            labelColor: blackColor,
-                            unselectedLabelColor: greyColor,
-                            tabs: tabList
-                                .map((e) => Tab(
-                                        child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          e,
-                                        ),
-                                        e == "More"
-                                            ? const Icon(
-                                                Icons.keyboard_arrow_down)
-                                            : const SizedBox()
-                                      ],
-                                    )))
-                                .toList(),
+                        Card(
+                          margin: EdgeInsets.zero,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20))),
+                          color: ksecondaryColor.withOpacity(0.1),
+                          child: headerLayout(context),
+                        ),
+                        const Divider(
+                          height: 0,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
+                          child: Flex(
+                            direction: ResponsiveSize().isWide(context)
+                                ? Axis.horizontal
+                                : Axis.vertical,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              headerRow('CIF ID', '4220969'),
+                              headerRow('Customer Name', 'AAKRITI ARORA'),
+                              headerRow('DPD', '373'),
+                              headerRow('EMI Amount', '26,859'),
+                              headerRow('Total EMI OD Amount', '349,164'),
+                              headerRow('Total Charges OD', '24,475'),
+                              headerRow('OD + POS', '529,413.00'),
+                              headerRow('GA Value', ''),
+                              headerRow('NPA Stage', 'Regular'),
+                            ],
                           ),
                         ),
-                        ListTile(
-                          tileColor: ksecondaryColor.withOpacity(0.1),
-                          leading: const Icon(Icons.keyboard_arrow_down),
-                          title: const Text("Information"),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 1.5,
-                          child: TabBarView(children: [
-                            buildBasicDetailsCard(),
-                          ]),
-                        )
                       ],
-                    )),
-              )
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: ListView(
+                        shrinkWrap: true,
+                        // mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: 40,
+                            child: TabBar(
+                              isScrollable: true,
+                              labelStyle: const TextStyle(fontWeight: bold),
+                              labelColor: blackColor,
+                              unselectedLabelColor: greyColor,
+                              tabs: tabList
+                                  .map((e) => Tab(
+                                          child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            e,
+                                          ),
+                                          e == "More"
+                                              ? const Icon(
+                                                  Icons.keyboard_arrow_down)
+                                              : const SizedBox()
+                                        ],
+                                      )))
+                                  .toList(),
+                            ),
+                          ),
+                          ListTile(
+                            tileColor: ksecondaryColor.withOpacity(0.1),
+                            leading: const Icon(Icons.keyboard_arrow_down),
+                            title: const Text("Information"),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 1.5,
+                            child: TabBarView(children: [
+                              buildBasicDetailsCard(),
+                            ]),
+                          )
+                        ],
+                      )),
+                )
 
-              // Add other sections as needed
-            ],
+                // Add other sections as needed
+              ],
+            ),
           ),
         ),
       ),
