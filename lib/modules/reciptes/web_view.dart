@@ -10,10 +10,8 @@ import 'package:chola_first/widgets/web/banking_widget.dart';
 import 'package:chola_first/widgets/web/chalan_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
-import '../../constants/styles.dart';
 import '../../widgets/web/cash_widget.dart';
 import '../../widgets/web/draft_widget.dart';
 import '../../widgets/web/payment_gateway_widget.dart';
@@ -35,24 +33,15 @@ class _WebViewState extends State<WebView> {
   int _typeCurrentIndex = 0;
   int _selectedVertMenu = 1;
   bool isEOD = false;
+  double _bal = 0.0;
+  double _bal1 = 0.0;
+  double _bal2 = 0.0;
+  double _bal3 = 0.0;
+  double _bal4 = 0.0;
+  double _bal5 = 0.0;
+  double _bal6 = 0.0;
 
   FormControllers formController = FormControllers();
-
-  // void _onAmountCollectedChanged(String value) {
-  //   if (value.isEmpty) return;
-  //   double amountCollected = double.tryParse(value) ?? 0.0;
-  //
-  //   setState(() {
-  //     for (var row in tableData) {
-  //       double overdueAmount = double.tryParse(row[1]) ?? 0.0;
-  //       if (amountCollected >= overdueAmount) {
-  //         row[2] = amountCollected.toString();
-  //         print(row[2]);
-  //         break;
-  //       }
-  //     }
-  //   });
-  // }
 
   set selectedVetMenu(int value) => _selectedVertMenu = value;
 
@@ -638,7 +627,7 @@ class _WebViewState extends State<WebView> {
                         text: "Amount Collected",
                         controller: formController.amountController,
                         width: MediaQuery.sizeOf(context).width * 0.3,
-                        // onChanged: _onAmountCollectedChanged,
+                        onChanged: _onAmountCollectedChanged,
                         isReq: true),
                     const Gap(6),
                   ],
@@ -763,7 +752,20 @@ class _WebViewState extends State<WebView> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             4))),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              setState(() {});
+                                              formController.amountController
+                                                  .clear();
+                                              tableData[1][2] = 0.toString();
+                                              tableData[2][2] = 0.toString();
+                                              tableData[3][2] = 0.toString();
+                                              tableData[4][2] = 0.toString();
+                                              tableData[5][2] = 0.toString();
+                                              tableData[6][2] = 0.toString();
+                                              tableData[7][2] = 0.toString();
+                                              tableData[8][1] = 0.toString();
+                                              tableData[8][2] = 0.toString();
+                                            },
                                             child: const Text(
                                               "Reset",
                                               style: TextStyle(
@@ -794,106 +796,84 @@ class _WebViewState extends State<WebView> {
                             const Gap(6),
                             Container(
                               decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black)),
+                                border: Border.all(color: Colors.black),
+                              ),
                               child: Table(
                                 border:
                                     TableBorder.all(color: Colors.transparent),
                                 children: List<TableRow>.generate(
                                   tableData.length,
                                   (rowIndex) => TableRow(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.transparent)),
                                     children: List<Widget>.generate(
                                       tableData[rowIndex].length,
                                       (colIndex) {
+                                        // Determine if the cell should be editable
+                                        bool isEditable = tableData[rowIndex]
+                                                    [0] !=
+                                                'Total' &&
+                                            tableData[rowIndex][0] != 'Item' &&
+                                            colIndex == 2 &&
+                                            tableData[rowIndex][0] !=
+                                                'Add Other Changes';
+
                                         return Container(
                                           height: 45,
                                           decoration: BoxDecoration(
-                                              border: Border(
-                                                  bottom: const BorderSide(
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                  color: Colors.black),
+                                              right: colIndex ==
+                                                      tableData[rowIndex]
+                                                              .length -
+                                                          1
+                                                  ? BorderSide(
+                                                      color: Colors.transparent)
+                                                  : BorderSide(
                                                       color: Colors.black),
-                                                  right: tableData[rowIndex]
-                                                              [0] ==
-                                                          'Add Other Changes'
-                                                      ? const BorderSide(
-                                                          color: Colors
-                                                              .transparent)
-                                                      : const BorderSide(
-                                                          color:
-                                                              Colors.black))),
-                                          child: tableData[rowIndex][colIndex]
-                                                  .isNotEmpty
+                                            ),
+                                          ),
+                                          child: isEditable
                                               ? Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
-                                                  child: SizedBox(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          tableData[rowIndex]
-                                                              [colIndex],
-                                                          style: TextStyle(
-                                                              fontWeight: tableData[
-                                                                              rowIndex]
-                                                                          [0] ==
-                                                                      'Total'
-                                                                  ? FontWeight
-                                                                      .bold
-                                                                  : FontWeight
-                                                                      .normal),
-                                                        ),
-                                                      ],
+                                                  child: TextFormField(
+                                                    controller:
+                                                        TextEditingController(
+                                                            text: tableData[
+                                                                    rowIndex]
+                                                                [colIndex]),
+                                                    onChanged: (value) {
+                                                      // Update tableData with the new value
+                                                      tableData[rowIndex]
+                                                          [colIndex] = value;
+                                                    },
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      border:
+                                                          OutlineInputBorder(),
+                                                      contentPadding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10,
+                                                              horizontal: 10),
                                                     ),
                                                   ),
                                                 )
-                                              : SizedBox(
-                                                  height: 30,
-                                                  child: tableData[rowIndex]
-                                                              [0] ==
-                                                          'Add Other Changes'
-                                                      ? null
-                                                      : Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: TextFormField(
-                                                            controller: colIndex ==
-                                                                        2 &&
-                                                                    tableData[rowIndex]
-                                                                            [
-                                                                            0] !=
-                                                                        "Total"
-                                                                ? formControllers
-                                                                    .amountController
-                                                                : TextEditingController(),
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                tableData[rowIndex]
-                                                                        [
-                                                                        colIndex] =
-                                                                    value;
-                                                              });
-                                                            },
-                                                            decoration:
-                                                                const InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              contentPadding:
-                                                                  EdgeInsets.symmetric(
-                                                                      vertical:
-                                                                          10,
-                                                                      horizontal:
-                                                                          10),
-                                                            ),
-                                                          ),
-                                                        ),
+                                              : Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    tableData[rowIndex]
+                                                        [colIndex],
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          tableData[rowIndex]
+                                                                      [0] ==
+                                                                  'Total'
+                                                              ? FontWeight.bold
+                                                              : FontWeight
+                                                                  .normal,
+                                                    ),
+                                                  ),
                                                 ),
                                         );
                                       },
@@ -915,5 +895,98 @@ class _WebViewState extends State<WebView> {
             height: MediaQuery.of(context).size.height * 1.8,
             width: double.infinity,
             child: const BankFormScreen());
+  }
+
+  void _onAmountCollectedChanged(String val) {
+    setState(() {});
+
+    var cellValue = tableData[1][1];
+    var cellValue1 = tableData[2][1];
+    var cellValue2 = tableData[3][1];
+    var cellValue3 = tableData[4][1];
+    var cellValue4 = tableData[5][1];
+    var cellValue5 = tableData[6][1];
+
+    var numericCellValue = double.tryParse(cellValue) ?? 0.0;
+    var numericCellValue1 = double.tryParse(cellValue1) ?? 0.0;
+    var numericCellValue2 = double.tryParse(cellValue2) ?? 0.0;
+    var numericCellValue3 = double.tryParse(cellValue3) ?? 0.0;
+    var numericCellValue4 = double.tryParse(cellValue4) ?? 0.0;
+    var numericCellValue5 = double.tryParse(cellValue5) ?? 0.0;
+
+    var numericVal = double.tryParse(val) ?? 0.0;
+
+    if (numericCellValue < numericVal) {
+      tableData[1][2] = cellValue;
+
+      setState(() {
+        _bal = numericVal - numericCellValue;
+      });
+    } else {
+      _bal = 0.0;
+      _bal1 = 0.0;
+      _bal2 = 0.0;
+      _bal3 = 0.0;
+      _bal4 = 0.0;
+      _bal5 = 0.0;
+      _bal6 = 0.0;
+
+      tableData[1][2] = val;
+      setState(() {});
+    }
+
+    if (numericCellValue1 > _bal) {
+      _bal1 = numericCellValue1 - _bal;
+      tableData[2][2] = _bal.toString();
+      setState(() {});
+    } else {
+      tableData[2][2] = cellValue1;
+      setState(() {
+        _bal2 = _bal - _bal1;
+      });
+    }
+
+    if (_bal < _bal1 && _bal < _bal2) {
+    } else {
+      tableData[3][2] = _bal2.toString();
+      setState(() {});
+    }
+    if (numericCellValue2 < _bal2) {
+      setState(() {});
+      tableData[3][2] = tableData[3][1];
+      _bal3 = _bal2 - numericCellValue2;
+      tableData[4][2] = _bal3.toString();
+    } else {
+      tableData[4][2] = _bal3.toString();
+    }
+    if (numericCellValue3 < _bal3) {
+      setState(() {});
+      tableData[4][2] = numericCellValue3.toString();
+      _bal4 = _bal3 - numericCellValue3;
+      tableData[5][2] = _bal4.toString();
+    } else {
+      tableData[5][2] = _bal4.toString();
+    }
+    if (numericCellValue4 < _bal4) {
+      setState(() {});
+      tableData[5][2] = numericCellValue4.toString();
+      _bal5 = _bal4 - numericCellValue4;
+      tableData[6][2] = _bal5.toString();
+    } else {
+      tableData[6][2] = _bal5.toString();
+    }
+    if (numericCellValue5 < _bal5) {
+      setState(() {});
+      tableData[6][2] = numericCellValue5.toString();
+      _bal6 = _bal5 - numericCellValue5;
+      tableData[7][2] = _bal6.toString();
+    } else {
+      tableData[7][2] = _bal6.toString();
+    }
+    tableData[8][2] = val;
+    var actualBal = numericVal - _bal6;
+    tableData[8][1] = actualBal.toString();
+
+    setState(() {});
   }
 }
