@@ -36,7 +36,11 @@ class _OAgreementDetailsState extends State<OAgreementDetails> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('$title:',
-                style: const TextStyle(fontWeight: FontWeight.bold)),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.black)),
+            const SizedBox(
+              height: 3,
+            ),
             Text(value),
           ],
         ),
@@ -276,12 +280,14 @@ class _OAgreementDetailsState extends State<OAgreementDetails> {
                 children: [
                   Expanded(
                       child: Text(title,
-                          style: const TextStyle(fontWeight: FontWeight.bold))),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, color: blackColor))),
                   const Spacer(),
                   Expanded(
                     child: Text(
                       value,
                       maxLines: 1,
+                      style: const TextStyle(color: blackColor),
                       textAlign: TextAlign.start,
                     ),
                   ),
