@@ -45,9 +45,9 @@ class _RecipteWidgetState extends State<RecipteWidget> {
                           : const SizedBox.shrink(),
                       Text(
                         e.toString(),
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: menuList.indexOf(e) == 0 ? 20 : 14,
-                          color: Colors.black54,
+                          color: Colors.black,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

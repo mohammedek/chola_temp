@@ -1,5 +1,13 @@
+import 'package:chola_first/OAgreementsScreen.dart';
 import 'package:chola_first/core/responsive.dart';
 import 'package:chola_first/core/theme.dart';
+import 'package:chola_first/modules/batch/batch_list_screen.dart';
+import 'package:chola_first/modules/batch/batch_screen.dart';
+import 'package:chola_first/modules/batch/batch_type_screen.dart';
+import 'package:chola_first/modules/challan/challan_list_screen.dart';
+import 'package:chola_first/modules/challan/challan_screen.dart';
+import 'package:chola_first/modules/challan/challan_type_screen.dart';
+import 'package:chola_first/modules/challan/new_challan_screen.dart';
 import 'package:chola_first/modules/eod/bank_form_screen.dart';
 import 'package:chola_first/modules/reciptes/mobile_view.dart';
 import 'package:chola_first/modules/reciptes/web_view.dart';
@@ -21,8 +29,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -70,9 +76,7 @@ class _CholaInitialState extends State<CholaInitial>
   @override
   Widget build(BuildContext context) {
     if (kIsWeb) {
-      return ResponsiveSize().isWide(context)
-          ? const WebView()
-          : const MobileView();
+      return const WebView();
     } else {
       return const BottomNavBar();
     }

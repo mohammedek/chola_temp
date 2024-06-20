@@ -1,3 +1,5 @@
+import 'package:chola_first/modules/reciptes/controllers.dart';
+
 List<String> menuList = [
   'Collections Home',
   'OAgrements',
@@ -10,9 +12,10 @@ List<String> menuList = [
   'OAllocations',
   'More'
 ];
-
+FormControllers formControllers = FormControllers();
 List<String> tabBarView = [
   "Cheque",
+  "Cash",
   "Draft",
   "RTGS",
   "POS Machine",
@@ -22,9 +25,14 @@ List<String> typeList = [
   "CUSTOMER",
   "REMITTER",
 ];
+List<String> agreementList = [
+  "OContract Recordings",
+  "New Receipt",
+  "Customer Pay",
+];
 
 List<String> tabBarMobileView = ["Cash", "Cheque", "Draft", "Payment Gateway"];
-List<String> customerRemiter = ["Customer","Remiter"];
+List<String> customerRemiter = ["Customer", "Remiter"];
 
 List<List<String>> tableData = [
   ["Item", "Overdue", "Actuals"],

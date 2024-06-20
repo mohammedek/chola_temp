@@ -1,22 +1,25 @@
 import 'package:chola_first/widgets/custom_text_feild.dart';
-import 'package:chola_first/widgets/file_upload_widget.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
-class ChequeWidget extends StatefulWidget {
-  const ChequeWidget(String e, {super.key});
+import '../file_upload_widget.dart';
+
+class DraftWidget extends StatefulWidget {
+  const DraftWidget({Key? key}) : super(key: key);
 
   @override
-  State<ChequeWidget> createState() => _ChequeWidgetState();
+  _DraftWidgetState createState() => _DraftWidgetState();
 }
 
-class _ChequeWidgetState extends State<ChequeWidget> {
+class _DraftWidgetState extends State<DraftWidget> {
   DateTime? pickedDate;
   final TextEditingController _dateController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isFetchingDetails = false;
   List<PlatformFile>? _selectedFiles;
+  bool _isFetchingDetails = false;
 
   void _handleFilesSelected(List<PlatformFile> files) {
     // Handle the selected files
@@ -38,7 +41,8 @@ class _ChequeWidgetState extends State<ChequeWidget> {
       _isFetchingDetails = true;
     });
 
-    await Future.delayed(const Duration(seconds: 2)); // Simulate fetching details
+    await Future.delayed(
+        const Duration(seconds: 2)); // Simulate fetching details
 
     setState(() {
       _isFetchingDetails = false;
@@ -222,6 +226,20 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                         ],
                       ),
                       const Gap(16),
+                      const Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'AFC',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(': 300'),
+                          ),
+                        ],
+                      ),
+                      const Gap(16),
                     ],
                   ),
                 ),
@@ -237,9 +255,16 @@ class _ChequeWidgetState extends State<ChequeWidget> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: SingleChildScrollView(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
+      child: SizedBox(
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.90,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -254,19 +279,25 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 16),
-                          const CustomTextField(text: "Account No", isReq: true),
-                          const SizedBox(height: 16),
-                          const CustomTextField(text: "MICR No.", isReq: true),
-                          const SizedBox(height: 16),
-                          const CustomTextField(text: "Bank Name", isReq: false),
+                          const CustomTextField(
+                            text: "MICR No",
+                          ),
                           const SizedBox(height: 16),
                           const CustomTextField(
-                              text: "Instrument No", isReq: true),
-                          const Gap(16),
+                            text: "Bank Name",
+                            isGrey: true,
+                          ),
+                          const SizedBox(height: 16),
+                          const CustomTextField(
+                            text: "Instrument No.",
+                            isReq: true,
+                          ),
+                          const SizedBox(height: 16),
                           FileUploadWidget(
-                            label: "* Email Attachment",
+                            label: "* Instrument Image",
                             onFilesSelected: _handleFilesSelected,
                           ),
+
                         ],
                       ),
                     ),
@@ -274,11 +305,14 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                     Expanded(
                       flex: 3,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 100),
-                          const CustomTextField(text: "IFSC Code", isReq: true),
+                          const SizedBox(height: 16),
+                          const CustomTextField(
+                            text: "IFSC Code",
+                            isReq: false,
+                            isGrey: false,
+                          ),
                           const SizedBox(height: 16),
                           const CustomTextField(
                             text: "Branch Name",
@@ -287,7 +321,7 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                           ),
                           const SizedBox(height: 16),
                           const Text(
-                            "* Instrument Date ",
+                            "* Instrument Date",
                             style: TextStyle(fontSize: 14),
                           ),
                           GestureDetector(
@@ -302,7 +336,8 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                                 setState(() {
                                   pickedDate = picked;
                                   _dateController.text =
-                                      "${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}";
+                                  "${pickedDate!.day}/${pickedDate!
+                                      .month}/${pickedDate!.year}";
                                 });
                               }
                             },
@@ -320,115 +355,126 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                                   }
                                   return null;
                                 },
-                                decoration: const InputDecoration(
-                                  hintText: "Date",
-                                  hintStyle: TextStyle(fontSize: 14),
-                                  border: OutlineInputBorder(),
-                                  suffixIcon: Icon(Icons.date_range),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 8,
+                                decoration: InputDecoration(
+                                  hintText:
+                                  DateFormat('dd/MM/yyyy').format(DateTime.now()),
+                                  hintStyle: const TextStyle(fontSize: 14),
+                                  border: const OutlineInputBorder(),
+                                  suffixIcon: const Icon(Icons.date_range),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 10,
                                     horizontal: 10,
                                   ),
-        
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            onPressed: _isFetchingDetails ? null : _fetchDetails,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: _isFetchingDetails || (_selectedFiles == null || _selectedFiles!.isEmpty)
-                                  ? Colors.grey.shade100
-                                  : Colors.pink.shade800,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                            ),
-                            child: _isFetchingDetails
-                                ? const SizedBox(
-                                    width: 16,
-                                    height: 16,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                      strokeWidth: 2.0,
-                                    ),
-                                  )
-                                : Text(
-                                    "Fetch Details",
-                                    style: TextStyle(
-                                        color:
-                                        _isFetchingDetails || (_selectedFiles == null || _selectedFiles!.isEmpty)?
-        
-                                        Colors.grey.shade400 : Colors.white ,fontSize: 14),
-                                  ),
-                          ),
+                          const SizedBox(height: 26),
+                          // ElevatedButton(
+                          //   onPressed: _fetchDetails,
+                          //   style: ElevatedButton.styleFrom(
+                          //     backgroundColor: _selectedFiles == null ||
+                          //         _selectedFiles!.isEmpty
+                          //         ? Colors.grey.shade100
+                          //         : Colors.pink.shade800,
+                          //     shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(6),
+                          //     ),
+                          //   ),
+                          //   child: _isFetchingDetails
+                          //       ? const SizedBox(
+                          //     width: 16,
+                          //     height: 16,
+                          //     child: CircularProgressIndicator(
+                          //       color: Colors.white,
+                          //       strokeWidth: 2.0,
+                          //     ),
+                          //   )
+                          //       : Text(
+                          //     "Fetch Details",
+                          //     style: TextStyle(
+                          //       color: _selectedFiles == null ||
+                          //           _selectedFiles!.isEmpty
+                          //           ? Colors.grey.shade400
+                          //           : Colors.white,
+                          //       fontSize: 14,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text("Enter Remarks"),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.7,
-                    child: TextFormField(
-                      maxLines: 2,
-                      decoration: InputDecoration(
-                        hintText: "Enter Reason",
-                        hintStyle: Theme.of(context).textTheme.labelSmall,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 10,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Enter Remarks"),
+                    SizedBox(
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 1.7,
+                      child: TextFormField(
+                        maxLines: 2,
+                        decoration: InputDecoration(
+                          hintText: "Enter Reason",
+                          hintStyle: Theme
+                              .of(context)
+                              .textTheme
+                              .labelSmall,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 10,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const Gap(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pink.shade800,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.pink.shade800,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        onPressed: () {},
-                        child: const Text(
-                          "Cancel",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pinkAccent.shade100,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
+                        const SizedBox(width: 10),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.pinkAccent.shade100,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              _showPreviewDialog();
+                            }
+                          },
+                          child: const Text(
+                            "Preview",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        onPressed: () {
-                          if (_formKey.currentState?.validate() ?? false) {
-                            _showPreviewDialog();
-                          }},
-                        child: const Text(
-                          "Preview",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

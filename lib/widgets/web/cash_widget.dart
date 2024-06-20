@@ -4,22 +4,22 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-class ChequeWidget extends StatefulWidget {
-  const ChequeWidget(String e, {super.key});
+class CashWidget extends StatefulWidget {
+  const CashWidget({super.key});
 
   @override
-  State<ChequeWidget> createState() => _ChequeWidgetState();
+  State<CashWidget> createState() => _CashWidgetState();
 }
 
-class _ChequeWidgetState extends State<ChequeWidget> {
-  DateTime? pickedDate;
-  final TextEditingController _dateController = TextEditingController();
+class _CashWidgetState extends State<CashWidget> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _dateController = TextEditingController();
+  DateTime? pickedDate;
   bool _isFetchingDetails = false;
   List<PlatformFile>? _selectedFiles;
 
+
   void _handleFilesSelected(List<PlatformFile> files) {
-    // Handle the selected files
     setState(() {
       _selectedFiles = files;
     });
@@ -46,7 +46,6 @@ class _ChequeWidgetState extends State<ChequeWidget> {
 
     // Proceed with other operations after fetching details
   }
-
   void _showPreviewDialog() {
     showDialog(
       context: context,
@@ -237,141 +236,35 @@ class _ChequeWidgetState extends State<ChequeWidget> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: SingleChildScrollView(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 16),
-                          const CustomTextField(text: "Account No", isReq: true),
-                          const SizedBox(height: 16),
-                          const CustomTextField(text: "MICR No.", isReq: true),
-                          const SizedBox(height: 16),
-                          const CustomTextField(text: "Bank Name", isReq: false),
-                          const SizedBox(height: 16),
-                          const CustomTextField(
-                              text: "Instrument No", isReq: true),
-                          const Gap(16),
-                          FileUploadWidget(
-                            label: "* Email Attachment",
-                            onFilesSelected: _handleFilesSelected,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 100),
-                          const CustomTextField(text: "IFSC Code", isReq: true),
-                          const SizedBox(height: 16),
-                          const CustomTextField(
-                            text: "Branch Name",
-                            isReq: false,
-                            isGrey: true,
-                          ),
-                          const SizedBox(height: 16),
-                          const Text(
-                            "* Instrument Date ",
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              DateTime? picked = await showDatePicker(
-                                initialDate: pickedDate ?? DateTime.now(),
-                                context: context,
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2101),
-                              );
-                              if (picked != null && picked != pickedDate) {
-                                setState(() {
-                                  pickedDate = picked;
-                                  _dateController.text =
-                                      "${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}";
-                                });
-                              }
-                            },
-                            child: AbsorbPointer(
-                              child: TextFormField(
-                                controller: _dateController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    value = pickedDate.toString();
-                                  });
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Date is required';
-                                  }
-                                  return null;
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: "Date",
-                                  hintStyle: TextStyle(fontSize: 14),
-                                  border: OutlineInputBorder(),
-                                  suffixIcon: Icon(Icons.date_range),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 10,
-                                  ),
-        
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            onPressed: _isFetchingDetails ? null : _fetchDetails,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: _isFetchingDetails || (_selectedFiles == null || _selectedFiles!.isEmpty)
-                                  ? Colors.grey.shade100
-                                  : Colors.pink.shade800,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                            ),
-                            child: _isFetchingDetails
-                                ? const SizedBox(
-                                    width: 16,
-                                    height: 16,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                      strokeWidth: 2.0,
-                                    ),
-                                  )
-                                : Text(
-                                    "Fetch Details",
-                                    style: TextStyle(
-                                        color:
-                                        _isFetchingDetails || (_selectedFiles == null || _selectedFiles!.isEmpty)?
-        
-                                        Colors.grey.shade400 : Colors.white ,fontSize: 14),
-                                  ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Column(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    child: const CustomTextField(
+                      text: 'Pan No',
+                      isGrey: true,
+                      isReq: true,
+                    ),
+                  ),
+                  FileUploadWidget(
+                    label: "Pan image",
+                    onFilesSelected: _handleFilesSelected,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text("Enter Remarks"),
                   SizedBox(
@@ -380,7 +273,7 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                       maxLines: 2,
                       decoration: InputDecoration(
                         hintText: "Enter Reason",
-                        hintStyle: Theme.of(context).textTheme.labelSmall,
+                        hintStyle: Theme.of(context).textTheme.bodyMedium,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                         ),
@@ -391,10 +284,9 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                       ),
                     ),
                   ),
-                  const Gap(10),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -420,7 +312,8 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                         onPressed: () {
                           if (_formKey.currentState?.validate() ?? false) {
                             _showPreviewDialog();
-                          }},
+                          }
+                        },
                         child: const Text(
                           "Preview",
                           style: TextStyle(color: Colors.white),
@@ -430,8 +323,8 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
