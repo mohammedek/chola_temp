@@ -33,7 +33,7 @@ class WebView extends StatefulWidget {
 class _WebViewState extends State<WebView> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
   int _typeCurrentIndex = 0;
-  int _selectedVertMenu = 1;
+  int _selectedVertMenu = 0;
   bool isEOD = false;
   double _bal = 0.0;
   double _bal1 = 0.0;
@@ -72,9 +72,9 @@ class _WebViewState extends State<WebView> with SingleTickerProviderStateMixin {
   Widget _buildSelectedWidget() {
     switch (_selectedVertMenu) {
       case 0:
+      case 1:
         return const OAgreementsPageWeb();
       case 2:
-      case 1:
       case 7:
         return dashboard(context);
       case 3:
