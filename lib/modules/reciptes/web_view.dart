@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:chola_first/constants/styles.dart';
+import 'package:chola_first/core/responsive.dart';
 import 'package:chola_first/model/name_lists.dart';
 import 'package:chola_first/modules/agreements/web/agreement_list.dart';
 import 'package:chola_first/modules/batch/batch_list_screen.dart';
 import 'package:chola_first/modules/challan/challan_list_screen.dart';
 import 'package:chola_first/modules/reciptes/controllers.dart';
 import 'package:chola_first/widgets/custom_text_feild.dart';
+import 'package:chola_first/widgets/main_menu_header.dart';
 import 'package:chola_first/widgets/web/banking_widget.dart';
 import 'package:chola_first/widgets/web/chalan_popup.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,8 +30,7 @@ class WebView extends StatefulWidget {
   State<WebView> createState() => _WebViewState();
 }
 
-class _WebViewState extends State<WebView> {
-  // late TabController _tabController;
+class _WebViewState extends State<WebView> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
   int _typeCurrentIndex = 0;
   int _selectedVertMenu = 1;
@@ -59,215 +61,273 @@ class _WebViewState extends State<WebView> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    tabController = TabController(length: menuList.length, vsync: this);
+    tabController.addListener(() {
+      setState(() {});
+    });
     _selectedVertMenu = widget.index;
+  }
+
+  late TabController tabController;
+  Widget _buildSelectedWidget() {
+    switch (_selectedVertMenu) {
+      case 0:
+        return const OAgreementsPageWeb();
+      case 2:
+      case 1:
+      case 7:
+        return dashboard(context);
+      case 3:
+        return const BatchListScreen();
+      case 4:
+        return const ChallanListScreen();
+      case 5:
+        return const BankFormScreen();
+      default:
+        return const SizedBox();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.black,
-        title: InkWell(
-          onTap: () {
-            showCupertinoDialog(
-                context: context,
-                builder: (context) => CupertinoAlertDialog(
-                      title: const Text("Do you want to logout ?"),
-                      content: const Text(
-                          "By clicking Yes you will be logged out from the application"),
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              exit(0);
-                            },
-                            child: const Text("Yes")),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text("No")),
-                      ],
-                    ));
-          },
-          child: const Text(
-            "Sandbox: preprod02 | Log out",
-            style: TextStyle(color: Colors.white, fontSize: 20),
+      appBar: MainMenuAppBar(
+        height: ResponsiveSize().isWide(context) ? 110 : 150,
+        title: TextField(
+          decoration: InputDecoration(
+            hintText: "Search..",
+            hintStyle: TextStyle(color: Colors.grey.shade800),
+            focusColor: Colors.grey.shade800,
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.grey.shade800,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(04),
+              borderSide: BorderSide(width: 3, color: Colors.grey.shade800),
+            ),
           ),
         ),
-      ),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+        actions: [
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.grey.shade800)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.star,
+                      color: Colors.grey.shade800,
+                      size: 20,
+                    )),
+                Container(
+                  color: Colors.grey,
+                  width: 2,
+                  height: MediaQuery.of(context).size.shortestSide * 0.03,
+                  // thickness: 2,
+                ),
+                DropdownButton(
+                  items: const [],
+                  onChanged: (value) {},
+                  underline: const SizedBox(),
+                  icon: Icon(
+                      color: Colors.grey.shade800, (Icons.arrow_drop_down)),
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+              onPressed: () {},
+              color: Colors.grey.shade800,
+              icon: const Icon(
+                Icons.add_box,
+                // size: 30,
+              )),
+          IconButton(
+              onPressed: () {},
+              color: Colors.grey.shade800,
+              icon: const Icon(
+                Icons.cloud_circle_outlined,
+                // size: 30,
+              )),
+          IconButton(
+              onPressed: () {},
+              color: Colors.grey.shade800,
+              icon: const Icon(
+                Icons.question_mark_rounded,
+                // size: 30,
+              )),
+          IconButton(
+              onPressed: () {},
+              color: Colors.grey.shade800,
+              icon: const Icon(
+                Icons.settings_applications,
+                // size: 30,
+              )),
+          IconButton(
+              onPressed: () {},
+              color: Colors.grey.shade800,
+              icon: const Icon(
+                Icons.notifications,
+              )),
+          IconButton(
+              onPressed: () {},
+              color: Colors.grey.shade800,
+              icon: const Icon(
+                CupertinoIcons.person_alt_circle,
+              )),
+        ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: Row(
             children: [
-              Scrollbar(
-                thickness: 2,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      /// leading
-                      SizedBox(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.04
-                          // width: 200,
-                          ),
-
-                      /// title
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        height: 40,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Search..",
-                            hintStyle: TextStyle(color: Colors.grey.shade800),
-                            focusColor: Colors.grey.shade800,
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Colors.grey.shade800,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(04),
-                              borderSide: BorderSide(
-                                  width: 3, color: Colors.grey.shade800),
-                            ),
-                          ),
-                        ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.menu_rounded,
+                        color: Colors.pink.shade800,
                       ),
-
-                      /// space btw tite and actions
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.06),
-
-                      /// specific container
-                      Container(
-                        // height:MediaQuery.of(context).size.width * 0.03,
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(8),
-                              bottomRight: Radius.circular(8),
-                              bottomLeft: Radius.circular(8),
-                              topLeft: Radius.circular(8),
-                            ),
-                            border: Border.all(color: Colors.grey.shade800)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.star,
-                                    color: Colors.grey.shade800)),
-                            Container(
-                              color: Colors.grey,
-                              width: 2,
-                              height: MediaQuery.of(context).size.shortestSide *
-                                  0.03,
-                              // thickness: 2,
-                            ),
-                            DropdownButton(
-                              items: const [],
-                              onChanged: (value) {},
-                              underline: const SizedBox(),
-                              icon: Icon(
-                                  color: Colors.grey.shade800,
-                                  (Icons.arrow_drop_down)),
-                            ),
-                          ],
-                        ),
+                      onPressed: () {},
+                    ),
+                    Text(
+                      'Collections Home',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black87,
                       ),
-
-                      IconButton(
-                          onPressed: () {},
-                          color: Colors.grey.shade800,
-                          icon: const Icon(
-                            Icons.add_box,
-                            // size: 30,
-                          )),
-                      IconButton(
-                          onPressed: () {},
-                          color: Colors.grey.shade800,
-                          icon: const Icon(
-                            Icons.cloud_circle_outlined,
-                            // size: 30,
-                          )),
-                      IconButton(
-                          onPressed: () {},
-                          color: Colors.grey.shade800,
-                          icon: const Icon(
-                            Icons.question_mark_rounded,
-                            // size: 30,
-                          )),
-                      IconButton(
-                          onPressed: () {},
-                          color: Colors.grey.shade800,
-                          icon: const Icon(
-                            Icons.settings_applications,
-                            // size: 30,
-                          )),
-                      IconButton(
-                          onPressed: () {},
-                          color: Colors.grey.shade800,
-                          icon: const Icon(
-                            Icons.notifications,
-                            size: 30,
-                          )),
-                      IconButton(
-                          onPressed: () {},
-                          color: Colors.grey.shade800,
-                          icon: const Icon(
-                            CupertinoIcons.person_alt_circle,
-                            size: 30,
-                          )),
-                    ],
-                  ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                  height: 40,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: menuList
-                        .map((e) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              child: InkWell(
-                                onTap: () => setState(() {
-                                  if (menuList.indexOf(e) != 0) {
-                                    setState(() {
-                                      _selectedVertMenu = menuList.indexOf(e);
-                                    });
-                                  }
-                                }),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    menuList.indexOf(e) == 0
-                                        ? Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 2.0),
-                                            child: Icon(
-                                              Icons.menu_rounded,
-                                              color: Colors.pink.shade800,
-                                            ),
-                                          )
-                                        : const SizedBox.shrink(),
-                                    Text(
-                                      e.toString(),
-                                      style: TextStyle(
-                                        fontSize:
-                                            menuList.indexOf(e) == 0 ? 20 : 14,
-                                        color: Colors.black87,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+              Expanded(
+                child: TabBar(
+                  controller: tabController,
+                  labelPadding: EdgeInsets.symmetric(horizontal: 3),
+                  labelStyle: TextStyle(color: blackColor),
+                  isScrollable: true,
+                  overlayColor: MaterialStateColor.resolveWith(
+                      (states) => Colors.green.withOpacity(0.1)),
+
+                  indicator: BoxDecoration(
+                      border: Border(
+                    top: BorderSide(
+                      color: kprimaryColor, // Replace with your desired color
+                      width: 1.0, // Replace with your desired width
+                      style: BorderStyle.solid, // Optionally, specify the style
+                    ),
+                  )),
+
+                  // indicatorColor: Colors.transparent,
+                  onTap: (value) {
+                    setState(() {
+                      _selectedVertMenu = value;
+                    });
+                    if (value == 6) {
+                      showCupertinoDialog(
+                          context: context,
+                          builder: (context) => SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.70,
+                                width: MediaQuery.of(context).size.width,
+                                child: AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  content: const ChalanPopup(),
+                                  scrollable: true,
+                                  actions: [
+                                    Container(
+                                      height: 2,
+                                      color: Colors.black45,
                                     ),
-                                    menuList.indexOf(e) == 0
-                                        ? const SizedBox()
-                                        : InkWell(
-                                            child: menuList.indexOf(e) == 9
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                Colors.pink.shade800,
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            'Submit',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                    )
+                                  ],
+                                ),
+                              ));
+                    } else if (value == 5) {
+                      setState(() {
+                        isEOD = true;
+                      });
+                    } else {
+                      setState(() {
+                        isEOD = false;
+                      });
+                    }
+                  },
+                  tabs: menuList
+                      .map<Widget>((e) => Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 0),
+                              child: Row(
+                                children: [
+                                  Tab(
+                                    iconMargin: EdgeInsets.zero,
+                                    icon: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          e.toString(),
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black87,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        IconButton(
+                                            padding: EdgeInsets.zero,
+                                            onPressed: () {
+                                              PopupMenuButton<int>(
+                                                itemBuilder: (context) => [
+                                                  // popupmenu item 1
+
+                                                  PopupMenuItem(
+                                                    value: 2,
+                                                    // row has two child icon and text
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(Icons
+                                                            .chrome_reader_mode),
+                                                        SizedBox(
+                                                          // sized box with width 10
+                                                          width: 10,
+                                                        ),
+                                                        Text("About")
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                                offset: Offset(0, 100),
+                                                color: Colors.grey,
+                                                elevation: 2,
+                                              );
+                                            },
+                                            icon: menuList.indexOf(e) == 8
                                                 ? Icon(Icons.arrow_drop_down,
                                                     color: Colors.pink.shade800,
                                                     size: 28)
@@ -275,614 +335,508 @@ class _WebViewState extends State<WebView> {
                                                     Icons
                                                         .keyboard_arrow_down_outlined,
                                                     color: Colors.pink.shade800,
-                                                    size: 28),
-                                            onTap: () async {
-                                              if (menuList.indexOf(e) == 7) {
-                                                return showCupertinoDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (context) => SizedBox(
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height *
-                                                                  0.70,
-                                                              width:
-                                                                  MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width,
-                                                              child:
-                                                                  AlertDialog(
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .white,
-                                                                content:
-                                                                    const ChalanPopup(),
-                                                                scrollable:
-                                                                    true,
-                                                                actions: [
-                                                                  Container(
-                                                                    height: 2,
-                                                                    color: Colors
-                                                                        .black45,
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top:
-                                                                            8.0),
-                                                                    child: ElevatedButton(
-                                                                        style: ElevatedButton.styleFrom(
-                                                                          backgroundColor: Colors
-                                                                              .pink
-                                                                              .shade800,
-                                                                        ),
-                                                                        onPressed: () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        child: const Text(
-                                                                          'Submit',
-                                                                          style: TextStyle(
-                                                                              color: Colors.white,
-                                                                              fontWeight: FontWeight.bold),
-                                                                        )),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ));
-                                              } else if (menuList.indexOf(e) ==
-                                                  6) {
-                                                setState(() {
-                                                  isEOD = true;
-                                                });
-                                              } else {
-                                                setState(() {
-                                                  isEOD = false;
-                                                });
-                                              }
-                                            },
-                                          ),
-                                  ],
-                                ),
+                                                    size: 28)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ))
-                        .toList(),
-                  )),
-              Expanded(
-                  child: _selectedVertMenu == 0
-                      ? dashboard(context)
-                      : _selectedVertMenu == 1
-                          ? const OAgreementsPageWeb()
-                          : _selectedVertMenu == 2
-                              ? dashboard(context)
-                              : _selectedVertMenu == 3
-                                  ? dashboard(context)
-                                  : _selectedVertMenu == 4
-                                      ? const BatchListScreen()
-                                      : _selectedVertMenu == 5
-                                          ? const ChallanListScreen()
-                                          : _selectedVertMenu == 6
-                                              ? const BankFormScreen()
-                                              : _selectedVertMenu == 7
-                                                  ? dashboard(context)
-                                                  : _selectedVertMenu == 8
-                                                      ? dashboard(context)
-                                                      : const SizedBox())
+                            ),
+                          ))
+                      .toList(),
+                ),
+              ),
             ],
-          )),
+          ),
+        ),
+      ),
+      body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Expanded(child: _buildSelectedWidget())),
     );
   }
 
   Widget dashboard(BuildContext context) {
-    return isEOD == false
-        ? SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Gap(6),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(04),
-                      color: Colors.grey.shade500,
-                      border: Border.all(color: Colors.white)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      children: [
-                        Card(
-                          color: Colors.white,
-                          child: IconButton(
-                            constraints: const BoxConstraints(),
-                            padding: const EdgeInsets.all(3),
-                            onPressed: null,
-                            icon: Icon(
-                              Icons.note_alt_outlined,
-                              color: Colors.pink.shade800,
-                            ),
-                          ),
-                        ),
-                        const Gap(12),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "LAP Overdue Receipt",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Gap(6),
-                            Text(
-                              "HE01XBV0000000456",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Gap(6),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(04),
+                color: Colors.grey.shade500,
+                border: Border.all(color: Colors.white)),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  Card(
+                    color: Colors.white,
+                    child: IconButton(
+                      constraints: const BoxConstraints(),
+                      padding: const EdgeInsets.all(3),
+                      onPressed: null,
+                      icon: Icon(
+                        Icons.note_alt_outlined,
+                        color: Colors.pink.shade800,
+                      ),
                     ),
                   ),
-                ),
-                const Gap(6),
-                Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(04),
-                        topLeft: Radius.circular(04),
-                      )),
-
-                  // width: MediaQuery.sizeOf(context).width * 0.7,
-                  child: Row(
+                  const Gap(12),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Gap(12),
-                      Card(
-                        color: Colors.grey[450],
-                        child: IconButton(
-                          constraints: const BoxConstraints(),
-                          padding: const EdgeInsets.all(3),
-                          onPressed: null,
-                          icon: Icon(
-                            Icons.edit_document,
-                            color: Colors.pink.shade800, // Colors.grey[450],
-                          ),
-                        ),
-                      ),
-                      const Gap(12),
-                      const Text(
-                        "Agreement Info",
+                      Text(
+                        "LAP Overdue Receipt",
                         style: TextStyle(
                             fontSize: 16,
-                            color: Colors.white, // Colors.grey[450],
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Gap(6),
+                      Text(
+                        "HE01XBV0000000456",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
-                ),
-                Container(
-                  // width: MediaQuery.sizeOf(context).width * 0.7,
-                  height: 80,
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(04),
-                        bottomLeft: Radius.circular(04),
-                      ),
-                      border: Border.all(color: Colors.grey[300]!)),
+                ],
+              ),
+            ),
+          ),
+          const Gap(6),
+          Container(
+            decoration: const BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(04),
+                  topLeft: Radius.circular(04),
+                )),
 
-                  child: const Column(
+            // width: MediaQuery.sizeOf(context).width * 0.7,
+            child: Row(
+              children: [
+                const Gap(12),
+                Card(
+                  color: Colors.grey[450],
+                  child: IconButton(
+                    constraints: const BoxConstraints(),
+                    padding: const EdgeInsets.all(3),
+                    onPressed: null,
+                    icon: Icon(
+                      Icons.edit_document,
+                      color: Colors.pink.shade800, // Colors.grey[450],
+                    ),
+                  ),
+                ),
+                const Gap(12),
+                const Text(
+                  "Agreement Info",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white, // Colors.grey[450],
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            // width: MediaQuery.sizeOf(context).width * 0.7,
+            height: 80,
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(04),
+                  bottomLeft: Radius.circular(04),
+                ),
+                border: Border.all(color: Colors.grey[300]!)),
+
+            child: const Column(
+              children: [
+                Gap(16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          "Agreement No",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Gap(6),
+                        Text("HE01XBV0000000456",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            )),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          "CIF No",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Gap(6),
+                        Text("5369872",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            )),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          "Account Name",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Gap(6),
+                        Text("SANJAY PAL",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            )),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          "EMI Amount",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Gap(6),
+                        Text("896325",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            )),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          "Mobile Number",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Gap(6),
+                        Text("9874563215",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            )),
+                      ],
+                    ),
+                  ],
+                ),
+                Gap(16),
+              ],
+            ),
+          ),
+          const Gap(6),
+          CupertinoSegmentedControl<int>(
+            padding: const EdgeInsets.all(8),
+            children: {
+              for (int index = 0; index < typeList.length; index++)
+                index: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                  child: Text(
+                    typeList[index].toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 10,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    maxLines: 6,
+                  ),
+                ),
+            },
+            groupValue: _typeCurrentIndex,
+            onValueChanged: (int newIndex) {
+              setState(() {
+                _typeCurrentIndex = newIndex;
+              });
+            },
+            borderColor: Colors.pink.shade800,
+            selectedColor: Colors.pink.shade800,
+            unselectedColor: Colors.white,
+            pressedColor: Colors.pink.withOpacity(0.2),
+          ),
+          const Gap(6),
+          _typeCurrentIndex == 1
+              ? CustomTextField(
+                  text: "MCR",
+                  isReq: true,
+                  isRemark: false,
+                  width: MediaQuery.sizeOf(context).width * 0.6,
+                )
+              : const SizedBox.shrink(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomTextField(
+                text: "Mobile No",
+                width: MediaQuery.sizeOf(context).width * 0.3,
+                isReq: true,
+                suffixIcon: const Icon(
+                  Icons.arrow_drop_down_sharp,
+                  size: 20,
+                ),
+              ),
+              CustomTextField(
+                  text: "Amount Collected",
+                  controller: formController.amountController,
+                  width: MediaQuery.sizeOf(context).width * 0.3,
+                  onChanged: _onAmountCollectedChanged,
+                  isReq: true),
+              const Gap(6),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 1.1,
+            width: double.infinity,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // const Gap(12),
+                Expanded(
+                  flex: 3,
+
+                  /// This is the left widget
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Gap(16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                "Agreement No",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Gap(6),
-                              Text("HE01XBV0000000456",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  )),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                "CIF No",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Gap(6),
-                              Text("5369872",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  )),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                "Account Name",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Gap(6),
-                              Text("SANJAY PAL",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  )),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                "EMI Amount",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Gap(6),
-                              Text("896325",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  )),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                "Mobile Number",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Gap(6),
-                              Text("9874563215",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  )),
-                            ],
-                          ),
-                        ],
+                      const Padding(
+                        padding: EdgeInsets.only(left: 06.0, top: 0),
+                        child: Row(
+                          children: [
+                            Text(
+                              "*",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                  fontSize: 12),
+                            ),
+                            Text(
+                              "Payment method",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            ),
+                          ],
+                        ),
                       ),
-                      Gap(16),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      CupertinoSegmentedControl<int>(
+                        padding: const EdgeInsets.all(2),
+                        children: {
+                          for (int index = 0;
+                              index < tabWidgets.length;
+                              index++)
+                            index: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 20),
+                              child: Text(
+                                tabBarView[index].toUpperCase(),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                maxLines: 6,
+                              ),
+                            ),
+                        },
+                        groupValue: _currentIndex,
+                        onValueChanged: (int newIndex) {
+                          setState(() {
+                            _currentIndex = newIndex;
+                          });
+                        },
+                        borderColor: Colors.pink.shade800,
+                        selectedColor: Colors.pink.shade800,
+                        unselectedColor: Colors.white,
+                        pressedColor: Colors.pink.withOpacity(0.2),
+                      ),
+                      Expanded(
+                          child: IndexedStack(
+                        index: _currentIndex,
+                        children: tabWidgets,
+                      )),
                     ],
                   ),
                 ),
-                const Gap(6),
-                CupertinoSegmentedControl<int>(
-                  padding: const EdgeInsets.all(8),
-                  children: {
-                    for (int index = 0; index < typeList.length; index++)
-                      index: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 20),
-                        child: Text(
-                          typeList[index].toUpperCase(),
-                          style: const TextStyle(
-                            fontSize: 10,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          maxLines: 6,
-                        ),
-                      ),
-                  },
-                  groupValue: _typeCurrentIndex,
-                  onValueChanged: (int newIndex) {
-                    setState(() {
-                      _typeCurrentIndex = newIndex;
-                    });
-                  },
-                  borderColor: Colors.pink.shade800,
-                  selectedColor: Colors.pink.shade800,
-                  unselectedColor: Colors.white,
-                  pressedColor: Colors.pink.withOpacity(0.2),
-                ),
-                const Gap(6),
-                _typeCurrentIndex == 1
-                    ? CustomTextField(
-                        text: "MCR",
-                        isReq: true,
-                        isRemark: false,
-                        width: MediaQuery.sizeOf(context).width * 0.6,
-                      )
-                    : const SizedBox.shrink(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomTextField(
-                      text: "Mobile No",
-                      width: MediaQuery.sizeOf(context).width * 0.3,
-                      isReq: true,
-                      suffixIcon: const Icon(
-                        Icons.arrow_drop_down_sharp,
-                        size: 20,
-                      ),
-                    ),
-                    CustomTextField(
-                        text: "Amount Collected",
-                        controller: formController.amountController,
-                        width: MediaQuery.sizeOf(context).width * 0.3,
-                        onChanged: _onAmountCollectedChanged,
-                        isReq: true),
-                    const Gap(6),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 1.1,
-                  width: double.infinity,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                const SizedBox(width: 8),
+                Expanded(
+                  flex: 2,
+                  child: Column(
                     children: [
-                      // const Gap(12),
-                      Expanded(
-                        flex: 3,
-
-                        /// This is the left widget
-                        child: Column(
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        height: MediaQuery.sizeOf(context).height * 0.11,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 06.0, top: 0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "*",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.red,
-                                        fontSize: 12),
-                                  ),
-                                  Text(
-                                    "Payment method",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                ],
-                              ),
+                            Text(
+                              "Balance to be allocated :",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(fontSize: 16),
                             ),
-                            const SizedBox(
-                              height: 4,
+                            Text(
+                              "0",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(color: Colors.red.shade800),
                             ),
-                            CupertinoSegmentedControl<int>(
-                              padding: const EdgeInsets.all(2),
-                              children: {
-                                for (int index = 0;
-                                    index < tabWidgets.length;
-                                    index++)
-                                  index: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 0, horizontal: 20),
-                                    child: Text(
-                                      tabBarView[index].toUpperCase(),
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      maxLines: 6,
-                                    ),
-                                  ),
-                              },
-                              groupValue: _currentIndex,
-                              onValueChanged: (int newIndex) {
-                                setState(() {
-                                  _currentIndex = newIndex;
-                                });
-                              },
-                              borderColor: Colors.pink.shade800,
-                              selectedColor: Colors.pink.shade800,
-                              unselectedColor: Colors.white,
-                              pressedColor: Colors.pink.withOpacity(0.2),
-                            ),
-                            Expanded(
-                                child: IndexedStack(
-                              index: _currentIndex,
-                              children: tabWidgets,
-                            )),
+                            const Gap(2),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.03,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.pink.shade800,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4))),
+                                      onPressed: () {
+                                        setState(() {});
+                                        formController.amountController.clear();
+                                        tableData[1][2] = 0.toString();
+                                        tableData[2][2] = 0.toString();
+                                        tableData[3][2] = 0.toString();
+                                        tableData[4][2] = 0.toString();
+                                        tableData[5][2] = 0.toString();
+                                        tableData[6][2] = 0.toString();
+                                        tableData[7][2] = 0.toString();
+                                        tableData[8][1] = 0.toString();
+                                        tableData[8][2] = 0.toString();
+                                      },
+                                      child: const Text(
+                                        "Reset",
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                ),
+                                Text(
+                                  "Agreement No:",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                                Text("HE028I2PNFJN20379729",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                          fontSize: 12,
+                                        )),
+                              ],
+                            )
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              height: MediaQuery.sizeOf(context).height * 0.11,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Balance to be allocated :",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(fontSize: 16),
-                                  ),
-                                  Text(
-                                    "0",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(color: Colors.red.shade800),
-                                  ),
-                                  const Gap(2),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.03,
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    Colors.pink.shade800,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4))),
-                                            onPressed: () {
-                                              setState(() {});
-                                              formController.amountController
-                                                  .clear();
-                                              tableData[1][2] = 0.toString();
-                                              tableData[2][2] = 0.toString();
-                                              tableData[3][2] = 0.toString();
-                                              tableData[4][2] = 0.toString();
-                                              tableData[5][2] = 0.toString();
-                                              tableData[6][2] = 0.toString();
-                                              tableData[7][2] = 0.toString();
-                                              tableData[8][1] = 0.toString();
-                                              tableData[8][2] = 0.toString();
-                                            },
-                                            child: const Text(
-                                              "Reset",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            )),
-                                      ),
-                                      Text(
-                                        "Agreement No:",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall
-                                            ?.copyWith(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                      Text("HE028I2PNFJN20379729",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall
-                                              ?.copyWith(
-                                                fontSize: 12,
-                                              )),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            const Gap(6),
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
-                              ),
-                              child: Table(
-                                border:
-                                    TableBorder.all(color: Colors.transparent),
-                                children: List<TableRow>.generate(
-                                  tableData.length,
-                                  (rowIndex) => TableRow(
-                                    children: List<Widget>.generate(
-                                      tableData[rowIndex].length,
-                                      (colIndex) {
-                                        // Determine if the cell should be editable
-                                        bool isEditable = tableData[rowIndex]
-                                                    [0] !=
-                                                'Total' &&
-                                            tableData[rowIndex][0] != 'Item' &&
-                                            colIndex == 2 &&
-                                            tableData[rowIndex][0] !=
-                                                'Add Other Changes';
+                      const Gap(6),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                        ),
+                        child: Table(
+                          border: TableBorder.all(color: Colors.transparent),
+                          children: List<TableRow>.generate(
+                            tableData.length,
+                            (rowIndex) => TableRow(
+                              children: List<Widget>.generate(
+                                tableData[rowIndex].length,
+                                (colIndex) {
+                                  // Determine if the cell should be editable
+                                  bool isEditable =
+                                      tableData[rowIndex][0] != 'Total' &&
+                                          tableData[rowIndex][0] != 'Item' &&
+                                          colIndex == 2 &&
+                                          tableData[rowIndex][0] !=
+                                              'Add Other Changes';
 
-                                        return Container(
-                                          height: 45,
-                                          decoration: BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                  color: Colors.black),
-                                              right: colIndex ==
-                                                      tableData[rowIndex]
-                                                              .length -
-                                                          1
-                                                  ? BorderSide(
-                                                      color: Colors.transparent)
-                                                  : BorderSide(
-                                                      color: Colors.black),
+                                  return Container(
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        bottom: BorderSide(color: Colors.black),
+                                        right: colIndex ==
+                                                tableData[rowIndex].length - 1
+                                            ? BorderSide(
+                                                color: Colors.transparent)
+                                            : BorderSide(color: Colors.black),
+                                      ),
+                                    ),
+                                    child: isEditable
+                                        ? Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: TextFormField(
+                                              controller: TextEditingController(
+                                                  text: tableData[rowIndex]
+                                                      [colIndex]),
+                                              onChanged: (value) {
+                                                // Update tableData with the new value
+                                                tableData[rowIndex][colIndex] =
+                                                    value;
+                                              },
+                                              decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 10),
+                                              ),
+                                            ),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              tableData[rowIndex][colIndex],
+                                              style: TextStyle(
+                                                fontWeight: tableData[rowIndex]
+                                                            [0] ==
+                                                        'Total'
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal,
+                                              ),
                                             ),
                                           ),
-                                          child: isEditable
-                                              ? Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: TextFormField(
-                                                    controller:
-                                                        TextEditingController(
-                                                            text: tableData[
-                                                                    rowIndex]
-                                                                [colIndex]),
-                                                    onChanged: (value) {
-                                                      // Update tableData with the new value
-                                                      tableData[rowIndex]
-                                                          [colIndex] = value;
-                                                    },
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(),
-                                                      contentPadding:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 10,
-                                                              horizontal: 10),
-                                                    ),
-                                                  ),
-                                                )
-                                              : Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    tableData[rowIndex]
-                                                        [colIndex],
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          tableData[rowIndex]
-                                                                      [0] ==
-                                                                  'Total'
-                                                              ? FontWeight.bold
-                                                              : FontWeight
-                                                                  .normal,
-                                                    ),
-                                                  ),
-                                                ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
+                                  );
+                                },
                               ),
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ],
@@ -890,11 +844,10 @@ class _WebViewState extends State<WebView> {
                 ),
               ],
             ),
-          )
-        : SizedBox(
-            height: MediaQuery.of(context).size.height * 1.8,
-            width: double.infinity,
-            child: const BankFormScreen());
+          ),
+        ],
+      ),
+    );
   }
 
   void _onAmountCollectedChanged(String val) {

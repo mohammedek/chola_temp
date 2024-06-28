@@ -16,6 +16,7 @@ dependencies:
   universal_platform: ^1.1.0
   intl: any
   file_picker: ^8.0.5
+  image_picker: ^1.1.2
 
 
 dev_dependencies:

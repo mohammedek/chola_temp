@@ -1,7 +1,6 @@
 import 'package:chola_first/modules/reciptes/controllers.dart';
 
 List<String> menuList = [
-  'Collections Home',
   'OAgrements',
   'ORMR Report',
   'OReceipts',
